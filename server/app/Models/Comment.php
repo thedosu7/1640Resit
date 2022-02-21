@@ -11,7 +11,10 @@ class Comment extends Model
 
     protected $fillable = [
         'title',
-        'content',       
+        'content',
+        'user_id',
+        'idea_id',
+              
     ];
     public function usres(){
         return $this->belongsTo(User::class);

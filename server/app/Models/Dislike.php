@@ -9,6 +9,10 @@ class Dislike extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'idea_id',
+        'user_id',       
+    ];
     public function ideas(){
         return $this->belongsTo(Idea::class);
     }

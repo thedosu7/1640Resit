@@ -11,7 +11,9 @@ class Idea extends Model
 
     protected $fillable = [
         'title',
-        'content',       
+        'content',    
+        'user_id',
+        'category_id'   
     ];
 
     public function users(){

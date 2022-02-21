@@ -11,6 +11,7 @@ class Attachment extends Model
 
     protected $fillable = [
         'name',
+        'idea_id',
         'direction',       
     ];
     public function ideas(){
