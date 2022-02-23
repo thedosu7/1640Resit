@@ -16,7 +16,7 @@ class Idea extends Model
         'category_id'   
     ];
 
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
     public function comments(){
@@ -31,7 +31,7 @@ class Idea extends Model
     public function attachments(){
         return $this->belongsToMany(Attachment::class);
     }
-    public function categories(){
+    public function category(){
         return $this->belongsTo(Category::class);
     }
     

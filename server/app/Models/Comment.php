@@ -16,10 +16,10 @@ class Comment extends Model
         'idea_id',
               
     ];
-    public function usres(){
-        return $this->belongsTo(User::class);
+    public function user(){
+        return $this->belongTo(User::class);
     }
-    public function ideas(){
-        return $this->belongsTo(Idea::class);
+    public function idea(){
+        return $this->belongTo(Idea::class);
     }
 }

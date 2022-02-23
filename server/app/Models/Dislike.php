@@ -13,10 +13,10 @@ class Dislike extends Model
         'idea_id',
         'user_id',       
     ];
-    public function ideas(){
+    public function idea(){
         return $this->belongsTo(Idea::class);
     }
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
 }

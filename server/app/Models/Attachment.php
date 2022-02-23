@@ -14,7 +14,7 @@ class Attachment extends Model
         'idea_id',
         'direction',       
     ];
-    public function ideas(){
+    public function idea(){
         return $this->belongsTo(Idea::class);
     }
 }

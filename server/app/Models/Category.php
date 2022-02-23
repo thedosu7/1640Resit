@@ -14,7 +14,7 @@ class Category extends Model
         'description',       
     ];
 
-    public function ideas(){
+    public function idea(){
         return $this->belongsTo(Idea::class);
     }
 }

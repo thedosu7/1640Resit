@@ -14,10 +14,10 @@ class Like extends Model
         'idea_id',
         'user_id',       
     ];
-    public function ideas(){
-        return $this->belongsTo(Idea::class);
+    public function idea(){
+        return $this->belongTo(Idea::class);
     }
-    public function users(){
-        return $this->belongsTo(User::class);
+    public function user(){
+        return $this->belongTo(User::class);
     }
 }
