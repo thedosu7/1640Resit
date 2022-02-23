@@ -5,26 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Idea extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'role_id'
+        'title',
+        'content',    
+        'user_id',
+        'category_id'   
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
-
-    public function ideas(){
-        return $this->belongsToMany(Idea::class);
-    }
-
     public function comments(){
         return $this->belongsToMany(Comment::class);
     }
@@ -34,4 +28,11 @@ class User extends Model
     public function dislikes(){
         return $this->belongsToMany(Dislike::class);
     }
+    public function attachments(){
+        return $this->belongsToMany(Attachment::class);
+    }
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    
 }
