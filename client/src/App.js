@@ -1,5 +1,6 @@
 import './App.css';
-import React,{Suspense} from 'react';
+import Profile from './components/Profile';
+import React, { Suspense } from 'react';
 import {
   BrowserRouter,
   Routes,
