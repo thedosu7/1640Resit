@@ -1,5 +1,4 @@
 import './App.css';
-import Profile from './components/Profile';
 import React, { Suspense } from 'react';
 import {
   BrowserRouter,
@@ -7,7 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import HomePage from './pages/Home';
-import LoginPage from './pages/Login'
+import LoginPage from './pages/Login';
 
 function App() {
   return (
