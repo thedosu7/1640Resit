@@ -1492,7 +1492,7 @@
     "@emotion/cache" "^11.7.1"
     "prop-types" "^15.7.2"
 
-"@mui/styles@^5.0.0":
+"@mui/styles@^5.4.2":
   "integrity" "sha512-BX75fNHmRF51yove9dBkH28gpSFjClOPDEnUwLTghPYN913OsqViS/iuCd61dxzygtEEmmeYuWfQjxu/F6vF5g=="
   "resolved" "https://registry.npmjs.org/@mui/styles/-/styles-5.4.2.tgz"
   "version" "5.4.2"

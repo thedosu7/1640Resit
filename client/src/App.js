@@ -8,6 +8,7 @@ import {
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import ProfilePage from './pages/Profile';
+import IdeaDetailsPage from './pages/IdeaDetails';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="ideaDetails" element={<IdeaDetailsPage />} />
         </Routes>
       </BrowserRouter>
     </div >
