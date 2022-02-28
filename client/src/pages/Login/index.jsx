@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
 import { useStyle } from "./styles";
-import { Login } from "../../components/landing";
+import { Login } from "../../components";
 import coverImage from "../../assets/images/bg-login.jpg";
 
 const LoginPage = (_) => {

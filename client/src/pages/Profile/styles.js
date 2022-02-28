@@ -1,14 +1,14 @@
 import { makeStyles } from '@mui/styles';
 
 export const useStyle = makeStyles((theme) => ({
-    parentContainer: {
-        height: "100vh",
-        position: "Absolute",
+
+    form: {
+        display: "flex",
+        flexDirection: "column",
     },
 
-    formControl: {
-        boxShadow: 'none',
-        borderColor: '#BA68C8'
+    textfield: {
+        margin: "10px 0 !important",
     },
 
     profileButton: {
@@ -17,23 +17,15 @@ export const useStyle = makeStyles((theme) => ({
         height: 48,
         padding: '0 30px',
         fontWeight: "600 !important",
-        color: "white !important",
-    },
-
-    label: {
-        fontSize: "11px",
-    },
-
-    textFont: {
-        fontFamily: 'BlinkMacSystemFont',
+        color: "white !important"
     },
 
     profile: {
-        marginTop: "40px",
-    }, 
+        marginTop: "80px",
+    },
 
     picture: {
-        marginTop: "20px",
-    }
-
+        marginTop: "60px",
+        textAlign: "center"
+    },
 }))

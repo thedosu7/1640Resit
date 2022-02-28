@@ -1,10 +1,9 @@
 import React from "react";
-import MenuIcon from '@mui/icons-material/Menu';
 import { Grid, AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from "@mui/material";
-import { useStyle } from "../../../pages/IdeaDetails/styles";
-import image from "../../../assets/images/icon.png";
+import { useStyle } from "./style";
+import image from "../../assets/images/icon.png";
 
-const Header = () => {
+const NavigationBar = () => {
     const classes = useStyle();
     const pages = ['Home', 'About', 'Idea', 'Contact', 'Logout'];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -22,12 +21,13 @@ const Header = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-    return(
-        <AppBar>
+
+    return (
+        <AppBar color={"inherit"} position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Grid item xs={6} md={2}>
-                        <img src={image} alt="" className={classes.logo}/>
+                        <img src={image} alt="" className={classes.logo} />
                     </Grid>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 8 } }}>
                         <Menu
@@ -48,27 +48,24 @@ const Header = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => ( 
-                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{page}</Typography>
-                            </MenuItem>
+                            {pages.map((page) => (
+                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">{page}</Typography>
+                                </MenuItem>
                             ))}
                         </Menu>
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'black', display: 'block' }}
                             >
                                 {page}
                             </Button>
                         ))}
-                    </Box>
-
-                    <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="" />
@@ -102,4 +99,4 @@ const Header = () => {
         </AppBar>
     );
 }
-export default Header;
+export default NavigationBar;
