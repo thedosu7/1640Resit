@@ -28,16 +28,16 @@
             </div>
             <div class="col-sm-4 text-black">
 
-                <div class="px-5 ms-xl-4">
+                <div class="text-center px-5 ms-xl-4">
                     <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
-                    <img class="logo" src="{{ asset('/images/login-logo.png') }}" alt="login logo" style="margin: auto; height: 150px;margin-top: 150px">
+                    <img class="logo" src="{{ asset('/images/login-logo.png') }}" alt="login logo" style="margin: auto; height: 100px;margin-top: 150px">
                 </div>
 
-                <div class="d-flex align-items-center px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                <div class="align-items-center px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-                    <form style="width: 23rem;" method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">LOGIN</h3>
+                        <h3 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">LOGIN</h3>
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example18">Email address</label>
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="pt-1 mb-4">
-                            <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
+                            <button class="btn btn-primary btn-lg btn-block" style="width: 100%" type="submit">Login</button>
                         </div>
 
                     </form>
