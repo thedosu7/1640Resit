@@ -14,7 +14,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="{{ asset('images/login-logo.png') }}" alt="..." /></a>
+            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('images/login-logo.png') }}" alt="..." /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ms-1"></i>
@@ -23,10 +23,11 @@
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    @if(auth()->user())
-                    <li class="nav-item"><a class="nav-link" href="#">Ideas</a></li>
-                    @endif
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    @if(auth()->user())
+                    <li class="nav-item"><a class="nav-link" href="{{ route('ideas.index') }}">Ideas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                    @endif
                     @if(!auth()->user())
                     <li><a href="{{ route('login') }}" class="btn btn-success">Sign in</a></li>
                     @endif
@@ -34,15 +35,6 @@
             </div>
         </div>
     </nav>
-    <!-- Masthead-->
-    <header class="masthead">
-        <!-- <div class="container">
-                    <div class="masthead-subheading">Welcome To Our Studio!</div>
-                    <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-                </div> -->
-    </header>
-
     @yield('content')
 
     <!-- Footer-->

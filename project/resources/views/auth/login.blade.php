@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-sm-8 px-0 d-none d-sm-block">
-                <img src="{{ asset('/images/login-background.png') }}" alt="Login background" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                <a href="{{ route('home') }}"><img src="{{ asset('/images/login-background.png') }}" alt="Login background" class="w-100 vh-100" style="object-fit: cover; object-position: left;"></a>
             </div>
             <div class="col-sm-4 text-black">
 
@@ -62,11 +62,8 @@
                         <div class="pt-1 mb-4">
                             <button class="btn btn-primary btn-lg btn-block" style="width: 100%" type="submit">Login</button>
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
         </div>
     </div>
