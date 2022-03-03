@@ -28,7 +28,6 @@
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                     @if(auth()->user())
                     <li class="nav-item"><a class="nav-link" href="{{ route('ideas.index') }}">Ideas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                     <li class="nav-item dropdown">
                         <button class="btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
@@ -36,9 +35,9 @@
                         </a> 
                         </button>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">My profile</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.profile') }}">My profile</a></li>
+                            <li><a class="dropdown-item" href="#">Change password</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     </li>
                     @endif
