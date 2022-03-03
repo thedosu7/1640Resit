@@ -15,6 +15,6 @@ class SubCategory extends Model
         'end_at',
         'category_id',
         'department_id',
-        'semeter_id'
+        'semester_id'
     ];
 }
