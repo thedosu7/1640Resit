@@ -36,7 +36,7 @@
                         </button>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('user.profile') }}">My profile</a></li>
-                            <li><a class="dropdown-item" href="#">Change password</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.changpassword') }}">Change password</a></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     </li>

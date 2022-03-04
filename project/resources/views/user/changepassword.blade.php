@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title','Profile User')
+@section('title','Change password')
 
 @section('content')
 
@@ -62,4 +62,3 @@
 </div>
 
 @endsection
-
