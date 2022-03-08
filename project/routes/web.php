@@ -26,15 +26,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
     return redirect()->route('home');
 });
+
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('profile', [UserController::class, 'index'])->name('user.profile');
-
-Route::get('/HomeAdmin', [AdminController::class, 'index'])->name('dashboard');
-Route::get('/dashboard',function () {
-    return redirect()->route('dashboard');
-});
-
-    Route::group(['prefix' => 'ideas'], function () {
+    Route::get('profile', [UserController::class, 'index'])->name('user.profile'); 
+    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');    Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
     });
 });
@@ -49,7 +44,7 @@ Route::get('/register',function () {
     return redirect()->route('register');
 });
 
-Route::get('/HomeAdmin/ListAccount', [AdminController::class, 'list'])->name('ListAccount');
-Route::get('/ListAccount',function () {
-    return redirect()->route('ListAccount');
+Route::get('/HomeAdmin/listAccount', [AdminController::class, 'list'])->name('ListAccount');
+Route::get('/listAccount',function () {
+    return redirect()->route('listAccount');
 });
