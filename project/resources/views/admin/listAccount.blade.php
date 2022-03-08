@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-	<title>ListAccount</title>
+	<title>List Account</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -24,31 +24,59 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   
 </head>
-<body>
-
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead class="table-info">
-        <tr>
-          <th scope="col">User Name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>
-            <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
-            <button type="button" class="btn btn-outline-success rounded-pill">Edit</button>
-            <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<body style= "background-color: #1111" >
+  <div class="container">
+    <h4>Welcome to Admin!!</h4>
+  
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">List Account</h5>
+        <p class="card-text">This is list of account available</p>
+      <table class="table table-dark">
+        <thead class="thread-light">
+          <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">Mark</td>
+            <td scope="row">Otto</td>
+            <td scope="row">Admin</td>
+            <td scope="row">
+              <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
+              <button type="button" class="btn btn-outline-light rounded-pill">Edit</button>
+              <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Mark</td>
+            <td scope="row">Otto</td>
+            <td scope="row">Admin</td>
+            <td scope="row">
+              <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
+              <button type="button" class="btn btn-outline-light rounded-pill">Edit</button>
+              <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">Mark</td>
+            <td scope="row">Otto</td>
+            <td scope="row">Admin</td>
+            <td scope="row">
+              <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
+              <button type="button" class="btn btn-outline-light rounded-pill">Edit</button>
+              <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
 
 
 
