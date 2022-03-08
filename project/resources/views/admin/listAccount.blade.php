@@ -19,36 +19,37 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
 <!--===============================================================================================-->
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
 </head>
-<table class="table table-sm table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<body>
+
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="table-info">
+        <tr>
+          <th scope="col">User Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>
+            <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
+            <button type="button" class="btn btn-outline-success rounded-pill">Edit</button>
+            <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
 
 <!--===============================================================================================-->	
