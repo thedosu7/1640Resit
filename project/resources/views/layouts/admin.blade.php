@@ -296,7 +296,7 @@
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 
 <!-- File demo.js used to change the color -->
-<script src="dist/js/demo.js"></script>
+<script src="{{ asset('dist/js/demo.js') }}"></script>
 
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

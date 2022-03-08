@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">Welcome to Admin!!</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -44,7 +44,6 @@
 </head>
 <body style= "background-color: #1111" >
   <div class="container">
-    <h4>Welcome to Admin!!</h4>
   
     <div class="card">
       <div class="card-body">
