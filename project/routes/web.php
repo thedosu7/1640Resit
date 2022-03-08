@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +26,30 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
     return redirect()->route('home');
 });
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
 
-    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');
+Route::get('/HomeAdmin', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/dashboard',function () {
+    return redirect()->route('dashboard');
+});
 
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
     });
+});
+
+Route::get('/HomeAdmin', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/dashboard',function () {
+    return redirect()->route('dashboard');
+});
+
+Route::get('/HomeAdmin/CreateAccount', [AdminController::class, 'create'])->name('CreateAccount');
+Route::get('/register',function () {
+    return redirect()->route('register');
+});
+
+Route::get('/HomeAdmin/ListAccount', [AdminController::class, 'list'])->name('ListAccount');
+Route::get('/ListAccount',function () {
+    return redirect()->route('ListAccount');
 });
