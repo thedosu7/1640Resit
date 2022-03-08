@@ -29,7 +29,8 @@ Route::get('/home', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile'); 
-    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');    Route::group(['prefix' => 'ideas'], function () {
+    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');    
+    Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
     });
 });
@@ -45,6 +46,3 @@ Route::get('/register',function () {
 });
 
 Route::get('/HomeAdmin/listAccount', [AdminController::class, 'list'])->name('ListAccount');
-Route::get('/listAccount',function () {
-    return redirect()->route('listAccount');
-});
