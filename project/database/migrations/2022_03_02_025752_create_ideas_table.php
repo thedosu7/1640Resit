@@ -19,9 +19,8 @@ return new class extends Migration
             $table->text('content');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->bigInteger('sub_category_id')->unsigned();
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
-            $table->boolean('is_anonymous')->default(false);
+            $table->bigInteger('mission_id')->unsigned();
+            $table->foreign('mission_id')->references('id')->on('missions');
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_lock')->default(false);
             $table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');   
+            $table->string('avatar')->nullable();
             $table->rememberToken();       
             $table->timestamps();
         });
