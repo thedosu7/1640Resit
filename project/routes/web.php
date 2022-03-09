@@ -45,4 +45,5 @@ Route::get('/register',function () {
     return redirect()->route('register');
 });
 
-Route::get('/HomeAdmin/listAccount', [AdminController::class, 'list'])->name('ListAccount');
+Route::get('/HomeAdmin/listAccount/index', [AdminController::class, 'list'])->name('ListAccount');
+

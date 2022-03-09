@@ -21,7 +21,12 @@ class AdminController extends Controller
     public function list()
     {
         $data = User::all();
-        return view('admin.listAccount',['users'=>$data]);
+        return view('admin.listAccount.index',['users'=>$data]);
+    }
+
+    public function edit()
+    {
+        return view('admin.listAccount.edit');
     }
 
 }
