@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-block create-account">Create New Account</button>
+                <button type="button" class="btn btn-block create-account">Create New Account Testing</button>
             </div>
         </form>
     </div>

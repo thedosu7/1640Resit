@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/listAccounts/index', [AdminController::class, 'list'])->name('admin.listAccounts.index');
         Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
         Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
+        Route::get('/accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
 });
 
