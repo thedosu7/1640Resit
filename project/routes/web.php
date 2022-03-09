@@ -37,8 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
         Route::get('/', [AdminController::class,'index'])->name('admin.index');
-        Route::get('/accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
-        Route::get('/accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
+        Route::get('/register', [AdminController::class, 'create'])->name('register');
+        Route::get('/listAccounts/index', [AdminController::class, 'list'])->name('admin.listAccounts.index');
+        Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
     });
 });
 

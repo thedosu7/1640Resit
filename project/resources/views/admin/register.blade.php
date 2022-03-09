@@ -33,7 +33,7 @@
                 </div>
                 <div class="align-items-center px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n51010
 
-                    <form method="POST" action="{{ route('CreateAccount') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <h3 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Register</h3>
                         <div class="form-group first mb-4">

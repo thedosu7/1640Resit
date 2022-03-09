@@ -216,7 +216,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.accounts.create')}}" class="nav-link">
+            <a href="{{ route('register')}}" class="nav-link">
               <i class="nav-icon  fas fa-solid fa-plus"></i>
               <p>
                 Create account
@@ -224,7 +224,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.accounts.list')}}" class="nav-link"">
+            <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
               <i class="nav-icon fas fa-list"></i>
               <p>
                 List account
