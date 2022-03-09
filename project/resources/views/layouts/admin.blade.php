@@ -215,9 +215,11 @@
               </p>
             </a>
           </li>
+
+          <!-- Account -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Account
                 <i class="right fas fa-angle-left"></i>
@@ -225,17 +227,42 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('register')}}" class="nav-link active">
-                  <i class="nav-icon  fas fa-solid fa-plus"></i>
+                <a href="{{ route('register')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-plus"></i>
                   <p>Create Account</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-list"></i>
                   <p>List Account</p>
                 </a>
               </li>
+            </ul>
+          </li>
+
+          <!--  Category  -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-graduation-cap"></i>
+              <p>
+                Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.category.creatCate')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-plus"></i>
+                  <p>Create Category</p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>List Category</p>
+                </a>
+              </li> -->
             </ul>
           </li> 
           <li class="nav-header">Action</li>
