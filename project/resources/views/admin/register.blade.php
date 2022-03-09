@@ -1,82 +1,71 @@
-@extends('layouts.app')
-@section('custom-css')
-<style>
-    .bg-image-vertical {
-        position: relative;
-        overflow: hidden;
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: auto 100%;
-    }
-
-    @media (min-width: 1025px) {
-        .h-custom-2 {
-            height: 100%;
-        }
-    }
-</style>
-@endsection
-
+@extends('layouts.admin')
 @section('content')
-<section class="vh-100">
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-sm-8 px-0 d-none d-sm-block">
-                <a href="{{ route('home') }}"><img src="{{ asset('/images/login-background.png') }}" alt="Login background" class="w-100 vh-100" style="object-fit: cover; object-position: left;"></a>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register Account</title>
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/edit.css')}}">
+</head>
+<body>
+<div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Welcome to Admin!</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
+              <li class="breadcrumb-item active">Create Account</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+</div>
+    <div class="registration-form">
+        <form>
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
             </div>
-            <div class="col-sm-4 text-black">
-                
-                <div class="text-center px-5 ms-xl-4">
-                    <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
-                    <img class="logo" src="{{ asset('/images/login-logo.png') }}" alt="login logo" style="margin: auto; height: 50px;margin-top: 100px">
-                </div>
-                <div class="align-items-center px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n51010
-
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <h3 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Register</h3>
-                        <div class="form-group first mb-4">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" required autocomplete="current-name" autofocus> 
-                        </div>
-                        <div class="form-group first mb-4">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" value="{{ old('email') }}" name="email" id="email" required
-                            autocomplete="email" autofocus>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert" style="display: block">
-                            <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                        </div>
-                        <div class="form-group first mb-4">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
-                            @error('password')
-                            <span class="invalid-feedback" role="alert" style="display: block">
-                            <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group first mb-4">
-                            <label for="password">Password Confirm</label>
-                            <input type="password" class="form-control" id="password" name="password_confirmation" required autocomplete="current-password">
-
-                            @error('password')
-                            <span class="invalid-feedback" role="alert" style="display: block">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="pt-1 mb-4">
-                            <button class="btn btn-primary btn-lg btn-block" style="width: 100%" type="submit">Register</button>
-                        </div>
-                        <span class="d-block text-left my-4 text-muted"> If you already have an account, <a href="{{ route('login') }}"> Login here</a></span>
-                    </form>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control item" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control item" id="password" placeholder="Confirm Password">
+            </div>
+            
+            <!-- Choose role -->
+            <div class="form-group">
+            <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose Role
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Button 1</a>
+                <a class="dropdown-item" href="#">Button 2</a>
                 </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-block create-account">Create New Account</button>
+            </div>
+        </form>
     </div>
-</section>
+    <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js') }}"></script>
+</body>
+</html>
+
 @endsection
