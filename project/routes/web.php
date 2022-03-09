@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile'); 
     Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');    
     Route::group(['prefix' => 'ideas'], function () {
-        Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
+    Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
     });
     
     
@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/register', [AdminController::class, 'create'])->name('register');
         Route::get('/listAccounts/index', [AdminController::class, 'list'])->name('admin.listAccounts.index');
         Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
+        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
     });
 });
 

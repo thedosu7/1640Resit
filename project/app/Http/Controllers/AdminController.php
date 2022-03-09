@@ -17,11 +17,17 @@ class AdminController extends Controller
     {
         return view('admin.register');
     }
+
     
     public function list()
     {
         $data = User::all();
         return view('admin.listAccount.index',['users'=>$data]);
+    }
+
+    public function createCategory()
+    {
+        return view('admin.category.createCategory');
     }
 
     public function edit()
