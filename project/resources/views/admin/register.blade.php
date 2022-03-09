@@ -36,7 +36,7 @@
                     <form method="POST" action="{{ route('CreateAccount') }}">
                         @csrf
                         <h3 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Register</h3>
-                         <div class="form-group first mb-4">
+                        <div class="form-group first mb-4">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" id="name" required autocomplete="current-name" autofocus> 
                         </div>
