@@ -208,29 +208,36 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('register')}}" class="nav-link">
-              <i class="nav-icon  fas fa-solid fa-plus"></i>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Create account
+                Account
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
-              <p>
-                List account
-              </p>
-            </a>
-          </li>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('register')}}" class="nav-link active">
+                  <i class="nav-icon  fas fa-solid fa-plus"></i>
+                  <p>Create Account</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List Account</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
           <li class="nav-header">Action</li>
           <li class="nav-item">
             <a href="{{ route('login')}}" class="nav-link">

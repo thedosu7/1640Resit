@@ -29,4 +29,9 @@ class AdminController extends Controller
         return view('admin.listAccount.edit');
     }
 
+    public function createDepartment()
+    {
+        return view();
+    }
+
 }
