@@ -35,8 +35,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td scope="row">{{$item -> name}}</td>
                     <td scope="row">
-                    <a href="/admin/department/showDepart/{{$item -> id}}" title="Details"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details Category</button></a>
-                    <a href="/admin/department/update/{{$item -> id}}" title="Update"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Update Category</button></a>
+                    <a href="/admin/department/showDepart/{{$item -> id}}" title="Details"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details </button></a>
+                    <a href="/admin/department/update/{{$item -> id}}" title="Update"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Update Department</button></a>
                     <form  method="POST" action="{{ url('/admin/department/delete/'.$item -> id)}}" accept-charset="UTF-8" style="display:inline-block">
                             
                             <!-- method_feild() will be create hidden input like below
