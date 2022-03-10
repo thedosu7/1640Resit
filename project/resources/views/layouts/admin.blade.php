@@ -257,12 +257,12 @@
                   <p>Create Category</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ route('admin.category.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Category</p>
                 </a>
-              </li> -->
+              </li>
             </ul>
           </li> 
           <li class="nav-header">Action</li>

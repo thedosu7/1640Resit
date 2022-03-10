@@ -67,17 +67,20 @@
 
 <div class="container contact-form">
             <div class="contact-image">
-                <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+                <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="space"/>
             </div>
-            <form method="POST">
+            <form action="{{url('admin/category/createCate')}}" method="post">
+            @csrf
                 <h3>Create New Category</h3>
               <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <input type="text" name="txtName" class="form-control" placeholder="Category Name *" value="" />
+                            Category Name
+                            <input type="text" name="name" class="form-control" placeholder="Category Name *" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="txtEmail" class="form-control" placeholder="Description *" value="" />
+                            Description
+                            <input type="text" name="description" class="form-control" placeholder="Description *" value="" />
                         </div>
                         <div class="form-group">
                             <input type="submit" name="btnSubmit" class="btnContact" value="Submit" />
@@ -86,6 +89,4 @@
                 </div>
             </form>
           </div>
-
-
 @endsection

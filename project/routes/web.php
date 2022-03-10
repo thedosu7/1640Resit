@@ -40,8 +40,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/register', [AdminController::class, 'create'])->name('register');
         Route::get('/listAccounts/index', [AdminController::class, 'list'])->name('admin.listAccounts.index');
         Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
-        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
         Route::get('/accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
+        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
+        Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
+        Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
+        Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
     });
 });
 
