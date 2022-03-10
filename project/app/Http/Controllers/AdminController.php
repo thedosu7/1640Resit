@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Department;
 
 
 class AdminController extends Controller
@@ -80,9 +81,55 @@ class AdminController extends Controller
         return view('admin.listAccount.edit');
     }
 
-    public function createDepartment()
-    {
-        return view();
+    // Crud Department
+
+    public function indexDepartment(){
+        $departments = Department::all();
+        
+        return view('admin.department.indexDepartment', compact('departments'));
     }
 
+    public function createDepartment()
+    {
+        return view('admin.department.createDepartment');
+    }
+
+    public function storeDepartment(Request $request){
+        // dd($request);
+
+        $input = $request->all();
+        // dd($input);
+
+        // Tạo mới category với các dữ liệu tương ứng với dữ liệu được gán trong $data
+        Department::create($input);
+        echo"Successfully Create Department";
+        return redirect('admin/department/index');
+    }
+
+    public function showDepartment($id)
+    {
+        $item = Department::findOrFail($id);
+        return view('admin.department.showDepartment',compact('item'));
+    }
+
+    public function editDepartment($id){
+        //find id to update
+        $itemDepartment = Department::findOrFail($id);
+        return view('admin.department.editDepartment', compact('itemDepartment'));
+    }
+
+    public function updateDepartment(Request $request, $id){
+        $itemDepartment = Department::findOrFail($id);
+        // assign information to data variable
+        $data = $request -> all();
+        $itemDepartment->update($data);
+        return redirect('admin/department/index');
+    }
+
+    public function deleteDepartment($id)
+    {
+        $item = Department::findOrFail($id);
+        $item -> delete();
+        return redirect('admin/department/index')->with('flash_message', 'Department deleted!');  
+    }
 }

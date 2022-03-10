@@ -90,7 +90,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-light-yellow elevation-4">
     <!-- Brand Logo -->
-    <a href="{{route('home')}}" class="brand-link">
+    <a href="" class="brand-link">
       <img src="{{ asset('dist/img/Logo.png') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
       <span class="brand-text font-weight-light">Admin</span>
     </a>
@@ -106,26 +106,12 @@
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
       </div>
-
-      <!-- SidebarSearch Form -->
-      <!-- <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{asset('/admin/dashboard')}}" class="nav-link active">
+            <a href="{{asset('/admin/dashboard')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -135,7 +121,7 @@
 
           <!-- Account -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
                 Account
@@ -144,15 +130,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('register')}}" class="nav-link">
-                  <i class="nav-icon fas fa-solid fa-plus"></i>
-                  <p>Create Account</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('admin.listAccounts.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Account</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('register')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-plus"></i>
+                  <p>Create Account</p>
                 </a>
               </li>
             </ul>
@@ -160,7 +146,7 @@
 
           <!--  Category  -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-graduation-cap"></i>
               <p>
                 Category
@@ -169,19 +155,44 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.category.creatCate')}}" class="nav-link">
-                  <i class="nav-icon fas fa-solid fa-plus"></i>
-                  <p>Create Category</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('admin.category.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Category</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.category.creatCate')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-plus"></i>
+                  <p>Create Category</p>
+                </a>
+              </li>
             </ul>
           </li> 
+          <!-- Department -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-graduation-cap"></i>
+              <p>
+                Department
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('admin.department.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>List Department</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route ('admin.department.createDepart')}}" class="nav-link">
+                  <i class="nav-icon fas fa-solid fa-plus"></i>
+                  <p>Create Department</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
           <li class="nav-header">Action</li>
           <li class="nav-item">
             <a href="{{ route('login')}}" class="nav-link">
