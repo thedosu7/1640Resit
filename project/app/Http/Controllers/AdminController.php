@@ -21,20 +21,25 @@ class AdminController extends Controller
     }
 
     
-    public function list()
+    public function listAccount()
     {
         $data = User::all();
         return view('admin.listAccount.index',['users'=>$data]);
     }
 
+    // Crud Category
     public function indexCategory(){
         $categories = Category::all();
         
         return view('admin.category.indexCategory', compact('categories'));
     }
-    
-    public function createCategory()
+    public function showCategory($id)
     {
+        $data = Category::findOrFail($id);
+        return view('admin.category.showCategory',compact('data'));
+    }
+    
+    public function createCategory(){
         return view('admin.category.createCategory');
     }
     public function storeCategory(Request $request){
@@ -48,6 +53,21 @@ class AdminController extends Controller
         echo"Successfully Create Category";
         return redirect('admin/category/index');
     }
+
+    public function editCategory($id){
+        //find id to update
+        $dataCategory = Category::findOrFail($id);
+        return view('admin.category.editCategory', compact('dataCategory'));
+    }
+
+    public function updateCategory(Request $request, $id){
+        $dataCategory = Category::findOrFail($id);
+        // assign information to data variable
+        $data = $request -> all();
+        $dataCategory->update($data);
+        return redirect('admin/category/index');
+    }
+
     public function deleteCategory($id)
     {
         $data = Category::findOrFail($id);

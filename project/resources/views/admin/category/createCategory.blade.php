@@ -75,15 +75,13 @@
               <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            Category Name
                             <input type="text" name="name" class="form-control" placeholder="Category Name *" value="" />
                         </div>
                         <div class="form-group">
-                            Description
                             <input type="text" name="description" class="form-control" placeholder="Description *" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="btnSubmit" class="btnContact" value="Submit" />
+                            <input type="submit" name="btnSubmit" class="btn btn-outline-primary rounded-pill" value="Submit" />
                         </div>
                     </div>
                 </div>
