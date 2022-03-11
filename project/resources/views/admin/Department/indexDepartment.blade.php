@@ -9,7 +9,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Category</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('admin.department.index') }}">Department</a></li>
               <li class="breadcrumb-item active">List Department</li>
             </ol>
           </div><!-- /.col -->
@@ -35,7 +35,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td scope="row">{{$item -> name}}</td>
                     <td scope="row">
-                    <a href="/admin/department/showDepart/{{$item -> id}}" title="Details"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details </button></a>
+                    <a href="/admin/department/showDepart/{{$item -> id}}" title="Details"><button class="btn btn-warning btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details Department</button></a>
                     <a href="/admin/department/update/{{$item -> id}}" title="Update"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Update Department</button></a>
                     <form  method="POST" action="{{ url('/admin/department/delete/'.$item -> id)}}" accept-charset="UTF-8" style="display:inline-block">
                             

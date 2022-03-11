@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
         Route::get('/', [AdminController::class,'index'])->name('admin.index');
         Route::get('/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-        Route::get('/register', [AdminController::class, 'create'])->name('register');
+        Route::get('/register', [AdminController::class, 'createAccount'])->name('admin.listAccount.register');
         Route::get('/listAccounts/index', [AdminController::class, 'listAccount'])->name('admin.listAccounts.index');
         Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
         Route::get('/accounts/list', [AdminController::class, 'listAccount'])->name('admin.accounts.list');
@@ -50,8 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
         Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
         Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
-        //Department
         
+        //Department
         Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
         Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
         Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');

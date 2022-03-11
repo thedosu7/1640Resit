@@ -136,7 +136,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('register')}}" class="nav-link">
+                <a href="{{ route('admin.listAccount.register')}}" class="nav-link">
                   <i class="nav-icon fas fa-solid fa-plus"></i>
                   <p>Create Account</p>
                 </a>

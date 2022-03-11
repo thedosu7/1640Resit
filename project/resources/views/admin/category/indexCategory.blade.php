@@ -35,7 +35,7 @@
                     <td scope="row">{{$datas -> name}}</td>
                     <td scope="row">{{$datas -> description}}</td>
                     <td scope="row">
-                    <a href="/admin/category/showCate/{{$datas -> id}}" title="Details Category"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details Category</button></a>
+                    <a href="/admin/category/showCate/{{$datas -> id}}" title="Details Category"><button class="btn btn-warning btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details Category</button></a>
                     <a href="/admin/category/update/{{$datas -> id}}" title="Edit Category"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Update Category</button></a>
                     <form  method="POST" action="{{ url('/admin/category/delete/'.$datas -> id)}}" accept-charset="UTF-8" style="display:inline-block">
                             
