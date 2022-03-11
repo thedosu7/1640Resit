@@ -28,17 +28,16 @@ Route::get('/home', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('profile', [UserController::class, 'index'])->name('user.profile'); 
-    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');    
+    Route::get('profile', [UserController::class, 'index'])->name('user.profile');
+    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');
     Route::group(['prefix' => 'ideas'], function () {
-        Route::get('/', [IdeaController::class,'index'])->name('ideas.index');
+        Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
+        Route::post('/store', [IdeaController::class, 'store'])->name('ideas.store');
     });
-    
-    
-    Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
-        Route::get('/', [AdminController::class,'index'])->name('admin.index');
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
         Route::get('/accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
 });
-
