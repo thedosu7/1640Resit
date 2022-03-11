@@ -35,8 +35,7 @@
                     <td scope="row">{{$datas -> name}}</td>
                     <td scope="row">{{$datas -> description}}</td>
                     <td scope="row">
-                    <a href="/admin/category/showCate/{{$datas -> id}}" title="Details Category"><button class="btn btn-warning btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Show Details Category</button></a>
-                    <a href="/admin/category/update/{{$datas -> id}}" title="Edit Category"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i>Update Category</button></a>
+                    <a href="/admin/category/update/{{$datas -> id}}" title="Edit Category"><button class="btn btn-primary btn-sm rounded-pill"><i class="fa-solid fa-circle-info"></i></button></a>
                     <form  method="POST" action="{{ url('/admin/category/delete/'.$datas -> id)}}" accept-charset="UTF-8" style="display:inline-block">
                             
                             <!-- method_feild() will be create hidden input like below
@@ -49,7 +48,7 @@
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
                             -->
                             {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger btn-sm rounded-pill" title="Delete Category" onclick="return confirm('Do you want to delete this category ?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete Category</button>
+                            <button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm('Do you want to delete this category ?')"><i class="fa-solid fa-trash"></i></button>
                     </form>
                     </td>
                 </tr>

@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
         Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
         Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
-        Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
+        // Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
         Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
         Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
         Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
@@ -55,10 +55,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
         Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
         Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');
-        Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
+        // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
         Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
         Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
         Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
+    
+        //Mission
+
     });
 });
 

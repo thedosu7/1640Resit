@@ -34,11 +34,11 @@ class AdminController extends Controller
         
         return view('admin.category.indexCategory', compact('categories'));
     }
-    public function showCategory($id)
-    {
-        $data = Category::findOrFail($id);
-        return view('admin.category.showCategory',compact('data'));
-    }
+    // public function showCategory($id)
+    // {
+    //     $data = Category::findOrFail($id);
+    //     return view('admin.category.showCategory',compact('data'));
+    // }
     
     public function createCategory(){
         return view('admin.category.createCategory');
@@ -106,11 +106,11 @@ class AdminController extends Controller
         return redirect('admin/department/index');
     }
 
-    public function showDepartment($id)
-    {
-        $item = Department::findOrFail($id);
-        return view('admin.department.showDepartment',compact('item'));
-    }
+    // public function showDepartment($id)
+    // {
+    //     $item = Department::findOrFail($id);
+    //     return view('admin.department.showDepartment',compact('item'));
+    // }
 
     public function editDepartment($id){
         //find id to update
@@ -132,4 +132,7 @@ class AdminController extends Controller
         $item -> delete();
         return redirect('admin/department/index')->with('flash_message', 'Department deleted!');  
     }
+
+    // Crud Mission
+
 }
