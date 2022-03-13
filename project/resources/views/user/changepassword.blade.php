@@ -3,7 +3,12 @@
 @section('title','Change password')
 
 @section('content')
-
+@if(session()->has('message'))
+<div class="alert alert-success alert-dismissible fade show">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{session('message')}}
+</div>
+@endif
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
     <div class="row">

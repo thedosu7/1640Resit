@@ -3,7 +3,12 @@
 @section('title','Profile User')
 
 @section('content')
-
+@if(session()->has('message'))
+<div class="alert alert-success alert-dismissible fade show">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{session('message')}}
+</div>
+@endif
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
     <div class="row">
@@ -40,7 +45,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
-                            <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number" size="10" value="{{$user->phone_number}}" disabled>
+                            <input class="form-control" id="phone" type="tel" size="10" value="{{$user->phone_number}}" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="role">* Role:</label>
