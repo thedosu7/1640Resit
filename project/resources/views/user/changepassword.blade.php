@@ -22,18 +22,18 @@
             <div class="card mb-4">
                 <div class="card-header">Change password</div>
                 <div class="card-body">
-                    <form>
+                    <form action="{{route('user.updatePassword')}}" method="POST">
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputOldPassword">Old password</label>
-                            <input class="form-control" id="inputOldPassword" type="text" placeholder="Enter old password" value="...">
+                            <label class="small mb-1" for="old-password">Old password:</label>
+                            <input class="form-control" id="old-password" type="password" placeholder="Enter old password">
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputConfirmPassword">Confirmed old password</label>
-                            <input class="form-control" id="inputConfirmPassword"" type="email" placeholder="Confirm old password" value="...">
+                            <label class="small mb-1" for="new-password">New password:</label>
+                            <input class="form-control" id="new-password" type="password" placeholder="Enter new password">
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputNewPassword">New password</label>
-                            <input class="form-control" id="inputNewPassword" type="email" placeholder="Enter new password" value="...">
+                            <label class="small mb-1" for="new-password-confirm">Confirm new password:</label>
+                            <input class="form-control" id="new-password-confirm" type="password" placeholder="Enter new password again">
                         </div>
                         <!-- Save changes button-->
                         <button class="btn btn-info" type="button">Save</button>

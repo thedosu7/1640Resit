@@ -37,27 +37,54 @@
                             <label class="small mb-1" for="phone">* Phone number:</label>
                             <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number" value="{{$user->phone_number}}" disabled>
                         </div>
-                        <!--div class="row gx-3 mb-3"-->
-                            <div class="mb-3">
-                                <label class="small mb-1" for="role">* Role:</label>
-                                <input class="form-control" id="role" type="text" value="{{$user_role}}" disabled>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="role">* Role:</label>
+                            <input class="form-control" id="role" type="text" value="{{$user_role}}" disabled>
+                        </div>
+                    </form>
+                </div>
+                <!-- Save changes button-->
+                <button class="btn btn-info d-inline float-md-end" data-toggle="modal" data-target="#exampleModal">Edit my profile</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <!-- div class="col-md-6">
-                                <label class="small mb-1" for="position">Position:</label>
-                                <input class="form-control" id="position" type="text" value="Academic" disabled>
-                            </!-->
-                        </!--div> 
-                            <div class="mb-3">
+                            <div class="modal-body">
+                                <form action="{{ route('user.changePhoneNumber') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="new-phone-number" class="col-form-label">Phone number:</label>
+                                        <input type="tel" class="form-control @error('new-phone-number') is-invalid @enderror" id="new-phone-number" name="new-phone-number">
+                                        @if ($errors->has('new-phone-number'))
+                                        <span>
+                                            @error('new-phone-number')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </span>
+                                        @endif
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                </form>
                             </div>
                         </div>
-                        <!-- Save changes button-->
-                        <!-- button class="btn btn-info" type="button">Edit my profile</!-->
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-@endsection
+    <!-- Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @endsection

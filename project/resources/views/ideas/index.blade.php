@@ -26,7 +26,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="idea-title" class="col-form-label">Title:</label>
-                                        <input type="text" class="form-control" id="idea-title" name="title">
+                                        <input type="text" class="form-control @error('idea-title') is-invalid @enderror" id="idea-title" name="title">
                                         @if ($errors->has('idea-title'))
                                         <span>
                                             @error('idea-title')
@@ -35,7 +35,7 @@
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group @error('idea-content') is-invalid @enderror">
                                         <label for="idea-content" class="col-form-label" rows="5">Content:</label>
                                         <textarea class="form-control" id="idea-content" name="content"></textarea>
                                         @if ($errors->has('idea-content'))
@@ -46,7 +46,7 @@
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="form-group ">
+                                    <div class="form-group @error('idea-category') is-invalid @enderror">
                                         <label for="idea-category">Category:</label> <br />
                                         <select class="form-control" id="idea-category">
                                             <option value="IT">IT</option>
@@ -61,11 +61,11 @@
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group @error('choosen-file') is-invalid @enderror">
                                         <label for="choosen-file" class="col-form-label">Choose file:</label><br />
                                         <input type="file" class="form-control-file" id="choosen-file">
                                     </div><br>
-                                    <div class="form-check">
+                                    <div class="form-check @error('form-check-input') is-invalid @enderror">
                                         <input type="checkbox" class="form-check-input" id="is-agree">
                                         <label class="form-check-label" for="is-agree">I agree with all terms and conditions</label>
                                     </div>
