@@ -24,9 +24,8 @@ class PasswordChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            'old-password' => 'required|min:6|max:50',
-            'new-password' => 'required|min:6|max:50',
-            'new-password-confirm' => 'required|same:new_password'
+            'old-password' => 'required',
+            'new-password' => 'required|min:6|max:50|confirmed|string',
         ];
     }
 
@@ -34,13 +33,10 @@ class PasswordChangeRequest extends FormRequest
     {
         return [
             'old-password.required' => 'The old password is required',
-            'old-password.min' => 'The length of the old password is not smaller that 6',
-            'old-password.max' => 'The length of the old password is not bigger that 50',
             'new-password.required' => 'The new password is required',
             'new-password.min' => 'The length of the new password is not smaller that 6',
             'new-password.max' => 'The length of the new password is not bigger that 50',
-            'new-password-confirm.required' => 'The new password is required to confirm',
-            'new-password-cofirm.same' => 'The confirm password and new password are not the same',
+            'new-password.string' => 'The format of the new password is not correct',
         ];        
     }
 }

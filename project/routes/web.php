@@ -29,6 +29,7 @@ Route::get('/home', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
+    Route::post('profile', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
     //Route for changing password
     Route::get('change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
     Route::post('change-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
@@ -36,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('change-phone-number', [UserController::class, 'changePhoneNumber']);
     Route::post('change-phone-number', [UserController::class, 'changePhoneNumber'])->name('user.changePhoneNumber');
 
-    Route::get('changeinfo', [UserController::class, 'changeinfo'])->name('user.changeinfo');
+    
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');

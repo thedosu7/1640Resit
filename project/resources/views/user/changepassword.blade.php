@@ -13,7 +13,7 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="{{ asset('/images/avatar.png') }}" alt="{{ asset('/images/avatar.png') }}">
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="new-password-confirm">Confirm new password:</label>
-                            <input class="form-control @error('new-password-confirm') is-invalid @enderror" id="new-password-confirm" name="new-password-confirm" type="password" placeholder="Enter new password again">
+                            <label class="small mb-1" for="new-password_confirmation">Confirm new password:</label>
+                            <input class="form-control @error('new-password_confirmation') is-invalid @enderror" id="new-password_confirmation" name="new-password-confirm" type="password" placeholder="Enter new password again">
                             @if ($errors->has('new-password-confirm'))
                             <span>
                                 @error('new-password-confirm')
@@ -57,7 +57,7 @@
                             @endif
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-info" type="button">Save</button>
+                        <button class="btn btn-info" type="submit">Save</button>
                     </form>
                 </div>
             </div>

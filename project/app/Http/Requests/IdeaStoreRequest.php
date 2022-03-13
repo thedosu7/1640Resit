@@ -24,7 +24,7 @@ class IdeaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'idea-title' => 'required|string|unique:ideas|max:255',
+            'idea-title' => 'required|string|unique:ideas-|max:255',
             'idea-content' => 'required|string',
             'idea-category' => 'required|string',
             'choosen-file' => '',
