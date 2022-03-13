@@ -13,7 +13,9 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="{{ asset('/images/avatar.png') }}" alt="{{ asset('/images/avatar.png') }}">
+                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" 
+                    src="{{asset('/storage/images/'.Auth::user()->avatar)}}" 
+                    alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                 </div>
             </div>
         </div>
