@@ -13,7 +13,9 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
+                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" 
+                    src="{{asset('/storage/images/'.Auth::user()->avatar)}}" 
+                    alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                     <!-- Profile picture upload button-->
                     @include('user.uploadimg')
                 </div>
@@ -26,19 +28,19 @@
                 <div class="card-body">
                     <form>
                         <div class="mb-3">
-                            <label class="small mb-1" for="name">* Username:</label>
+                            <label class="small mb-1 fw-bold" for="name">* Username:</label>
                             <input class="form-control" id="name" type="text" value="{{$user->name}}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="email">* Email address:</label>
+                            <label class="small mb-1 fw-bold" for="email">* Email address:</label>
                             <input class="form-control" id="email" type="email" value="{{$user->email}}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="phone">* Phone number:</label>
+                            <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
                             <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number" value="{{$user->phone_number}}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="role">* Role:</label>
+                            <label class="small mb-1 fw-bold" for="role">* Role:</label>
                             <input class="form-control" id="role" type="text" value="{{$user_role}}" disabled>
                         </div>
                     </form>

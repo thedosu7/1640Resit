@@ -1,9 +1,9 @@
-<button class="btn btn-info d-inline float-md-end" data-toggle="modal" data-target="#exampleModal">Edit my profile</button>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<button class="btn btn-info d-inline float-md-end" data-toggle="modal" data-target="#changeInfoModal">Edit my profile</button>
+<div class="modal fade" id="changeInfoModal" tabindex="-1" role="dialog" aria-labelledby="changeInfoModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                <h5 class="modal-title" id="changeInfoModalLabel">Edit profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

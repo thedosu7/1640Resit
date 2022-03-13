@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
-        Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
+        Route::post('store', [IdeaController::class, 'storeIdea'])->name('ideas.store');
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
