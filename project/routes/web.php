@@ -30,14 +30,15 @@ Route::get('/home', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
     Route::post('profile', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
-    //Route for changing password
+    //Route for showing changing password form
     Route::get('change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
-    Route::post('change-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+    //Route for changing password
+    Route::get('update-password', [UserController::class, 'updatePassword']);
+    Route::post('update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
     //Route for modifying phone number
     Route::get('change-phone-number', [UserController::class, 'changePhoneNumber']);
     Route::post('change-phone-number', [UserController::class, 'changePhoneNumber'])->name('user.changePhoneNumber');
 
-    
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         Route::post('store', [IdeaController::class, 'storeIdea'])->name('ideas.store');

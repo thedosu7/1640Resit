@@ -13,9 +13,7 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" 
-                    src="{{asset('/storage/images/'.Auth::user()->avatar)}}" 
-                    alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
+                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                     <!-- Profile picture upload button-->
                     @include('user.uploadimg')
                 </div>
@@ -25,6 +23,11 @@
             <!-- Account details card-->
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
+                @if(session()->has('error'))
+                <div class="alert alert-success">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
                 <div class="card-body">
                     <form>
                         <div class="mb-3">
@@ -37,7 +40,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
-                            <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number" value="{{$user->phone_number}}" disabled>
+                            <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number" size="10" value="{{$user->phone_number}}" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="role">* Role:</label>

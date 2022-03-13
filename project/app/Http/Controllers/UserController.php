@@ -51,18 +51,18 @@ class UserController extends Controller
     public function updatePassword(PasswordChangeRequest $request)
     {
         $user = Auth::user();
-        //If two passwords match
-        if (!(Hash::check($request->get('old-password'), $user->password))) {
-            return redirect()->back()->with('error','The password currently used does not matches with the provided password.');
+        //If two passwords are the same
+        if (!(Hash::check($request['old-password'], $user->password))) {
+            return back()->with('error','The password currently used does not matches with the provided password.');
         }       
         //Sring compare: Old password and the new one
-        if(strcmp($request->get('old-password'), $request->get('new-password')) == 0){
-            return redirect()->back()->with('error','The new password cannot be similar to the current password.');
+        if(strcmp($request['old-password'], $request['new-password']) == 0){
+            return back()->with('error','The new password cannot be similar to the current password.');
         }
         //bcrypt --> password-hashing function
-        $user->password = bcrypt($request->get('new-password'));
+        $user->password = bcrypt($request['new-password']);
         DB::table('users')->where('id', $user->id)->update(['password' => $user->password]);
-        return redirect()->back()->with(['class' => 'success', 'message' => 'Password changed successfully !']);
+        return back()->with(['class' => 'success', 'message' => 'Password changed successfully !']);
     }
 
     public function changePhoneNumber(PhoneChangeRequest $request)

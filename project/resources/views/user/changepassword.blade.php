@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <form action="{{route('user.updatePassword')}}" method="POST">
                         <div class="mb-3">
-                            <label class="small mb-1" for="old-password">Old password:</label>
+                            <label class="small mb-1 fw-bold" for="old-password">* Old password:</label>
                             <input class="form-control @error('old-password') is-invalid @enderror" id="old-password" name="old-password" type="password" placeholder="Enter old password">
                             @if ($errors->has('old-password'))
                             <span>
@@ -37,7 +37,7 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="new-password">New password:</label>
+                            <label class="small mb-1 fw-bold" for="new-password">* New password:</label>
                             <input class="form-control @error('new-password') is-invalid @enderror" id="new-password" name="new-password" type="password" placeholder="Enter new password">
                             @if ($errors->has('new-password'))
                             <span>
@@ -48,18 +48,18 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="new-password_confirmation">Confirm new password:</label>
+                            <label class="small mb-1 fw-bold" for="new-password_confirmation">* Confirm new password:</label>
                             <input class="form-control @error('new-password_confirmation') is-invalid @enderror" id="new-password_confirmation" name="new-password-confirm" type="password" placeholder="Enter new password again">
-                            @if ($errors->has('new-password-confirm'))
+                            @if ($errors->has('new-password-confirmation'))
                             <span>
-                                @error('new-password-confirm')
+                                @error('new-password-confirmation')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </span>
                             @endif
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-info" type="submit">Save</button>
+                        <button class="btn btn-info d-grid" type="submit">Save</button>
                     </form>
                 </div>
             </div>
