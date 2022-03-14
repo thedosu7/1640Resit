@@ -35,7 +35,7 @@
                         <button class="btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                 @if(Auth::user()->avatar)
-                                <img class="img-account-profile rounded-circle mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
+                                <img class="img-account-profile rounded-circle mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="{{asset('public/images/avatar.png')}}" style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
                                 @endif
                             </a>
                         </button>
