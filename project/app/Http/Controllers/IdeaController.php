@@ -29,7 +29,7 @@ class IdeaController extends Controller
     }
 
     public function store(IdeaStoreRequest $request){
-        $data = $request->except(["_token"]);
+        /*
         if($idea = Idea::create($data)){
             return redirect()->route('ideas.index')->with(['class' => 'success', 'message' => 'A new idea is created']);
         }
@@ -37,5 +37,34 @@ class IdeaController extends Controller
             return redirect()->back()->with(['class' => 'danger', 'message' => 'Error when creating idea']);
         }
         return view('ideas.index');
+        */
+    }
+
+    public function storeIdea(IdeaStoreRequest $request){
+
+        $input = $request->all();
+        Idea::create($input);
+        echo"Successfully Create Category";
+        return redirect('ideas.index');
+    }
+
+    public function changeIdea($id){
+        //find id to update
+        $idea = Idea::findOrFail($id);
+        return view('', compact('idea'));
+    }
+
+    public function updateIdea(IdeaStoreRequest $request, $id){
+        $dataCategory = Idea::findOrFail($id);
+        $data = $request -> all();
+        $dataCategory->update($data);
+        return redirect('');
+    }
+
+    public function deleteIdea($id)
+    {
+        $data = Idea::findOrFail($id);
+        $data -> delete();
+        return redirect('')->with('flash_message', 'Category deleted!');  
     }
 }

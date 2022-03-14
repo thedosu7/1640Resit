@@ -3,7 +3,12 @@
 @section('title','Change password')
 
 @section('content')
-
+@if(session()->has('message'))
+<div class="alert alert-success alert-dismissible fade show">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{session('message')}}
+</div>
+@endif
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
     <div class="row">
@@ -13,7 +18,9 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" 
+                    src="{{asset('/storage/images/'.Auth::user()->avatar)}}" 
+                    alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                 </div>
             </div>
         </div>
@@ -22,21 +29,42 @@
             <div class="card mb-4">
                 <div class="card-header">Change password</div>
                 <div class="card-body">
-                    <form>
+                    <form action="{{route('user.updatePassword')}}" method="POST">
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputOldPassword">Old password</label>
-                            <input class="form-control" id="inputOldPassword" type="text" placeholder="Enter old password" value="...">
+                            <label class="small mb-1 fw-bold" for="old-password">* Old password:</label>
+                            <input class="form-control @error('old-password') is-invalid @enderror" id="old-password" name="old-password" type="password" placeholder="Enter old password">
+                            @if ($errors->has('old-password'))
+                            <span>
+                                @error('old-password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </span>
+                            @endif
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputConfirmPassword">Confirmed old password</label>
-                            <input class="form-control" id="inputConfirmPassword"" type="email" placeholder="Confirm old password" value="...">
+                            <label class="small mb-1 fw-bold" for="new-password">* New password:</label>
+                            <input class="form-control @error('new-password') is-invalid @enderror" id="new-password" name="new-password" type="password" placeholder="Enter new password">
+                            @if ($errors->has('new-password'))
+                            <span>
+                                @error('new-password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </span>
+                            @endif
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputNewPassword">New password</label>
-                            <input class="form-control" id="inputNewPassword" type="email" placeholder="Enter new password" value="...">
+                            <label class="small mb-1 fw-bold" for="new-password_confirmation">* Confirm new password:</label>
+                            <input class="form-control @error('new-password_confirmation') is-invalid @enderror" id="new-password_confirmation" name="new-password-confirm" type="password" placeholder="Enter new password again">
+                            @if ($errors->has('new-password-confirmation'))
+                            <span>
+                                @error('new-password-confirmation')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </span>
+                            @endif
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-info" type="button">Save</button>
+                        <button class="btn btn-info d-grid" type="submit">Save</button>
                     </form>
                 </div>
             </div>

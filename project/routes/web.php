@@ -29,10 +29,19 @@ Route::get('/home', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
-    Route::get('changepassword', [UserController::class, 'changepassword'])->name('user.changepassword');
+    Route::post('profile', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
+    //Route for showing changing password form
+    Route::get('change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
+    //Route for changing password
+    Route::get('update-password', [UserController::class, 'updatePassword']);
+    Route::post('update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+    //Route for modifying phone number
+    Route::get('change-phone-number', [UserController::class, 'changePhoneNumber']);
+    Route::post('change-phone-number', [UserController::class, 'changePhoneNumber'])->name('user.changePhoneNumber');
+
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
-        Route::post('/store', [IdeaController::class, 'store'])->name('ideas.store');
+        Route::post('store', [IdeaController::class, 'storeIdea'])->name('ideas.store');
     });
     
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
@@ -64,7 +73,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::resource('/update','AdminController');
         Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
     
-        //Mission
-
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
+        Route::get('accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
 });

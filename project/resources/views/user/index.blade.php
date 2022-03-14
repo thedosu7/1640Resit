@@ -3,7 +3,12 @@
 @section('title','Profile User')
 
 @section('content')
-
+@if(session()->has('message'))
+<div class="alert alert-success alert-dismissible fade show">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{session('message')}}
+</div>
+@endif
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
     <div class="row">
@@ -13,11 +18,9 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <img class="img-account-profile rounded-circle img-thumbnail mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-success" type="button">Upload new image</button>
+                    @include('user.uploadimg')
                 </div>
             </div>
         </div>
@@ -25,41 +28,41 @@
             <!-- Account details card-->
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
+                @if(session()->has('error'))
+                <div class="alert alert-success">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
                 <div class="card-body">
                     <form>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Username</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="...">
+                            <label class="small mb-1 fw-bold" for="name">* Username:</label>
+                            <input class="form-control" id="name" type="text" value="{{$user->name}}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                            <label class="small mb-1 fw-bold" for="email">* Email address:</label>
+                            <input class="form-control" id="email" type="email" value="{{$user->email}}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputPhone">Phone number</label>
-                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                            <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
+                            <input class="form-control" id="phone" type="tel" size="10" value="{{$user->phone_number}}" disabled>
                         </div>
-                        <div class="row gx-3 mb-3">
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputRole">Role</label>
-                                <input class="form-control" id="inputRole" type="text" placeholder="Enter your role" value="Staff">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPosition">Position</label>
-                                <input class="form-control" id="inputPosition" type="text" placeholder="Enter your Position" value="Academic">
-                            </div>
-                        </div> 
-                            <div class="mb-3">
-                            </div>
+                        <div class="mb-3">
+                            <label class="small mb-1 fw-bold" for="role">* Role:</label>
+                            <input class="form-control" id="role" type="text" value="{{$user_role}}" disabled>
                         </div>
-                        <!-- Save changes button-->
-                        <button class="btn btn-info" type="button">Edit my profile</button>
                     </form>
                 </div>
+                @include('user.changeinfo')
             </div>
         </div>
     </div>
-</div>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-@endsection
+    <!-- Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @endsection
