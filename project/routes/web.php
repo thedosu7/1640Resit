@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
         Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
         Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
+        Route::post('/category/index', [AdminController::class, 'storeCategory']) -> name('admin.category.index');
         // Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
         Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
         Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
@@ -55,9 +56,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
         Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
         Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');
+        Route::post('/department/index', [AdminController::class, 'storeDepartment']) -> name('admin.department.index');
+        Route::put('/department/index', [AdminController::class, 'updateDepartment']) -> name('admin.department.index');
         // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
         Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
-        Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
+        Route::put('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
+        // Route::resource('/update','AdminController');
         Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
     
         //Mission

@@ -22,7 +22,8 @@
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css')}}" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  @yield('admin-css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -135,12 +136,6 @@
                   <p>List Category</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('admin.category.creatCate')}}" class="nav-link">
-                  <i class="nav-icon fas fa-solid fa-plus"></i>
-                  <p>Create Category</p>
-                </a>
-              </li>
             </ul>
           </li> 
           <!-- Department -->
@@ -157,12 +152,6 @@
                 <a href="{{ route('admin.department.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Department</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route ('admin.department.createDepart')}}" class="nav-link">
-                  <i class="nav-icon fas fa-solid fa-plus"></i>
-                  <p>Create Department</p>
                 </a>
               </li>
             </ul>
@@ -231,5 +220,12 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+@yield('admin-js')
 </body>
 </html>
