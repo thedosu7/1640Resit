@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => false, 'reset' => false]);
-// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {

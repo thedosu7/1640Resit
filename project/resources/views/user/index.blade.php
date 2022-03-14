@@ -14,9 +14,9 @@
     <div class="row">
         <div class="col-xl-4">
             <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Profile Picture</div>
-                <div class="card-body text-center">
+            <div class="card border-info mb-4 mb-xl-0">
+                <div class="card-header" style="background-color: #5DBAE8;">Profile Picture</div>
+                <div class="card-body text-center" style="background-color: #FFFED1;">
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle img-thumbnail mb-2" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="profile_image" style="width: 300px; height: 300px; object-fit: cover;">
                     <!-- Profile picture upload button-->
@@ -26,30 +26,25 @@
         </div>
         <div class="col-xl-8">
             <!-- Account details card-->
-            <div class="card mb-4">
-                <div class="card-header">Account Details</div>
-                @if(session()->has('error'))
-                <div class="alert alert-success">
-                    {{ session()->get('error') }}
-                </div>
-                @endif
-                <div class="card-body">
+            <div class="card border-info mb-4">
+                <div class="card-header" style="background-color: #5DBAE8;">Account Details</div>
+                <div class="card-body" style="background-color: #FFFED1;">
                     <form>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="name">* Username:</label>
-                            <input class="form-control" id="name" type="text" value="{{$user->name}}" disabled>
+                            <input class="form-control" id="name" type="text" value="{{$user->name}}" style="background-color: #E1F5FE;" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="email">* Email address:</label>
-                            <input class="form-control" id="email" type="email" value="{{$user->email}}" disabled>
+                            <input class="form-control" id="email" type="email" value="{{$user->email}}" style="background-color: #E1F5FE;" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
-                            <input class="form-control" id="phone" type="tel" size="10" value="{{$user->phone_number}}" disabled>
+                            <input class="form-control" id="phone" type="tel" size="10" value="{{$user->phone_number}}" style="background-color: #E1F5FE;" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="role">* Role:</label>
-                            <input class="form-control" id="role" type="text" value="{{$user_role}}" disabled>
+                            <input class="form-control" id="role" type="text" value="{{$user_role}}" style="background-color: #E1F5FE;" disabled>
                         </div>
                     </form>
                 </div>
