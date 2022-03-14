@@ -168,10 +168,10 @@
             </a>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <!-- <a href="{{ route('admin.department.index')}}" class="nav-link"> -->
+                <a href="{{ route('admin.department.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Semester</p>
-                <!-- </a> -->
+                </a>
               </li>
             </ul>
           </li>
@@ -187,10 +187,10 @@
             </a>
             <ul class="nav nav-treeview">
             <li class="nav-item">
-                <!-- <a href="{{ route('admin.department.index')}}" class="nav-link"> -->
+                <a href="{{ route('admin.department.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-list"></i>
                   <p>List Mission</p>
-                <!-- </a> -->
+                </a>
               </li>
             </ul>
           </li>          
