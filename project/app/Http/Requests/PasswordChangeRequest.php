@@ -25,7 +25,8 @@ class PasswordChangeRequest extends FormRequest
     {
         return [
             'old-password' => 'required',
-            'new-password' => 'required|min:6|max:50|confirmed|string',
+            'new-password' => 'required|min:6|max:50|string|confirmed',
+            'new-password_confirmation' => 'required',
         ];
     }
 
@@ -37,6 +38,8 @@ class PasswordChangeRequest extends FormRequest
             'new-password.min' => 'The length of the new password is not smaller that 6',
             'new-password.max' => 'The length of the new password is not bigger that 50',
             'new-password.string' => 'The format of the new password is not correct',
+            'new-password_confirmation.required' => 'The new password confirmation is required',
+            'new-password.confirmed' => 'The provided new password confirmation does not match'
         ];        
     }
 }

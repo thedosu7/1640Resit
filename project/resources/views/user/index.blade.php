@@ -29,7 +29,8 @@
             <div class="card border-info mb-4">
                 <div class="card-header" style="background-color: #5DBAE8;">Account Details</div>
                 <div class="card-body" style="background-color: #FFFED1;">
-                    <form>
+                    <form action="{{ route('user.changePhoneNumber') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="name">* Username:</label>
                             <input class="form-control" id="name" type="text" value="{{$user->name}}" style="background-color: #E1F5FE;" disabled>
@@ -39,16 +40,24 @@
                             <input class="form-control" id="email" type="email" value="{{$user->email}}" style="background-color: #E1F5FE;" disabled>
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1 fw-bold" for="phone">* Phone number:</label>
-                            <input class="form-control" id="phone" type="tel" size="10" value="{{$user->phone_number}}" style="background-color: #E1F5FE;" disabled>
+                            <label class="small mb-1 fw-bold" for="new-phone-number">* Phone number:</label>
+                            <input class="form-control" class="form-control @error('new-phone-number') is-invalid @enderror" id="new-phone-number" name="new-phone-number" value="{{$user->phone_number}}" style="background-color: #E1F5FE;">
                         </div>
+                        @if ($errors->has('new-phone-number'))
+                        <span>
+                            @error('new-phone-number')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </span>
+                        @endif
                         <div class="mb-3">
                             <label class="small mb-1 fw-bold" for="role">* Role:</label>
                             <input class="form-control" id="role" type="text" value="{{$user_role}}" style="background-color: #E1F5FE;" disabled>
                         </div>
+                        <button type="submit" class="btn btn-primary">Edit my profile</button>
                     </form>
                 </div>
-                @include('user.changeinfo')
+                <!-- @include('user.changeinfo') -->
             </div>
         </div>
     </div>

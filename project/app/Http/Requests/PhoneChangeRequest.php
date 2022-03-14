@@ -24,7 +24,7 @@ class PhoneChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            'new-phone-number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'new-phone-number' =>'required|regex:/^([0-9\s\-\+\(\)]*)$/|size:10',
         ];
     }
 
@@ -32,7 +32,7 @@ class PhoneChangeRequest extends FormRequest
     {
         return [
             'new-phone-number.required' => 'The new phone number is required',
-            'new-phone-number.min' => 'The new phone number must contain at least 10 characters',
+            'new-phone-number.size' => 'The phone number must contain 10 characters',
             'regex' => 'The format of the new phone number is not valid'
         ];        
     }

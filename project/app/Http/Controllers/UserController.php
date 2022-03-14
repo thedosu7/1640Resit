@@ -49,6 +49,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         //If two passwords are the same
+        //Hash::check --> Check whether the old password entered by user is correct or not
         if (!(Hash::check($request['old-password'], $user->password))) {
             return back()->with(['message' => 'The password currently used does not matches with the provided password.']);
         }       
