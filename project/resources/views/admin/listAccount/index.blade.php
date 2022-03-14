@@ -18,7 +18,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
               <li class="breadcrumb-item active">List Account</li>
             </ol>
           </div><!-- /.col -->
@@ -55,9 +55,15 @@
             <td scope="row">Otto</td>
             <td scope="row">Admin</td>
             <td scope="row">
+            <a href="{{ route('admin.listAccounts.edit')}}">
               <button type="button" class="btn btn-outline-info rounded-pill">Details</button>
+            </a>
+              <a href="{{ route('admin.listAccounts.edit')}}">
               <button type="button" class="btn btn-outline-light rounded-pill">Edit</button>
+              </a>
+              <a href="{{ route('admin.listAccounts.edit')}}">
               <button type="button" class="btn btn-outline-warning rounded-pill">Delete</button>
+              <a>
             </td>
           </tr>
           <tr>
