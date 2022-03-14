@@ -43,8 +43,32 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         Route::post('store', [IdeaController::class, 'storeIdea'])->name('ideas.store');
     });
-
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
+    
+    Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
+        Route::get('/', [AdminController::class,'index'])->name('admin.index');
+        Route::get('/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+        Route::get('/register', [AdminController::class, 'createAccount'])->name('admin.listAccount.register');
+        Route::get('/listAccounts/index', [AdminController::class, 'listAccount'])->name('admin.listAccounts.index');
+        Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
+        Route::get('/accounts/list', [AdminController::class, 'listAccount'])->name('admin.accounts.list');
+        // Category
+        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
+        Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
+        Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
+        // Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
+        Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
+        Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
+        Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
+        
+        //Department
+        Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
+        Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
+        Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');
+        // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
+        Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
+        Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
+        Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
+    
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
         Route::get('accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
         Route::get('accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
