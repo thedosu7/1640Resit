@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Department;
+use DB;
 
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $dpm = DB::table('departments')->count();
+        $cate = DB::table('categories')->count();
+        return view('admin.dashboard', compact('dpm','cate'));
     }
 
     public function createAccount()
@@ -126,5 +129,7 @@ class AdminController extends Controller
     }
 
     // Crud Mission
+
+    
 
 }
