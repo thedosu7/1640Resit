@@ -63,7 +63,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{url('admin/department/index/.$dpm->id')}}" method="POST" id="editForm">
+        <form action="{{url('admin/department/index/')}}" method="POST" id="editForm">
           {{csrf_field() }}
           <!-- {{method_field('PUT') }} -->
 
@@ -125,7 +125,7 @@
           <td>{{ $loop->iteration }}</td>
           <td scope="row">{{$item -> name}}</td>
           <td>
-            <a href="#" class="btn btn-warning edit"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="#" class="btn btn-warning btn-sm rounded-pill edit"><i class="fa-solid fa-pen-to-square"></i></a>
             <form method="POST" action="{{ url('/admin/department/delete/'.$item -> id)}}" accept-charset="UTF-8" style="display:inline-block">
 
               <!-- method_feild() will be create hidden input like below
@@ -171,7 +171,7 @@
 
         $('#name').val(data[1]);
 
-        $('#editForm').attr('action', '/admin/department/index/');
+        $('#editForm').attr('action', '/admin/department/indexDepartment/'+data[0]);
         $('#editModal').modal('show');
       });
       // End Edit Record

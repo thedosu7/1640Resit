@@ -69,8 +69,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/department/index', [AdminController::class, 'updateDepartment']) -> name('admin.department.index');
         // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
         Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
-        Route::put('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
-        // Route::resource('/update','AdminController');
+        Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
+
+        // Route::resource('/update','AdminController@updateDepartment')-> name('update');
         Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
     
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');

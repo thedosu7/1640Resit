@@ -34,11 +34,6 @@ class AdminController extends Controller
         
         return view('admin.category.indexCategory', compact('categories'));
     }
-    // public function showCategory($id)
-    // {
-    //     $data = Category::findOrFail($id);
-    //     return view('admin.category.showCategory',compact('data'));
-    // }
     
     public function createCategory(){
         return view('admin.category.createCategory');
@@ -54,7 +49,7 @@ class AdminController extends Controller
         $cate->description = $request->input('description');
 
         $cate->save();
-        return redirect('/admin/category/index')->with('success','Data Saved');
+        return redirect('/admin/category/index')->with('success','Successfull create category');
 
         
     }
@@ -62,7 +57,7 @@ class AdminController extends Controller
     public function editCategory($id){
         //find id to update
         $dataCategory = Category::findOrFail($id);
-        return view('admin.category.editCategory', compact('dataCategory'));
+        return view('admin.category.index', compact('dataCategory'));
     }
 
     public function updateCategory(Request $request, $id){
@@ -106,7 +101,7 @@ class AdminController extends Controller
         $dpm = new Department;
         $dpm->name = $request->input('name');
         $dpm->save();
-        return redirect('/admin/department/index')->with('success','Data Saved');
+        return redirect('/admin/department/index')->with('success','Successfull create department');
     }
     public function editDepartment($id){
         $dpm = Category::findOrFail($id);

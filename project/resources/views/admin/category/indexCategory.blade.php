@@ -64,14 +64,14 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Edit Category</hh5>
+          <h5 class="modal-title">Edit Category</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{url('admin/category/index/.$dpm->id')}}" method="POST" id="editForm">
+        <form action="{{url('/admin/category/index/')}}" method="POST" id="editForm">
           {{csrf_field() }}
-          <!-- {{method_field('PUT') }} -->
+          {{method_field('PUT') }}
 
           <div class="modal-body">
             <div class="mb-3">
@@ -126,6 +126,7 @@
     <table id="datatable" class="table table-striped table-dark">
       <thead>
         <tr>
+          <th scope="col">Id</th>
           <th scope="col">Name</th>
           <th scope="col">Description</th>
           <th scope="col">Action</th>
@@ -134,10 +135,11 @@
       <tbody>
         @foreach($categories as $data)
         <tr>
+          <td>{{$loop -> iteration}}</td>
           <td scope="row">{{$data -> name}}</td>
           <td scope="row">{{$data -> description}}</td>
           <td>
-            <a href="#" class="btn btn-warning edit"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="#" class="btn btn-warning btn-sm rounded-pill edit"><i class="fa-solid fa-pen-to-square"></i></a>
             <form method="POST" action="{{ url('/admin/category/delete/'.$data -> id)}}" accept-charset="UTF-8" style="display:inline-block">
 
               <!-- method_feild() will be create hidden input like below
@@ -182,8 +184,9 @@
         console.log(data);
 
         $('#name').val(data[1]);
+        $('#description').val(data[2]);
 
-        $('#editForm').attr('action', '/admin/category/index/');
+        $('#editForm').attr('action', '/admin/category/index/'+data[0]);
         $('#editModal').modal('show');
       });
       // End Edit Record
