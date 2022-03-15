@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
@@ -47,10 +48,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
         Route::get('/', [AdminController::class,'index'])->name('admin.index');
         Route::get('/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-        Route::get('/register', [AdminController::class, 'createAccount'])->name('admin.listAccount.register');
-        Route::get('/listAccounts/index', [AdminController::class, 'listAccount'])->name('admin.listAccounts.index');
-        Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
-        Route::get('/accounts/list', [AdminController::class, 'listAccount'])->name('admin.accounts.list');
+
+        Route::group(['prefix' => 'account'], function () {
+            Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
+            Route::get('/dt-row-data', [AccountController::class, 'getDtRowData']);
+        });
+
         // Category
         Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
         Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
@@ -74,8 +77,5 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::resource('/update','AdminController@updateDepartment')-> name('update');
         Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
     
-        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
-        Route::get('accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
 });
