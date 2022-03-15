@@ -63,9 +63,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{url('admin/department/index/.$dpm->id')}}" method="POST" id="editForm">
+        <form action="{{url('admin/department/index')}}" method="POST" id="editForm">
           {{csrf_field() }}
-          <!-- {{method_field('PUT') }} -->
+          {{method_field('PUT') }}
 
           <div class="modal-body">
             <div class="mb-3">
@@ -171,7 +171,7 @@
 
         $('#name').val(data[1]);
 
-        $('#editForm').attr('action', '/admin/department/index/');
+        $('#editForm').attr('action', '/admin/department/index/'+data[0]);
         $('#editModal').modal('show');
       });
       // End Edit Record
