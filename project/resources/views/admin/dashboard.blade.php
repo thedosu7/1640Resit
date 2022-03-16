@@ -29,14 +29,14 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-primary">
               <div class="inner">
                 <h3>{{$category}}<sup style="font-size: 20px"></sup></h3>
 
                 <p>Total Category</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+              <i class="fa fa-light fa-link"></i>
               </div>
               <a href="{{ route('admin.category.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -47,11 +47,11 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3>{{$department}}<sup style="font-size: 20px"></sup></h3>
-
+                  
                 <p>Total Department</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-solid fa-building"></i>
               </div>
               <a href="{{ route('admin.department.index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -63,7 +63,7 @@
               <div class="inner">
                 <h3>{{$account}}</h3>
 
-                <p>User Account</p>
+                <p>Total User Account</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -78,11 +78,11 @@
               <div class="inner">
                 <h3>65</h3>
 
-                <p>Unique Visitors</p>
+                <p>Total Missions</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
+              <i class="fa fa-light fa-bars-progress"></i>              
+            </div>
               <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
