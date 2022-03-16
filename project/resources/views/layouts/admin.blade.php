@@ -140,7 +140,7 @@
 
                         <!-- Semester -->
                         <li class="nav-item">
-                            <a href="{{ route('admin.department.index') }}" class="nav-link">
+                            <a href="{{ route('admin.semester.indexSemester') }}" class="nav-link">
 
                                 <i class="nav-icon fas fa-anchor"></i>
                                 <p>
