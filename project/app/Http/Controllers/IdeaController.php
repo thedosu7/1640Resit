@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\IdeaStoreRequest;
+use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
 use Illuminate\Http\Request;
@@ -33,11 +34,23 @@ class IdeaController extends Controller
         );
     }
 
-    public function storeIdea(Request $request)
+    public function store(IdeaStoreRequest $request)
     {
         $input = $request->except('_token');
         $input['user_id'] = auth()->user()->id;
-        Idea::create($input);
+        $idea = Idea::create($input);
+        if($request->hasFile('files')) {
+			$files = $request->file('files');
+			foreach($files as $file) {
+                $custom_file_name = time().'-'.$file->getClientOriginalName();
+                $filename = $file->storeAs('idea/'.$idea->id, $custom_file_name);
+                Attachment::create([
+                    'name' => $file->getClientOriginalName(),
+                    'direction' => $filename,
+                    'idea_id' => $idea->id,
+                ]);
+			}
+        }
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }
 
