@@ -7,6 +7,7 @@ use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/department/delete/{id}', [DepartmentController::class, 'delete']) -> name('admin.department.delete');
         Route::get('department/update/{id}',[DepartmentController::class,'edit'])->name('admin.department.update');
         Route::post('department/update/{id}',[DepartmentController::class,'update'])->name('admin.department.update');
-    
+        
+        //Semester
+        Route::get('/semester/indexSemester', [SemesterController::class, 'indexSemester']) -> name('admin.semester.indexSemester');
+        Route::get('/semester/dt-row-data', [SemesterController::class, 'getDtRowData']);
+        Route::post('/semester/createSmt',[SemesterController::class,'create']) -> name('admin.semester.createSmt');
+        Route::delete('/semester/delete/{id}', [SemesterController::class, 'delete']) -> name('admin.semester.delete');
+        Route::get('semester/update/{id}',[SemesterController::class,'edit'])->name('admin.semester.update');
+        Route::post('semester/update/{id}',[SemesterController::class,'update'])->name('admin.semester.update');
     });
 });

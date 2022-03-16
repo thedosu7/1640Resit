@@ -14,24 +14,24 @@
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">List Category</li>
+                        <li class="breadcrumb-item active">List Semester</li>
                     </ol>
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Category</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Semester</h6>
                 <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Create Category
+                    Create Semester
                 </a>
             </div>
             <div class="card-body">
                 <table id="users-table" class="table table-condensed col-12">
                     <thead class="thread-light">
                         <tr>
-                            <th scope="col">Category Name</th>
-                            <th scope="col">Description</th>
+                            <th scope="col">Semester Name</th>
+                            <th scope="col">End Day</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -44,27 +44,28 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new user</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create a new Semester</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.category.createCate') }}" method="POST">
+                <form action="{{ route('admin.semester.createSmt') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Category name:</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="">
+                            <label for="name">Semester name:</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="" requied>
                         </div>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
-                            <label for="description">Description:</label>
-                            <input type="text" name="description" class="form-control" id="email"
-                                placeholder="">
+                            <label for="end_day">Day end</label>
+                            <input type="date" name="end_day" class="form-control" id="end_day" placeholder="" requied>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-warning">Add Category</button>
+                        <button type="submit" class="btn btn-warning">Add Semester</button>
                     </div>
                 </form>
             </div>
@@ -76,20 +77,20 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/category/dt-row-data') }}',
+                ajax: '{{ url('/admin/semester/dt-row-data') }}',
                 columns: [{
                         data: 'name',
                         name: 'name',
                     },
                     {
-                        data: 'description',
-                        name: 'description',
+                        data: 'end_day',
+                        name: 'end_day',
                     },
                     {
                         data: 'action',
