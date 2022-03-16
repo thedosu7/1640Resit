@@ -14,23 +14,25 @@
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">List Department</li>
+                        <li class="breadcrumb-item active">List Account</li>
                     </ol>
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List User</h6>
                 <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Create department
+                    Create User
                 </a>
             </div>
             <div class="card-body">
                 <table id="users-table" class="table table-condensed col-12">
                     <thead class="thread-light">
                         <tr>
-                            <th scope="col">Department Name</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -48,17 +50,30 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.department.createDpm') }}" method="POST">
+                <form action="{{ route('admin.account.create') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Category name:</label>
+                            <label for="name">Full name:</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role:</label>
+                            <select class="form-control" name="role" id="role">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-warning">Add Department</button>
+                        <button type="submit" class="btn btn-warning">Add</button>
                     </div>
                 </form>
             </div>
@@ -76,10 +91,18 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/department/dt-row-data') }}',
+                ajax: '{{ url('/admin/account/dt-row-data') }}',
                 columns: [{
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'role',
+                        name: 'role'
                     },
                     {
                         data: 'action',

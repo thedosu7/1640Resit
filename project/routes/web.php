@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DepartmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,30 +49,29 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
         Route::get('/', [AdminController::class,'index'])->name('admin.index');
         Route::get('/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-        Route::get('/register', [AdminController::class, 'createAccount'])->name('admin.listAccount.register');
-        Route::get('/listAccounts/index', [AdminController::class, 'listAccount'])->name('admin.listAccounts.index');
-        Route::get('/listAccounts/edit', [AdminController::class, 'edit'])->name('admin.listAccounts.edit');
-        Route::get('/accounts/list', [AdminController::class, 'listAccount'])->name('admin.accounts.list');
+
+        Route::group(['prefix' => 'account'], function () {
+            Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
+            Route::get('/dt-row-data', [AccountController::class, 'getDtRowData']);
+            Route::delete('/delete/{id}', [AccountController::class, 'delete']) -> name('admin.account.delete');
+            Route::post('/create', [AccountController::class, 'create']) -> name('admin.account.create');
+        });
+
         // Category
-        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
-        Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
-        Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
-        // Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
-        Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
-        Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
-        Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
-        
+        Route::get('/category/index', [CategoryController::class, 'indexCategory']) -> name('admin.category.index');
+        Route::get('/category/dt-row-data', [CategoryController::class, 'getDtRowData']);
+        Route::post('/category/createCate',[CategoryController::class,'create']) -> name('admin.category.createCate');
+        Route::delete('/category/delete/{id}', [CategoryController::class, 'delete']) -> name('admin.category.delete');
+        Route::get('category/update/{id}',[CategoryController::class,'edit'])->name('admin.category.update');
+        Route::post('category/update/{id}',[CategoryController::class,'update'])->name('admin.category.update');
+
         //Department
-        Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
-        Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
-        Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');
-        // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
-        Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
-        Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
-        Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
+        Route::get('/department/index', [DepartmentController::class, 'indexDepartment']) -> name('admin.department.index');
+        Route::get('/department/dt-row-data', [DepartmentController::class, 'getDtRowData']);
+        Route::post('/department/createDpm',[DepartmentController::class,'create']) -> name('admin.department.createDpm');
+        Route::delete('/department/delete/{id}', [DepartmentController::class, 'delete']) -> name('admin.department.delete');
+        Route::get('department/update/{id}',[DepartmentController::class,'edit'])->name('admin.department.update');
+        Route::post('department/update/{id}',[DepartmentController::class,'update'])->name('admin.department.update');
     
-        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
-        Route::get('accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
 });
