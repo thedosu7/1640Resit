@@ -54,6 +54,14 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        @if (session('class'))
+            <div class="alert alert-{{ session('class') }}">
+                <button type="button" class="btn close" data-dismiss="alert">&times;</button>
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
     @yield('content')
 
     <!-- Footer-->

@@ -13,7 +13,11 @@ class Idea extends Model
         'title',
         'content',
         'user_id',
-        'sub_category_id',
+        'mission_id',
         'is_anonymous'
     ];
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

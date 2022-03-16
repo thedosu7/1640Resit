@@ -2,6 +2,14 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            @if($missions->count() == 0)
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Can not submit idea right now</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @else
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Create new idea</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -35,10 +43,10 @@
                     </div>
                     <div class="form-group @error('idea-category') is-invalid @enderror">
                         <label for="idea-category">Category:</label> <br />
-                        <select class="form-control" id="idea-category">
-                            <option value="IT">IT</option>
-                            <option value="BU">BUSINESS</option>
-                            <option value="GD">GRAPHIC DESIGN</option>
+                        <select name="mission_id" class="form-control" id="idea-category">
+                            @foreach($missions as $m)
+                                <option value="{{ $m->id }}">{{ $m->name }}</option>
+                            @endforeach
                         </select>
                         @if ($errors->has('idea-category'))
                         <span>
@@ -69,6 +77,7 @@
                     </div>
                 </form>
             </div>
+            @endif
         </div>
     </div>
 </div>
