@@ -105,10 +105,10 @@
                         <input type="text" name="name" placeholder="Name Category" class="form-control" value="{{ $itemSemester->name }}">
                     </div>
                     <div class="form-group">
-                        <input type="date" name="end_day" placeholder="Day End" class="form-control" value="{{ $itemSemester->end_day }}">
+                        <input type="datetime-local" name="end_day" placeholder="Day End" class="form-control" value="{{ $itemSemester->end_day }}">
                     </div>
                     <div class="center">
-                        <button type="submit" name="btnSubmit" class="btn btn-outline-primary rounded-pill" data-mdb-ripple-color="dark">Edit Department</button>
+                        <button type="submit" name="btnSubmit" class="btn btn-outline-primary rounded-pill" data-mdb-ripple-color="dark">Update Semester</button>
                     </div>
                 </div>
             </div>

@@ -31,7 +31,7 @@
                     <thead class="thread-light">
                         <tr>
                             <th scope="col">Semester Name</th>
-                            <th scope="col">End Day</th>
+                            <th scope="col">Deadline</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -59,8 +59,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="end_day">Day end</label>
-                            <input type="date" name="end_day" class="form-control" id="end_day" placeholder="" requied>
+                            <label for="end_day">Deadline</label>
+                            <input type="datetime-local" name="end_day" class="form-control" id="end_day" placeholder="" requied>
                         </div>
                     </div>
                     <div class="modal-footer">
