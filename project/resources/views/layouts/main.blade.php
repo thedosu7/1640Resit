@@ -28,6 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                     @if (auth()->user())
                     <li class="nav-item"><a class="nav-link" href="{{ route('ideas.index') }}">Ideas</a></li>
+                    
                     @if (auth()->user()->hasRole('admin'))
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Admin</a></li>
                     @endif

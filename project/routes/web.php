@@ -7,6 +7,7 @@ use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/dt-row-data', [AccountController::class, 'getDtRowData']);
             Route::delete('/delete/{id}', [AccountController::class, 'delete']) -> name('admin.account.delete');
             Route::post('/create', [AccountController::class, 'create']) -> name('admin.account.create');
+            Route::get('/update/{id}',[AccountController::class,'edit'])->name('admin.account.update');
+            Route::post('/update/{id}',[AccountController::class],'update')->name('admin.account.update');
         });
 
         // Category

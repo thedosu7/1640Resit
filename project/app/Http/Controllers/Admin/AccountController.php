@@ -42,6 +42,7 @@ class AccountController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
@@ -79,6 +80,23 @@ class AccountController extends Controller
             'phone_number' => ''
         ]);
         //send mail
+        return redirect()->back()->with('flash_message', 'User created!');
+    }
+
+    public function edit($id){
+        $user = User::findOrFail($id);
+
+        return view('admin.account.index', compact('user'));
+    }
+
+    public function update(Request $request, $id){
+        $user = User::findOrFail($id);
+        $name =$request->name;
+        $role_id = $request->role;
+        Uset::update([
+            'name' => $name,
+            'role_id' => role,
+        ]);
         return redirect()->back()->with('flash_message', 'User created!');
     }
 

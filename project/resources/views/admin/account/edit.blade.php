@@ -26,33 +26,25 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
 </div>
+    <form action="/admin/account/update/{{ $user->id }}" method="post">
+            @csrf
     <div class="registration-form">
         <form>
             <div class="form-icon">
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="username" placeholder="Username">
+                <input type="text" class="form-control item" id="username" placeholder="Full Name">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control item" id="password" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
-            </div>
+                            <label for="role">Role:</label>
+                            <select class="form-control" name="role" id="role">
+                                @foreach ($user as $role)
+                                    <option value="{{ $role->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-            <div class="form-group">
-            <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Choose Role
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Button 1</a>
-                <a class="dropdown-item" href="#">Button 2</a>
-                </div>
-            </div>
             <div class="form-group">
                 <button type="button" class="btn btn-block create-account">Edit Account</button>
             </div>

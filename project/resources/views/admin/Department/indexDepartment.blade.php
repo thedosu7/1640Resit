@@ -53,7 +53,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Category name:</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="" requied>
                         </div>
                     </div>
                     <div class="modal-footer">
