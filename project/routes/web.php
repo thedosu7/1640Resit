@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/delete/{id}', [AccountController::class, 'delete']) -> name('admin.account.delete');
             Route::post('/create', [AccountController::class, 'create']) -> name('admin.account.create');
             Route::get('/update/{id}',[AccountController::class,'edit'])->name('admin.account.update');
-            Route::post('/update/{id}',[AccountController::class],'update')->name('admin.account.update');
+            Route::post('/update/{id}',[AccountController::class,'update'])->name('admin.account.update');
         });
 
         // Category

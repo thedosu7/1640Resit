@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use Session;
+
 
 class AccountController extends Controller
 {
@@ -63,6 +65,7 @@ class AccountController extends Controller
     {
         $data = User::findOrFail($id);
         $data->delete();
+        Session::flash('success_msg', 'Account deleted successfully!');
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
@@ -83,21 +86,22 @@ class AccountController extends Controller
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
-    public function edit($id){
+    public function edit($id,){
         $user = User::findOrFail($id);
-
-        return view('admin.account.index', compact('user'));
+        $role_id = Role::all();
+        return view('admin.account.edit', compact('user','role_id'));
     }
 
     public function update(Request $request, $id){
-        $user = User::findOrFail($id);
-        $name =$request->name;
-        $role_id = $request->role;
-        Uset::update([
+        $user = User::find($id);
+        $name = $request-> name;
+        $role_id = $request->role_id;
+        $user -> update([
             'name' => $name,
-            'role_id' => role,
+            'role_id'=> $role_id
         ]);
-        return redirect()->back()->with('flash_message', 'User created!');
+        $user->save();
+        return redirect('admin/account');    
     }
 
     private function generateRandomString($length = 20) {

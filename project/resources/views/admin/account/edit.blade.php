@@ -29,27 +29,28 @@
     <form action="/admin/account/update/{{ $user->id }}" method="post">
             @csrf
     <div class="registration-form">
-        <form>
             <div class="form-icon">
                 <span><i class="icon icon-user"></i></span>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control item" id="username" placeholder="Full Name">
+                <label for="role">User Name:</label>
+                <input type="text" class="form-control item" name="name" id="name" placeholder="Full Name" value="{{$user-> name}}">
             </div>
+            <div class="form-group">
+            </div>            
             <div class="form-group">
                             <label for="role">Role:</label>
-                            <select class="form-control" name="role" id="role">
-                                @foreach ($user as $role)
-                                    <option value="{{ $role->id }}">{{ $user->name }}</option>
-                                @endforeach
+                            <select class="form-control" name="role_id" id="role_id">
+                              @foreach($role_id as $roles)
+                              <option value="{{ $roles->id }}">{{ $roles->name }}</option>
+                              @endforeach
                             </select>
-                        </div>
-
-            <div class="form-group">
-                <button type="button" class="btn btn-block create-account">Edit Account</button>
             </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block create-account">Edit Account</button>
+            </div>
+          </div>
         </form>
-    </div>
     <script type="text/javascript" src="{{ asset('https://code.jquery.com/jquery-3.2.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js') }}"></script>
 </body>

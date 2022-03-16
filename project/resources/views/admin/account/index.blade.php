@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+
     <div class="container">
         <div class="content-header">
             <div class="container-fluid">
@@ -19,6 +20,11 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="col-lg-12">
+        @if(Session::has('success_msg'))
+        <div class="alert alert-success">{{ Session::get('success_msg') }}</div>
+        @endif -->
+
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List User</h6>
