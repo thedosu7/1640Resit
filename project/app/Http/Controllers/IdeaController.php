@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IdeaStoreRequest;
 use App\Models\Idea;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -25,7 +26,8 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        return view('ideas.index');
+        $ideas = Idea::paginate(3);
+        return view('ideas.index', compact('ideas'));
     }
 
     public function store(IdeaStoreRequest $request){
