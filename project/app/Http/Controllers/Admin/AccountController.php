@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 
 class AccountController extends Controller
@@ -19,8 +21,15 @@ class AccountController extends Controller
         $this->middleware('role:admin');
     }
 
-    public function index(){
-        return view('admin.account.index');
+    public function index()
+    {
+        $roles = Role::all();
+        return view(
+            'admin.account.index',
+            [
+                'roles' => $roles
+            ]
+        );
     }
 
     public function getDtRowData(Request $request)
@@ -33,9 +42,12 @@ class AccountController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
-                <a class="btn btn-danger mt-2" href=""><i class="fa fa-lock" aria-hidden="true"></i></a>
-                <a class="btn btn-danger mt-2" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
-                <a class="btn btn-danger mt-2" href=""><i class="fa fa-wrench" aria-hidden="true"></i></a>';
+                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('DELETE') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this category ?\')"><i class="fa-solid fa-trash"></i></button>
+            </form>
+                ';
             })
             ->rawColumns(['action'])
             ->setRowAttr([
@@ -44,5 +56,39 @@ class AccountController extends Controller
                 }
             ])
             ->make(true);
+    }
+
+    public function delete($id)
+    {
+        $data = User::findOrFail($id);
+        $data->delete();
+        return redirect()->back()->with('flash_message', 'User deleted!');
+    }
+
+    public function create(Request $request){
+        //todo: Add create user request
+        $name = $request->name;
+        $email = $request->email;
+        $role_id = $request->role;
+        $password = $this->generateRandomString(20);
+        User::create([
+            'name' => $name,
+            'email' => $email,
+            'role_id' => $role_id,
+            'password' => Hash::make($password),
+            'phone_number' => ''
+        ]);
+        //send mail
+        return redirect()->back()->with('flash_message', 'User created!');
+    }
+
+    private function generateRandomString($length = 20) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

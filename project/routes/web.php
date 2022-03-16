@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'account'], function () {
             Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
             Route::get('/dt-row-data', [AccountController::class, 'getDtRowData']);
+            Route::delete('/delete/{id}', [AccountController::class, 'delete']) -> name('admin.account.delete');
+            Route::post('/create', [AccountController::class, 'create']) -> name('admin.account.create');
         });
 
         // Category

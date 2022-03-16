@@ -108,32 +108,17 @@
                         </li>
 
                         <!-- Account -->
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.account.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p>
                                     Account
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.account.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p>List Account</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="nav-icon fas fa-solid fa-plus"></i>
-                                        <p>Create Account</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
 
                         <!--  Category  -->
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-link"></i>
                                 <p>
@@ -151,7 +136,7 @@
                             </ul>
                         </li>
                         <!-- Department -->
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-building"></i>
                                 <p>
@@ -170,7 +155,7 @@
                         </li>
 
                         <!-- Semester -->
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-anchor"></i>
                                 <p>
@@ -189,7 +174,7 @@
                         </li>
 
                         <!-- Mission -->
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tasks-alt"></i>
                                 <p>

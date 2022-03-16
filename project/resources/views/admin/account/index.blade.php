@@ -22,6 +22,9 @@
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List User</h6>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Create User
+                </a>
             </div>
             <div class="card-body">
                 <table id="users-table" class="table table-condensed col-12">
@@ -34,6 +37,45 @@
                         </tr>
                     </thead>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('admin.account.create') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Full name:</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role:</label>
+                            <select class="form-control" name="role" id="role">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning">Add</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
