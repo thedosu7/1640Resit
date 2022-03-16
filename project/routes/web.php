@@ -5,7 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DepartmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,27 +58,20 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         // Category
-        Route::get('/category/createCate',[AdminController::class,'createCategory']) -> name('admin.category.creatCate');
-        Route::post('/category/createCate',[AdminController::class,'storeCategory']) -> name('admin.category.createCate');
-        Route::get('/category/index', [AdminController::class, 'indexCategory']) -> name('admin.category.index');
-        Route::post('/category/index', [AdminController::class, 'storeCategory']) -> name('admin.category.index');
-        // Route::get('/category/showCate/{id}',[AdminController::class,'showCategory']) -> name('admin.category.showCate');
-        Route::get('/category/update/{id}', [AdminController::class, 'editCategory']) -> name('admin.category.update');
-        Route::post('/category/update/{id}', [AdminController::class, 'updateCategory']) -> name('admin.category.update');
-        Route::delete('/category/delete/{id}', [AdminController::class, 'deleteCategory']) -> name('admin.category.delete');
-        
-        //Department
-        Route::get('/department/createDepart',[AdminController::class,'createDepartment']) -> name('admin.department.createDepart');
-        Route::post('/department/createDepart',[AdminController::class,'storeDepartment']) -> name('admin.department.createDepart');
-        Route::get('/department/index', [AdminController::class, 'indexDepartment']) -> name('admin.department.index');
-        Route::post('/department/index', [AdminController::class, 'storeDepartment']) -> name('admin.department.index');
-        Route::put('/department/index', [AdminController::class, 'updateDepartment']) -> name('admin.department.index');
-        // Route::get('/department/showDepart/{id}',[AdminController::class,'showDepartment']) -> name('admin.department.showDepart');
-        Route::get('/department/update/{id}', [AdminController::class, 'editDepartment']) -> name('admin.department.update');
-        Route::post('/department/update/{id}', [AdminController::class, 'updateDepartment']) -> name('admin.department.update');
+        Route::get('/category/index', [CategoryController::class, 'indexCategory']) -> name('admin.category.index');
+        Route::get('/category/dt-row-data', [CategoryController::class, 'getDtRowData']);
+        Route::post('/category/createCate',[CategoryController::class,'create']) -> name('admin.category.createCate');
+        Route::delete('/category/delete/{id}', [CategoryController::class, 'delete']) -> name('admin.category.delete');
+        Route::get('category/update/{id}',[CategoryController::class,'edit'])->name('admin.category.update');
+        Route::post('category/update/{id}',[CategoryController::class,'update'])->name('admin.category.update');
 
-        // Route::resource('/update','AdminController@updateDepartment')-> name('update');
-        Route::delete('/department/delete/{id}', [AdminController::class, 'deleteDepartment']) -> name('admin.department.delete');
+        //Department
+        Route::get('/department/index', [DepartmentController::class, 'indexDepartment']) -> name('admin.department.index');
+        Route::get('/department/dt-row-data', [DepartmentController::class, 'getDtRowData']);
+        Route::post('/department/createDpm',[DepartmentController::class,'create']) -> name('admin.department.createDpm');
+        Route::delete('/department/delete/{id}', [DepartmentController::class, 'delete']) -> name('admin.department.delete');
+        Route::get('department/update/{id}',[DepartmentController::class,'edit'])->name('admin.department.update');
+        Route::post('department/update/{id}',[DepartmentController::class,'update'])->name('admin.department.update');
     
     });
 });

@@ -87,7 +87,7 @@
         </div>
         <form action="/admin/category/update/{{ $dataCategory->id }}" method="post">
             @csrf
-            <h3>Create Category</h3>
+            <h3>Edit Category</h3>
         <div class="row">
             <div class="col-lg-10">
                 <div class="form-group">

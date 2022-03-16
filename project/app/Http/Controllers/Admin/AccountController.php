@@ -45,7 +45,7 @@ class AccountController extends Controller
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this category ?\')"><i class="fa-solid fa-trash"></i></button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
             </form>
                 ';
             })

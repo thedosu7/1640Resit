@@ -119,77 +119,44 @@
 
                         <!--  Category  -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                  
+                            <a href="{{ route('admin.category.index') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-link"></i>
                                 <p>
                                     Category
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.category.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p>List Category</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <!-- Department -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <a href="{{ route('admin.department.index') }}" class="nav-link">
+
                                 <i class="nav-icon fa-solid fa-building"></i>
                                 <p>
                                     Department
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.department.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p>List Department</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
 
                         <!-- Semester -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.department.index') }}" class="nav-link">
+
                                 <i class="nav-icon fas fa-anchor"></i>
                                 <p>
                                     Semester
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.department.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p>List Semester</p>
-                                    </a>
-                                </li>
-                            </ul>
+                            </a>                          
                         </li>
 
                         <!-- Mission -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <a href="{{ route('admin.department.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tasks-alt"></i>
                                 <p>
                                     Missions
-                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.department.index') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-list"></i>
-                                        <p>List Mission</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -272,6 +239,7 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     @yield('custom-js')
+    @yeild('category-js')
 </body>
 
 </html>

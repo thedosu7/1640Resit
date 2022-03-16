@@ -1,180 +1,93 @@
 @extends('layouts.admin')
 
-@section('content')
-@section('admin-css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+@section('custom-css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" /><!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 @endsection
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Welcome to List Department</h1>
-      </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{ route('admin.department.index') }}">Department</a></li>
-          <li class="breadcrumb-item active">List Department</li>
-        </ol>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
-</div>
 
-
-<div class="container">
-  <!--Add Cateogry Modal -->
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create new Department</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="{{url('admin/department/index') }}" method="post">
-          @csrf
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="exampleInputCategory">Department Name:</label>
-              <input type="text" name="name" class="form-control" id="exampleInputCategory" placeholder="Input Department Name*">
+@section('content')
+    <div class="container">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">List Department</li>
+                    </ol>
+                </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-warning">Add</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- End Add Model -->
-
-
-  <!-- Star Edit Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit department</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
-        <form action="{{url('admin/department/index')}}" method="POST" id="editForm">
-          {{csrf_field() }}
-          {{method_field('PUT') }}
-
-          <div class="modal-body">
-            <div class="mb-3">
-              <label>Name Department</label>
-              <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name Department">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Create department
+                </a>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-warning">Update</button>
-          </div>
-          </div>
-        </form>
-      </div>
+            <div class="card-body">
+                <table id="users-table" class="table table-condensed col-12">
+                    <thead class="thread-light">
+                        <tr>
+                            <th scope="col">Department Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- End Edit Model -->
-
-  <div class="container">
-    <h1>Create Department</h1>
-    @if(count($errors) > 0)
-    <div class="alert alert-danger">
-      <ul>
-        @foreach($errors->all() as $error)
-        <li>{{$error}}</li>
-        @endforeach
-      </ul>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('admin.department.createDpm') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Category name:</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning">Add Department</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    @endif
+@endsection
 
-    @if(\Session::has('success'))
-    <div class="alert alert-success">
-      <p>{{ \Session::get('success') }}</p>
-    </div>
-    @endif
-
-    <button class="btn btn-primary d-inline float-md-end" data-toggle="modal" data-target="#exampleModal">
-      CREATE NEW DEPARTMENT
-    </button>
-
-
-  </div>
-  <br></br>
-  <div>
-    <table id="datatable" class="table table-striped table-dark">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($departments as $item)
-        <tr>
-          <td>{{ $loop->iteration }}</td>
-          <td scope="row">{{$item -> name}}</td>
-          <td>
-            <a href="#" class="btn btn-warning edit"><i class="fa-solid fa-pen-to-square"></i></a>
-            <form method="POST" action="{{ url('/admin/department/delete/'.$item -> id)}}" accept-charset="UTF-8" style="display:inline-block">
-
-              <!-- method_feild() will be create hidden input like below
-                                <input type="hidden" name="_method" value="DELETE"> 
-                            -->
-              {{ method_field('DELETE') }}
-              <!-- @method('DELETE') -->
-
-              <!-- Thay vì tạo token như vầy 
-                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> 
-                            -->
-              {{ csrf_field() }}
-              <button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm('Do you want to delete this category ?')"><i class="fa-solid fa-trash"></i></button>
-            </form>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-  @endsection
-  @section('admin-js')
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-  <script src="{{asset('https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{asset('https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js')}}"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      var table = $('#datatable').DataTable();
-
-      //Start Edit Record
-      table.on('click', '.edit', function() {
-
-        $tr = $(this).closest('tr');
-        if ($($tr).hasClass('child')) {
-          $tr = $tr.prev('.parent');
-        }
-
-        var data = table.row($tr).data();
-        console.log(data);
-
-        $('#name').val(data[1]);
-
-        $('#editForm').attr('action', '/admin/department/index/'+data[0]);
-        $('#editModal').modal('show');
-      });
-      // End Edit Record
-    });
-  </script>
-  @endsection
+@section('custom-js')
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ url('/admin/department/dt-row-data') }}',
+                columns: [{
+                        data: 'name',
+                        name: 'name',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    }
+                ]
+            });
+            $('#users-table_wrapper').removeClass('form-inline');
+        });
+    </script>
+@endsection
