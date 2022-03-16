@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Department;
+use DB;
 
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $dpm = DB::table('departments')->count();
+        $cate = DB::table('categories')->count();
+        return view('admin.dashboard', compact('dpm','cate'));
     }
 
     public function createAccount()
@@ -34,31 +37,30 @@ class AdminController extends Controller
         
         return view('admin.category.indexCategory', compact('categories'));
     }
-    // public function showCategory($id)
-    // {
-    //     $data = Category::findOrFail($id);
-    //     return view('admin.category.showCategory',compact('data'));
-    // }
     
     public function createCategory(){
         return view('admin.category.createCategory');
     }
     public function storeCategory(Request $request){
         // dd($request);
+        $this->validate($request,[
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+        $cate = new Category;
+        $cate->name = $request->input('name');
+        $cate->description = $request->input('description');
 
-        $input = $request->all();
-        // dd($input);
+        $cate->save();
+        return redirect('/admin/category/index')->with('success','Successfull create category');
 
-        // Tạo mới category với các dữ liệu tương ứng với dữ liệu được gán trong $data
-        Category::create($input);
-        echo"Successfully Create Category";
-        return redirect('admin/category/index');
+        
     }
 
     public function editCategory($id){
         //find id to update
         $dataCategory = Category::findOrFail($id);
-        return view('admin.category.editCategory', compact('dataCategory'));
+        return view('admin.category.index', compact('dataCategory'));
     }
 
     public function updateCategory(Request $request, $id){
@@ -96,34 +98,27 @@ class AdminController extends Controller
 
     public function storeDepartment(Request $request){
         // dd($request);
-
-        $input = $request->all();
-        // dd($input);
-
-        // Tạo mới category với các dữ liệu tương ứng với dữ liệu được gán trong $data
-        Department::create($input);
-        echo"Successfully Create Department";
-        return redirect('admin/department/index');
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+        $dpm = new Department;
+        $dpm->name = $request->input('name');
+        $dpm->save();
+        return redirect('/admin/department/index')->with('success','Successfull create department');
     }
-
-    // public function showDepartment($id)
-    // {
-    //     $item = Department::findOrFail($id);
-    //     return view('admin.department.showDepartment',compact('item'));
-    // }
-
     public function editDepartment($id){
-        //find id to update
-        $itemDepartment = Department::findOrFail($id);
-        return view('admin.department.editDepartment', compact('itemDepartment'));
+        $dpm = Category::findOrFail($id);
+        return view('admin.category.index', compact('dpm'));
     }
 
     public function updateDepartment(Request $request, $id){
-        $itemDepartment = Department::findOrFail($id);
-        // assign information to data variable
-        $data = $request -> all();
-        $itemDepartment->update($data);
-        return redirect('admin/department/index');
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+        $dpm = Department::findOrFail($id);
+        $dpm->name = $request->input('name');
+        $dpm->save();
+        return redirect('/admin/department/index')->with('success','Data Update');
     }
 
     public function deleteDepartment($id)
@@ -134,5 +129,7 @@ class AdminController extends Controller
     }
 
     // Crud Mission
+
+    
 
 }
