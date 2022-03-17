@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IdeaUserComment extends Model
+class Mission extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'idea_id',
-        'user_id',
+        'name',
+        'description',
+        'end_at',
+        'category_id',
+        'department_id',
+        'semester_id'
     ];
 }

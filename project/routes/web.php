@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => false, 'reset' => false]);
-// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
-        Route::post('store', [IdeaController::class, 'storeIdea'])->name('ideas.store');
+        Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
     });
     
     Route::group(['prefix' => 'admin','middleware' => 'role:admin'], function () {
