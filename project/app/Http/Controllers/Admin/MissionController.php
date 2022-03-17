@@ -13,17 +13,14 @@ use App\Models\Category;
 
 class MissionController extends Controller
 {
-    public function indexMission()
+    public function index()
     {
-        $categories = Category::all();
-        $departments = Department::all();
-        $semesters = Semester::all();
         return view(
-            'admin.missions.indexMission',
+            'admin.missions.index',
             [
-                'categories' => $categories,
-                'departments' => $departments,
-                'semesters' => $semesters,
+                'categories' => Category::all(),
+                'departments' => Department::all(),
+                'semesters' => Semester::all()
             ]
         );
     }
@@ -31,34 +28,24 @@ class MissionController extends Controller
     public function getDtRowData(Request $request)
     {
         $mission = Mission::all();
-
         return Datatables::of($mission)
-            ->editColumn('name', function($data){
-                return $data->name;
-            })
-            ->editColumn('description', function ($data) {
-                return $data->description;
-            })
-            ->editColumn('end_at', function($data){
-                return $data->end_at;
-            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })
             ->editColumn('department', function ($data) {
-                return $data->department->name; 
+                return $data->department->name;
             })
             ->editColumn('semester', function ($data) {
                 return $data->semester->name;
             })
             ->editColumn('action', function ($data) {
                 return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
                     '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
-            </form>
+                </form>
                 ';
             })
             ->rawColumns(['action'])
@@ -70,7 +57,8 @@ class MissionController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         //todo: Add create user request
         $name = $request->name;
         $description = $request->description;
@@ -88,5 +76,49 @@ class MissionController extends Controller
         ]);
         //send mail
         return redirect()->back()->with('flash_message', 'Missions created!');
+    }
+
+    public function listMissionByCategory($id)
+    {
+        $cate = Category::find($id);
+        if (!$cate) abort(404); //check categỏy exits
+        return view(
+            'admin.missions.indexbyCategory',
+            [
+                'category' => $cate
+            ]
+        );
+    }
+
+    public function getDtRowDataByCategory($id, Request $request)
+    {
+        $mission = Mission::where('category_id', $id)->get();
+        return Datatables::of($mission)
+            ->editColumn('category', function ($data) {
+                return $data->category->name;
+            })
+            ->editColumn('department', function ($data) {
+                return $data->department->name;
+            })
+            ->editColumn('semester', function ($data) {
+                return $data->semester->name;
+            })
+            ->editColumn('action', function ($data) {
+                return '
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('DELETE') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                </form>
+                ';
+            })
+            ->rawColumns(['action'])
+            ->setRowAttr([
+                'data-row' => function ($data) {
+                    return $data->id;
+                }
+            ])
+            ->make(true);
     }
 }

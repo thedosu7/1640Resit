@@ -32,6 +32,7 @@
                         <tr>
                             <th scope="col">Category Name</th>
                             <th scope="col">Description</th>
+                            <th scope="col">Mission</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -58,7 +59,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <input type="text" name="description" class="form-control" id="email"
+                            <input type="text" name="description" class="form-control" id="description"
                                 placeholder="">
                         </div>
                     </div>
@@ -90,6 +91,10 @@
                     {
                         data: 'description',
                         name: 'description',
+                    },
+                    {
+                        data: 'mission',
+                        name: 'mission'
                     },
                     {
                         data: 'action',

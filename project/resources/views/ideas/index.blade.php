@@ -143,7 +143,6 @@
                                 {{ $ideas->appends(Request::all())->links() }}
                             </div>
                         </div>
-                    @endforeach
                     {{ $ideas->links() }}
                 </div>
             </div>

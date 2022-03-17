@@ -30,7 +30,8 @@ class IdeaController extends Controller
         $missions = Mission::all();
         $ideas = Idea::withCount('comments')->paginate(5);
         return view(
-            'ideas.index',compact(['missions','ideas'])
+            'ideas.index',
+            compact(['missions', 'ideas'])
         );
     }
 
@@ -39,17 +40,17 @@ class IdeaController extends Controller
         $input = $request->except('_token');
         $input['user_id'] = auth()->user()->id;
         $idea = Idea::create($input);
-        if($request->hasFile('files')) {
-			$files = $request->file('files');
-			foreach($files as $file) {
-                $custom_file_name = time().'-'.$file->getClientOriginalName();
-                $filename = $file->storeAs('idea/'.$idea->id, $custom_file_name);
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+                $custom_file_name = time() . '-' . $file->getClientOriginalName();
+                $filename = $file->storeAs('idea/' . $idea->id, $custom_file_name);
                 Attachment::create([
                     'name' => $file->getClientOriginalName(),
                     'direction' => $filename,
                     'idea_id' => $idea->id,
                 ]);
-			}
+            }
         }
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }

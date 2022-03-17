@@ -33,19 +33,7 @@
                 </a>
             </div>
             <div class="card-body">
-                <table id="users-table" class="table table-condensed col-12">
-                    <thead class="thread-light">
-                        <tr>
-                            <th scope="col">Mission Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Deadline</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Semester</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                </table>
+                @include('admin.missions._list')
             </div>
         </div>
     </div>
@@ -59,12 +47,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.mission.createMs') }}" method="POST">
+                <form action="{{ route('admin.mission.create') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Mission Name</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="">
+                            <input type="text" name="name" class="form-control" id="name" 
+                                placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>

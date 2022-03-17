@@ -9,6 +9,8 @@ class Mission extends Model
 {
     use HasFactory;
 
+    protected $table = "missions";
+
     protected $fillable = [
         'name',
         'description',
@@ -17,4 +19,17 @@ class Mission extends Model
         'department_id',
         'semester_id'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }
