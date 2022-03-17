@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SemesterController;
+use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -84,5 +85,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/semester/delete/{id}', [SemesterController::class, 'delete']) -> name('admin.semester.delete');
         Route::get('semester/update/{id}',[SemesterController::class,'edit'])->name('admin.semester.update');
         Route::post('semester/update/{id}',[SemesterController::class,'update'])->name('admin.semester.update');
+     
+        //Semester
+        Route::get('/missions/indexMission', [MissionController::class, 'indexMission']) -> name('admin.missions.indexMission');
+        Route::get('/missions/dt-row-data', [MissionController::class, 'getDtRowData']);
+        Route::post('/mission/createMs',[MissionController::class,'create']) -> name('admin.mission.createMs');
+
     });
 });

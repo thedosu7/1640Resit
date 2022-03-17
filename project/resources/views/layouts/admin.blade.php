@@ -151,7 +151,7 @@
 
                         <!-- Mission -->
                         <li class="nav-item">
-                        <a href="{{ route('admin.department.index') }}" class="nav-link">
+                        <a href="{{ route('admin.missions.indexMission') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tasks-alt"></i>
                                 <p>
                                     Missions
