@@ -20,8 +20,6 @@ class DatabaseSeeder extends Seeder
         Role::firstOrCreate(['name' => Role::ROLE_STAFF]);
         Role::firstOrCreate(['name' => Role::ROLE_QA_Manager]);
         Role::firstOrCreate(['name' => Role::ROLE_QA_Coordinator]);
-        Department::firstOrCreate(['name' => Department::SUPPORT]);
-        Department::firstOrCreate(['name' => Department::ACADEMIC]);
         \App\Models\User::factory(10)->create();
     }
 }

@@ -11,6 +11,11 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'description',       
+        'description'
     ];
+
+    public function missions()
+    {
+        return $this->hasMany(Mission::class);
+    }
 }

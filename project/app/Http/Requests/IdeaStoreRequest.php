@@ -24,10 +24,10 @@ class IdeaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'idea-title' => 'required|string|unique:ideas-|max:255',
-            'idea-content' => 'required|string',
-            'idea-category' => 'required|string',
-            'choosen-file' => '',
+            'title' => 'required|string|unique:ideas|max:255',
+            'content' => 'required|string',
+            'mission_id' => 'required|string',
+            'files' => 'required',
             'is-agree' => 'required'
         ];
     }
@@ -35,14 +35,6 @@ class IdeaStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'idea-title.required' => 'The title is required',
-            'idea-title.string' => 'The title is not in correct format',
-            'idea-title.unique' => 'The title must be unique',
-            'idea-title.max' => 'The length of the title is not bigger than 255',
-            'idea-content.required' => 'The content is required',
-            'idea-content.string' => 'The content is not in correct format',
-            'idea-category.required' => 'The category is required',
-            'idea-category.string' => 'The category is not in correct format',
             'is-agree.required' => 'You must agree with all terms and conditions before submitting',
         ];        
     }
