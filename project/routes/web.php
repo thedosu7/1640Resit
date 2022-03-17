@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermOfUseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +29,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
     return redirect()->route('home');
 });
+
+Route::get('/privacy', [PrivacyController::class,'index'])->name('privacy');
+Route::get('/term', [TermOfUseController::class,'index'])->name('term');
+    
+Route::post('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
@@ -49,4 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('accounts/create', [AdminController::class, 'create'])->name('admin.accounts.create');
         Route::get('accounts/list', [AdminController::class, 'list'])->name('admin.accounts.list');
     });
+
+    
 });
