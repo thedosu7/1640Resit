@@ -45,7 +45,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create new Semester</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -59,13 +59,13 @@
                         </div>
                         <div class="form-group">
                             <label for="end_day">Deadline:</label>
-                            <input type="text" name="end_day" class="form-control" id="end_day"
+                            <input type="datetime-local" name="end_day" class="form-control" id="end_day"
                                 placeholder="">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-warning">Add Category</button>
+                        <button type="submit" class="btn btn-warning">Add Semester</button>
                     </div>
                 </form>
             </div>

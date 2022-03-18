@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         //Mission
-        Route::get('/missions/', [MissionController::class, 'index'])->name('admin.missions.indexMission');
+        Route::get('/missions/', [MissionController::class, 'index'])->name('admin.missions.index');
         Route::get('/missions/dt-row-data', [MissionController::class, 'getDtRowData']);
         Route::post('/mission/create', [MissionController::class, 'create'])->name('admin.mission.create');
         Route::delete('/missions/delete/{id}',[MissionController::class,'delete'])->name('admin.mission.delete');
