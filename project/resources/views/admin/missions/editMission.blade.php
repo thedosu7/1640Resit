@@ -170,7 +170,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block create-account">Edit Account</button>
+                    <button type="submit" class="btn btn-block create-account">Edit Mission</button>
                 </div>
             </div>
         </form>
