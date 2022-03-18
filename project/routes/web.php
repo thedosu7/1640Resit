@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => false, 'reset' => false, 'logout' => false]);
-Route::get('/login', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
