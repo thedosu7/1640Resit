@@ -2,9 +2,9 @@
 
 @section('custom-css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" /><!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <link rel="stylesheet" href="https//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
                 <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Create department
+                    Create Department
                 </a>
             </div>
             <div class="card-body">
@@ -31,6 +31,7 @@
                     <thead class="thread-light">
                         <tr>
                             <th scope="col">Department Name</th>
+                            <th scope="col">Mission</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -43,7 +44,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new user</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create new department</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -52,8 +53,8 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Category name:</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="" requied>
+                            <label for="name">Department name:</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -70,7 +71,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#users-table').DataTable({
@@ -80,6 +81,10 @@
                 columns: [{
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'mission',
+                        name: 'mission',
                     },
                     {
                         data: 'action',
