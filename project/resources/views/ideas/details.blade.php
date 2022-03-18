@@ -1,180 +1,208 @@
+@extends('layouts.main')
+
+@section('title', 'Ideas')
+
+@section('custom-css')
 <style>
-body{margin-top:20px;}
+	body {
+		margin-top: 20px;
+	}
 
-.content-item {
-    padding:30px 0;
-	background-color:#FFFFFF;
-}
+	.be-comment-block {
+		margin-bottom: 50px !important;
+		border: 1px solid #edeff2;
+		border-radius: 2px;
+		padding: 50px 70px;
+		border: 1px solid #ffffff;
+	}
 
-.content-item.grey {
-	background-color:#F0F0F0;
-	padding:50px 0;
-	height:100%;
-}
+	.comments-title {
+		font-size: 16px;
+		margin-bottom: 15px;
+		font-family: 'Conv_helveticaneuecyr-bold';
+	}
 
-.content-item h2 {
-	font-weight:700;
-	font-size:35px;
-	line-height:45px;
-	text-transform:uppercase;
-	margin:20px 0;
-}
+	.be-img-comment {
+		width: 60px;
+		height: 60px;
+		float: left;
+		margin-bottom: 15px;
+	}
 
-.content-item h3 {
-	font-weight:400;
-	font-size:20px;
-	color:#555555;
-	margin:10px 0 15px;
-	padding:0;
-}
+	.be-ava-comment {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+	}
 
-.content-headline {
-	height:1px;
-	text-align:center;
-	margin:20px 0 70px;
-}
+	.be-comment-content {
+		margin-left: 80px;
+	}
 
-.content-headline h2 {
-	background-color:#FFFFFF;
-	display:inline-block;
-	margin:-20px auto 0;
-	padding:0 20px;
-}
+	.be-comment-content span {
+		display: inline-block;
+		width: 49%;
+		margin-bottom: 15px;
+	}
 
-.grey .content-headline h2 {
-	background-color:#F0F0F0;
-}
+	.be-comment-name {
+		font-size: 13px;
+		font-family: 'Conv_helveticaneuecyr-bold';
+	}
 
-.content-headline h3 {
-	font-size:14px;
-	color:#AAAAAA;
-	display:block;
-}
+	.be-comment-content span {
+		display: inline-block;
+		width: 49%;
+		margin-bottom: 15px;
+	}
 
+	.be-comment-time {
+		text-align: right;
+	}
 
-#comments {
-    box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
-	background-color:#FFFFFF;
-}
+	.be-comment-time {
+		font-size: 11px;
+	}
 
-#comments form {
-	margin-bottom:30px;
-}
+	.be-comment-text {
+		font-size: 13px;
+		line-height: 18px;
+		display: block;
+		background: #f6f6f7;
+		border: 1px solid #edeff2;
+		padding: 15px 20px 20px 20px;
+	}
 
-#comments .btn {
-	margin-top:7px;
-}
+	.form-group.fl_icon .icon {
+		position: absolute;
+		top: 1px;
+		left: 16px;
+		width: 48px;
+		height: 48px;
+		color: #b5b8c2;
+		text-align: center;
+		line-height: 50px;
+		-webkit-border-top-left-radius: 2px;
+		-webkit-border-bottom-left-radius: 2px;
+		-moz-border-radius-topleft: 2px;
+		-moz-border-radius-bottomleft: 2px;
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+	}
 
-#comments form fieldset {
-	clear:both;
-}
+	.form-group .form-input {
+		font-size: 13px;
+		line-height: 50px;
+		font-weight: 400;
+		width: 100%;
+		height: 50px;
+		padding-left: 20px;
+		padding-right: 20px;
+		border: 1px solid #edeff2;
+		border-radius: 3px;
+	}
 
-#comments form textarea {
-	height:100px;
-}
+	.form-group.fl_icon .form-input {
+		padding-left: 70px;
+	}
 
-#comments .media {
-	border-top:1px dashed #DDDDDD;
-	padding:20px 0;
-	margin:0;
-}
-
-#comments .media > .pull-left {
-    margin-right:20px;
-}
-
-#comments .media img {
-	max-width:100px;
-}
-
-#comments .media h4 {
-	margin:0 0 10px;
-}
-
-#comments .media h4 span {
-	font-size:14px;
-	float:right;
-	color:#999999;
-}
-
-#comments .media p {
-	margin-bottom:15px;
-	text-align:justify;
-}
-
-#comments .media-detail {
-	margin:0;
-}
-
-#comments .media-detail li {
-	color:#AAAAAA;
-	font-size:12px;
-	padding-right: 10px;
-	font-weight:600;
-}
-
-#comments .media-detail a:hover {
-	text-decoration:underline;
-}
-
-#comments .media-detail li:last-child {
-	padding-right:0;
-}
-
-#comments .media-detail li i {
-	color:#666666;
-	font-size:15px;
-	margin-right:10px;
-}
+	.form-group textarea.form-input {
+		height: 150px;
+	}
 </style>
+@endsection
 
-<label for="idea-content" class="col-form-label">Idea content:</label>
-<input type="text" class="form-control" id="idea-content" name="idea-content" value="{{$idea -> content}}" disable>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<section class="content-item" id="comments">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <form action="{{url('/ideas/add-comment/'.$idea->id)}}" method="POST">
-                    <h3 class="pull-left">New Comment</h3>
-                    @csrf
-                    <div class="input-group">
-                        <div class="col-sm-3 col-lg-2 hidden-xs">
-                            <div class="user"><img src="{{asset('/storage/images/'.Auth::user()->avatar)}}"></div>
-                        </div>
-                        <input type="text" class="form-control rounded-corner" name="content" placeholder="Write a comment...">
-                        <span class="input-group-btn p-l-10">
-                            <button class="btn btn-primary f-s-12 rounded-corner pull-right" type="submit">Submit</button>
-                        </span>
+@section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.css">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn">
+            <div class="card border-0 shadow">
+                <img src="https://marketingai.vn/wp-content/uploads/2018/07/big-idea.jpg" alt="...">
+                <div class="card-body p-1-9 p-xl-5">
+                    <div class="mb-4">
+                        <h3 class="h4 mb-0">Let's debase</h3>
+                        <span class="text-primary">CEO &amp; Founder</span>
                     </div>
-                </form>
-
-                <h3>Other comments</h3>
-
-                @foreach($comments as $comment)
-                <div class="media">
-                    @if($comment->user_id === $user_id)
-                    <img class="media-object" src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="">
-                    <div class="media-body">
-                        <p>{{$comment -> content}}</p>
-                        <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                            <li><i class="fa fa-thumbs-up"></i>13</li>
-                        </ul>
-                    </div>
-                    @else
-                    <img class="media-object" src="https://iptc.org/wp-content/uploads/2018/05/avatar-anonymous-300x300.png" alt="">
-                    <div class="media-body">
-                        <p>{{$comment -> content}}</p>
-                        <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                            <li><i class="fa fa-thumbs-up"></i>13</li>
-                        </ul>
-                    </div>
-                    @endif
                 </div>
-                @endforeach
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ps-lg-1-6 ps-xl-5">
+                <div class="mb-5 wow fadeIn">
+                    <div class="text-start mb-1-6 wow fadeIn">
+                        <h2 class="h1 mb-0 text-primary">#New Idea:</h2>
+                    </div>
+					<div class="text-start mb-1-6 wow fadeIn">
+                        <h2 class="h1 mb-0 text-primary">{{$idea -> title}}</h2>
+                    </div>
+                    <p>{{$idea -> content}}</p>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+<div class="container">
+	<div class="be-comment-block">
+		<h1 class="comments-title">All comments</h1>
+		@foreach($comments as $comment)
+		@if($comment->user_id === $user_id)
+		<div class="be-comment">
+			<div class="be-img-comment">
+				<a href="blog-detail-2.html">
+					<img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="" class="be-ava-comment">
+				</a>
+			</div>
+			<div class="be-comment-content">
+				<span class="be-comment-name">
+					<a href="blog-detail-2.html">(*) Anonymous mode</a>
+				</span>
+				<span class="be-comment-time">
+					<i class="fa fa-clock-o"></i>
+					May 27, 2015 at 3:14am
+				</span>
+
+				<p class="be-comment-text">
+					{{$comment -> content}}
+				</p>
+			</div>
+		</div>
+		@else
+		<div class="be-comment">
+			<div class="be-img-comment">
+				<a href="blog-detail-2.html">
+					<img src="https://iptc.org/wp-content/uploads/2018/05/avatar-anonymous-300x300.png" alt="" class="be-ava-comment">
+				</a>
+			</div>
+			<div class="be-comment-content">
+				<span class="be-comment-name">
+					<a href="blog-detail-2.html">(*) Anonymous mode</a>
+				</span>
+				<span class="be-comment-time">
+					<i class="fa fa-clock-o"></i>
+					May 27, 2015 at 3:14am
+				</span>
+
+				<p class="be-comment-text">
+					{{$comment -> content}}
+				</p>
+			</div>
+		</div>
+		@endif
+		@endforeach
+		<form class="form-block" action="{{url('/ideas/add-comment/'.$idea->id)}}" method="POST">
+			@csrf
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<textarea class="form-input" required="" name="content" placeholder="Write a comment..."></textarea>
+					</div>
+				</div>
+				<button class="btn btn-primary f-s-12 rounded-corner pull-right" type="submit">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+@endsection
