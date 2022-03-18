@@ -40,7 +40,7 @@ class MissionController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.mission.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
@@ -76,6 +76,34 @@ class MissionController extends Controller
         ]);
         //send mail
         return redirect()->back()->with('flash_message', 'Missions created!');
+    }
+
+    public function edit($id,){
+        $mission = Mission::findOrFail($id);
+        $category = Category::all();
+        $department = Department::all();
+        $semester = Semester::all();
+        return view('admin.missions.editMission', compact('mission','category','department','semester'));
+    }
+
+    public function update(Request $request, $id){
+        $mission = Mission::find($id);
+        $name = $request-> name;
+        $description = $request->description;
+        $end_at = $request->end_at;
+        $category = $request->category;
+        $department = $request->department;
+        $semester = $request->semester;
+        $mission -> update([
+            'name' => $name,
+            'description' => $description,
+            'end_at' => $end_at,
+            'category' => $category,
+            'department' => $department,
+            'semester' => $semester,
+        ]);
+        $mission->save();
+        return redirect('admin/missions');    
     }
 
     public function delete($id)
@@ -136,7 +164,7 @@ class MissionController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
@@ -167,7 +195,7 @@ class MissionController extends Controller
             })
             ->editColumn('action', function ($data) {
                 return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
