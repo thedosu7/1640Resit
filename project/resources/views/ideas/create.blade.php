@@ -92,11 +92,11 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     @if ($errors->has('files') || $errors->has('is-agree') || $errors->has('title') || $errors->has('content'))
         var delayInMilliseconds = 1000;
         setTimeout(function() {
         $("#exampleModal").modal('show');
         }, delayInMilliseconds);
     @endif
-</script>
+</script> -->
