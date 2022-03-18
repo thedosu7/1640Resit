@@ -102,7 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/semester/dt-row-data', [SemesterController::class, 'getDtRowData']);
         Route::post('/semester/createSmt', [SemesterController::class, 'create'])->name('admin.semester.createSmt');
         Route::delete('/semester/delete/{id}', [SemesterController::class, 'delete'])->name('admin.semester.delete');
-        Route::get('semester/update/{id}', [SemesterController::class, 'edit'])->name('admin.semester.update');
+        Route::get('semester/update/{id}/', [SemesterController::class, 'edit'])->name('admin.semester.update');
         Route::post('semester/update/{id}', [SemesterController::class, 'update'])->name('admin.semester.store');
 
         //Mission
