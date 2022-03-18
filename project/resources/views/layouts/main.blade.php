@@ -23,16 +23,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="#">Contact</a></li>
                     @if (auth()->user())
-                    <li class="nav-item"><a class="nav-link" href="{{ route('ideas.index') }}">Ideas</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="{{ route('ideas.index') }}">Ideas</a></li>
                     
                     @if (auth()->user()->hasRole('admin'))
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Admin</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="{{ route('admin.index') }}">Admin</a></li>
                     @endif
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown my-1">
                         <button class="btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                                 @if(Auth::user()->avatar)

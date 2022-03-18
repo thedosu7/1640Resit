@@ -1,10 +1,10 @@
-<button class="btn btn-info" type="button" data-toggle="modal" data-target="#changeAvatarModal">Update avatar</button>
+<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#changeAvatarModal">Update avatar</button>
 <div class="modal fade" id="changeAvatarModal" tabindex="-1" role="dialog" aria-labelledby="changeAvatarModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="changeAvatarModalLabel">Upload new avatar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
