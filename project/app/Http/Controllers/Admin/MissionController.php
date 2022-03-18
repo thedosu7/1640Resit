@@ -108,6 +108,19 @@ class MissionController extends Controller
         );
     }
 
+    public function listMissionBySemester($id)
+    {
+        $smt = Semester::find($id);
+        if (!$smt) abort(404); //check semester exits
+        return view(
+            'admin.missions.indexbySemester',
+            [
+                'semester' => $smt
+            ]
+        );
+    }
+
+
     public function getDtRowDataByCategory($id, Request $request)
     {
         $mission = Mission::where('category_id', $id)->get();
@@ -142,6 +155,37 @@ class MissionController extends Controller
     public function getDtRowDataByDepartment($id, Request $request)
     {
         $mission = Mission::where('department_id', $id)->get();
+        return Datatables::of($mission)
+            ->editColumn('category', function ($data) {
+                return $data->category->name;
+            })
+            ->editColumn('department', function ($data) {
+                return $data->department->name;
+            })
+            ->editColumn('semester', function ($data) {
+                return $data->semester->name;
+            })
+            ->editColumn('action', function ($data) {
+                return '
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('DELETE') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                </form>
+                ';
+            })
+            ->rawColumns(['action'])
+            ->setRowAttr([
+                'data-row' => function ($data) {
+                    return $data->id;
+                }
+            ])
+            ->make(true);
+    }
+    public function getDtRowDataBySemester($id, Request $request)
+    {
+        $mission = Mission::where('semester_id', $id)->get();
         return Datatables::of($mission)
             ->editColumn('category', function ($data) {
                 return $data->category->name;

@@ -14,23 +14,24 @@
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">List Department</li>
+                        <li class="breadcrumb-item active">List Category</li>
                     </ol>
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Category</h6>
                 <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Create Department
+                    Create Category
                 </a>
             </div>
             <div class="card-body">
                 <table id="users-table" class="table table-condensed col-12">
                     <thead class="thread-light">
                         <tr>
-                            <th scope="col">Department Name</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Mission</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -44,22 +45,27 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new department</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create new category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.department.createDpm') }}" method="POST">
+                <form action="{{ route('admin.category.createCate') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Department name:</label>
+                            <label for="name">Category name:</label>
                             <input type="text" name="name" class="form-control" id="name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <input type="text" name="description" class="form-control" id="description"
+                                placeholder="">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-warning">Add Department</button>
+                        <button type="submit" class="btn btn-warning">Add Category</button>
                     </div>
                 </form>
             </div>
@@ -77,10 +83,14 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/department/dt-row-data') }}',
+                ajax: '{{ url('/admin/category/dt-row-data') }}',
                 columns: [{
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
                     },
                     {
                         data: 'mission',
