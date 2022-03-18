@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermOfUseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +34,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', function () {
     return redirect()->route('home');
 });
+
+Route::get('/privacy', [PrivacyController::class,'index'])->name('privacy');
+Route::get('/term', [TermOfUseController::class,'index'])->name('term');
+    
+Route::post('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
@@ -95,4 +103,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/missions/category/{id}', [MissionController::class, 'listMissionByCategory'])->name('admin.missions.category.index');
         Route::get('/missions/category/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByCategory']);
     });
+
+    
 });
