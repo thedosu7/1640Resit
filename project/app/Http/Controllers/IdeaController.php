@@ -80,9 +80,9 @@ class IdeaController extends Controller
 
     public function details(Request $request, $id)
     {
-        $user_id = Auth::user()->id;
         $idea = Idea::findOrFail($id);
-        $comments = Comment::where('idea_id', '=', $idea->id)->get();
-        return view('ideas.details', compact('idea', 'comments', 'user_id'));
+        $comments = Comment::where('idea_id', '=', $idea->id)->paginate(5);
+        $attachment = Attachment::where('idea_id', '=', $idea->id)->get();
+        return view('ideas.details', compact('idea', 'comments', 'attachment'));
     }
 }
