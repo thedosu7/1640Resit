@@ -2,73 +2,73 @@
 
 @section('title', 'Ideas')
 
+@section('custom-css')
+    <style>
+        .entry-content .gallery {
+            margin: 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .activity__list__header a {
+            color: #222;
+            font-weight: 600;
+        }
+
+        .activity__list__footer {
+            display: -ms-flexbox;
+            display: -webkit-box;
+            display: flex;
+            padding: 13px 8px 0;
+            color: #999;
+            border-top: 1px dotted #ccc;
+        }
+
+        .activity__list__footer a {
+            color: inherit;
+        }
+
+        .activity__list__footer a+a {
+            margin-left: 15px;
+        }
+
+        .activity__list__footer i {
+            margin-right: 8px;
+        }
+
+        .activity__list__footer a:hover {
+            color: #222;
+        }
+
+        .activity__list__footer span {
+            margin-left: auto;
+        }
+
+        .panel-activity__list>li+li {
+            margin-top: 51px;
+        }
+
+    </style>
+@endsection
+
 @section('content')
-
-    <head>
-        <style>
-            .entry-content .gallery {
-                margin: 0;
-                list-style: none;
-                padding: 0;
-            }
-
-            .activity__list__header a {
-                color: #222;
-                font-weight: 600;
-            }
-
-            .activity__list__footer {
-                display: -ms-flexbox;
-                display: -webkit-box;
-                display: flex;
-                margin-top: 23px;
-                margin-left: 43px;
-                padding: 13px 8px 0;
-                color: #999;
-                border-top: 1px dotted #ccc;
-            }
-
-            .activity__list__footer a {
-                color: inherit;
-            }
-
-            .activity__list__footer a+a {
-                margin-left: 15px;
-            }
-
-            .activity__list__footer i {
-                margin-right: 8px;
-            }
-
-            .activity__list__footer a:hover {
-                color: #222;
-            }
-
-            .activity__list__footer span {
-                margin-left: auto;
-            }
-
-            .panel-activity__list>li+li {
-                margin-top: 51px;
-            }
-
-        </style>
-    </head>
     <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <div>
                     <h4 class="title d-inline">LASTEST IDEA</h4>
                     @include('ideas.create')
+                    <button class="btn btn-success d-inline float-md-end">My Idea</button>
                 </div>
                 <div class="my-lg-3">
                     @foreach ($ideas as $idea)
                         <div class="card mt-3">
                             <div class="card-body">
-                                <div class="activity__list__header">
-                                    <strong>{{ $idea->title }}</strong>
-                                </div>
-                                <div class="activity__list__body entry-content">
+                                <h5>{{ $idea->title }}</h5>
+                                <small class="text-muted">
+                                    Post by: {{ $idea->user->name }}
+                                </small>
+                                <div class="">
                                     <p>
                                         {{ $idea->content }}
                                     </p>
@@ -77,7 +77,7 @@
                                     <a href="#"> <i class="fa fa-thumbs-up"></i>123</a>
                                     <a href="#"> <i class="fa fa-thumbs-down"></i>123</a>
                                     <a href="#"> <i class="fa fa-comments"></i>{{ $idea->comments_count }}</a>
-                                    <span> <i class="fa fa-clock"></i>{{ $idea->created_at }}</span>
+                                    <span> <i class="fa fa-clock"></i>{{ $idea->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                         </div>
