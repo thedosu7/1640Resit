@@ -13,7 +13,7 @@ class SemesterController extends Controller
     {
     
         $semester = Semester::all();
-        return view('admin.semester.index');
+        return view('admin.semester.indexSemester');
     }
 
     public function getDtRowData(Request $request)
