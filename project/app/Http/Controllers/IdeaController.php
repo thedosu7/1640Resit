@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IdeaStoreRequest;
 use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -75,5 +76,13 @@ class IdeaController extends Controller
         $data = Idea::findOrFail($id);
         $data->delete();
         return redirect('')->with('flash_message', 'Category deleted!');
+    }
+
+    public function details(Request $request, $id)
+    {
+        $user_id = Auth::user()->id;
+        $idea = Idea::findOrFail($id);
+        $comments = Comment::where('idea_id', '=', $idea->id)->get();
+        return view('ideas.details', compact('idea', 'comments', 'user_id'));
     }
 }
