@@ -53,7 +53,6 @@
         .be-comment-name {
 			padding-top: 10px;
             font-size: 13px;
-            font-family: 'Conv_helveticaneuecyr-bold';
         }
 
         .be-comment-content a {
@@ -149,18 +148,18 @@
 			@foreach ($comments as $comment)
             <div class="comment-block">
                 <div class="be-img-comment">
-                    <a href="blog-detail-2.html">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                    <a href="">
+                        <img src="{{ (auth()->user()->avatar == null) ? asset('/images/avatar.png') : asset('/storage/images/' . Auth::user()->avatar) }}" alt="" class="be-ava-comment">
                     </a>
                 </div>
                 <div class="be-comment-content">
 
                     <span class="be-comment-name">
-                        <a href="blog-detail-2.html">{{ $comment->user->name }}</a>
+                        <strong>{{ auth()->user()->hasRole('staff')? 'Anonymous': $comment->user->name }}</strong>
                     </span>
                     <span class="be-comment-time">
                         <i class="fa fa-clock-o"></i>
-                        {{ $comment->created_at }}
+                        {{ $comment->created_at->diffForHumans() }}
                     </span>
 
                     <p class="be-comment-text">
