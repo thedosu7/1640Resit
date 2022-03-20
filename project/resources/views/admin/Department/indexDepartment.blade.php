@@ -17,6 +17,11 @@
                     <li class="breadcrumb-item active">List Category</li>
                 </ol>
             </div>
+            @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+             @endif
         </div>
     </div>
     <div class="card">
@@ -102,11 +107,11 @@
     });
 </script>
 <script>
-    @if($errors -> has('name'))
-    var delayInMilliseconds = 1000;
-    setTimeout(function() {
+    @if ($errors->has('name'))
+        var delayInMilliseconds = 1000;
+        setTimeout(function() {
         $("#exampleModal").modal('show');
-    }, delayInMilliseconds);
+        }, delayInMilliseconds);
     @endif
 </script>
 @endsection
