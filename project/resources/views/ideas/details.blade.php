@@ -1,132 +1,28 @@
 @extends('layouts.main')
 
-@section('title', 'Ideas')
+@section('title')
+    {{ $idea->title }}
+@endsection
 
 @section('custom-css')
-    <style>
-        .idea-block {
-            padding: 20px 70px;
-        }
-
-		.comment-block {
-            margin: 0px 10px;
-            padding-block: 0px 10px;
-			width: 100%;
-        }
-
-        .comments-title {
-            font-size: 16px;
-            color: #262626;
-            margin-bottom: 15px;
-            font-family: 'Conv_helveticaneuecyr-bold';
-        }
-
-        .be-img-comment {
-            width: 60px;
-            height: 60px;
-            float: left;
-            margin-bottom: 15px;
-        }
-
-        .be-ava-comment {
-            margin-top: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        .be-comment {
-
-            margin-top: 10px;
-        }
-
-        .be-comment-content {
-            margin-left: 80px;
-        }
-
-        .be-comment-content span {
-            display: inline-block;
-            width: 49%;
-            margin-bottom: 15px;
-        }
-
-        .be-comment-name {
-			padding-top: 10px;
-            font-size: 13px;
-        }
-
-        .be-comment-content a {
-            color: #383b43;
-        }
-
-        .be-comment-content span {
-            display: inline-block;
-            width: 49%;    
-			margin-bottom: 10px;
-        }
-
-        .be-comment-time {
-            text-align: right;
-        }
-
-        .be-comment-time {
-            font-size: 11px;
-            color: #b4b7c1;
-        }
-
-        .be-comment-text {
-            font-size: 13px;
-            line-height: 18px;
-        }
-
-        .form-group.fl_icon .icon {
-            position: absolute;
-            top: 1px;
-            left: 16px;
-            width: 48px;
-            height: 48px;
-            background: #f6f6f7;
-            color: #b5b8c2;
-            text-align: center;
-            line-height: 50px;
-            -webkit-border-top-left-radius: 2px;
-            -webkit-border-bottom-left-radius: 2px;
-            -moz-border-radius-topleft: 2px;
-            -moz-border-radius-bottomleft: 2px;
-            border-top-left-radius: 2px;
-            border-bottom-left-radius: 2px;
-        }
-
-        .form-group .form-input {
-            font-size: 13px;
-            line-height: 50px;
-            font-weight: 400;
-            color: #b4b7c1;
-            width: 100%;
-            height: 50px;
-            padding-left: 20px;
-            padding-right: 20px;
-            border: 1px solid #edeff2;
-            border-radius: 3px;
-        }
-
-        .form-group.fl_icon .form-input {
-            padding-left: 70px;
-        }
-
-        .form-group textarea.form-input {
-            height: 150px;
-        }
-
-    </style>
+    <link href="{{ asset('/css/idea.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
     <div class="container">
         <div class="idea-block">
 
-            <h4>{{ $idea->title }}</h4>
+            <h4>{{ $idea->title }}
+                @if ($idea->user->id == auth()->user()->id)
+                <a href="{{ route('ideas.edit', $idea->id) }}"><i class=" fa fa-solid fa-pen-to-square"></i></a>
+                <a href="{{ route('ideas.delete', $idea->id) }}"><i class=" fa fa-solid fa-trash"></i></a>
+                @endif
+            </h4>
             <p>{{ $idea->content }}</p>
+            <h1 class="comments-title">Attachments ({{ $idea->attachments->count() }})</h1>
+            @foreach ($idea->attachments as $attachment)
+                <a href="{{ asset($attachment->direction) }}">{{ $attachment->name }}</a><br>
+            @endforeach
 
             @livewire('react-component', [
             'model' => $idea
@@ -145,30 +41,31 @@
                     </div>
                 </form>
             </div>
-			@foreach ($comments as $comment)
-            <div class="comment-block">
-                <div class="be-img-comment">
-                    <a href="">
-                        <img src="{{ (auth()->user()->avatar == null) ? asset('/images/avatar.png') : asset('/storage/images/' . Auth::user()->avatar) }}" alt="" class="be-ava-comment">
-                    </a>
-                </div>
-                <div class="be-comment-content">
+            @foreach ($comments as $comment)
+                <div class="comment-block">
+                    <div class="be-img-comment">
+                        <a href="">
+                            <img src="{{ auth()->user()->avatar == null? asset('/images/avatar.png'): asset('/storage/images/' . Auth::user()->avatar) }}"
+                                alt="" class="be-ava-comment">
+                        </a>
+                    </div>
+                    <div class="be-comment-content">
 
-                    <span class="be-comment-name">
-                        <strong>{{ auth()->user()->hasRole('staff')? 'Anonymous': $comment->user->name }}</strong>
-                    </span>
-                    <span class="be-comment-time">
-                        <i class="fa fa-clock-o"></i>
-                        {{ $comment->created_at->diffForHumans() }}
-                    </span>
+                        <span class="be-comment-name">
+                            <strong>{{ auth()->user()->hasRole('staff')? 'Anonymous': $comment->user->name }}</strong>
+                        </span>
+                        <span class="be-comment-time">
+                            <i class="fa fa-clock-o"></i>
+                            {{ $comment->created_at->diffForHumans() }}
+                        </span>
 
-                    <p class="be-comment-text">
-                        {{ $comment->content }}
-                    </p>
+                        <p class="be-comment-text">
+                            {{ $comment->content }}
+                        </p>
+                    </div>
                 </div>
-            </div>
-			@endforeach
-			{{ $comments->links() }}
+            @endforeach
+            {{ $comments->links() }}
 
         </div>
     </div>

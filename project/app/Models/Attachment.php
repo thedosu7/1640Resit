@@ -9,9 +9,15 @@ class Attachment extends Model
 {
     use HasFactory;
 
+    protected $table = "attachments";
+
     protected $fillable = [
         'name',
         'direction',
         'idea_id'
     ];
+
+    public function idea(){
+        return $this->belongsTo(Idea::class);
+    }
 }

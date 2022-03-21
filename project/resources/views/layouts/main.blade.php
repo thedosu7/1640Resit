@@ -5,10 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@yield('title')</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://cms.greenwich.edu.vn/pluginfile.php/1/theme_adaptable/favicon/1640228920/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS only -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> --}}
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" />
     @yield('custom-css')
     @livewireStyles
@@ -61,7 +60,7 @@
                         </li>
                     @endif
                     @if (!auth()->user())
-                        <li><a href="{{ route('login') }}" class="btn btn-success">Sign in</a></li>
+                        <li class="nav-item dropdown my-3"><a href="{{ route('login') }}" class="btn btn-success">Sign in</a></li>
                     @endif
                 </ul>
             </div>

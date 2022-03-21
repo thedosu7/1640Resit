@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IdeaStoreRequest;
 use App\Models\Attachment;
@@ -39,10 +40,10 @@ class IdeaController extends Controller
     public function store(IdeaStoreRequest $request)
     {
         $mission = Mission::find($request->mission_id);
-        if(!$mission){
+        if (!$mission) {
             return redirect()->back()->with(['class' => 'danger', 'message' => 'Mission not found']);
         }
-        if(now() > $mission->end_at){
+        if (now() > $mission->end_at) {
             return redirect()->back()->with(['class' => 'danger', 'message' => 'Mission close']);
         }
         $input = $request->except('_token');
@@ -52,10 +53,10 @@ class IdeaController extends Controller
             $files = $request->file('files');
             foreach ($files as $file) {
                 $custom_file_name = time() . '-' . $file->getClientOriginalName();
-                $filename = $file->storeAs('idea/' . $idea->id, $custom_file_name);
+                $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
                 Attachment::create([
                     'name' => $file->getClientOriginalName(),
-                    'direction' => $filename,
+                    'direction' => 'storage/idea/' . $idea->id .'/'. $custom_file_name,
                     'idea_id' => $idea->id,
                 ]);
             }
@@ -88,8 +89,7 @@ class IdeaController extends Controller
     public function details(Request $request, $id)
     {
         $idea = Idea::findOrFail($id);
-        $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at','desc')->paginate(5);
-        $attachment = Attachment::where('idea_id', '=', $idea->id)->get();
-        return view('ideas.details', compact('idea', 'comments', 'attachment'));
+        $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
+        return view('ideas.details', compact('idea', 'comments'));
     }
 }

@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
+        Route::get('/edit/{id}',[IdeaController::class, 'edit'])->name('ideas.edit');
+        Route::get('/delete/{id}',[IdeaController::class, 'delete'])->name('ideas.delete');
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
         Route::post('add-comment/{id}', [CommentController::class, 'addComment'])->name('comments.add');
         //Route::get('edit-comment', [CommentController::class, 'editComment']);

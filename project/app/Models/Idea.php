@@ -12,6 +12,8 @@ class Idea extends Model implements ReactableInterface
     use HasFactory;
     use Reactable;
 
+    protected $table = "ideas";
+
     protected $fillable = [
         'title',
         'content',
@@ -28,5 +30,9 @@ class Idea extends Model implements ReactableInterface
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function attachments(){
+        return $this->hasMany(Attachment::class);
     }
 }
