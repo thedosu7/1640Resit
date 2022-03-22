@@ -29,6 +29,9 @@ class MissionController extends Controller
     {
         $mission = Mission::all();
         return Datatables::of($mission)
+            ->editColumn('end_at', function($data){
+                return $data->end_at;
+            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })

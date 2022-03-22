@@ -14,10 +14,15 @@ class Mission extends Model
     protected $fillable = [
         'name',
         'description',
-        'end_at',
         'category_id',
         'department_id',
-        'semester_id'
+        'semester_id',
+        'end_at'
+
+    ];
+
+    protected $dates = [
+        'end_at'
     ];
 
     public function category()

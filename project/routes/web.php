@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
@@ -54,6 +55,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
+        Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
+        Route::get('/edit/{id}',[IdeaController::class, 'edit'])->name('ideas.edit');
+        Route::post('/edit/{id}',[IdeaController::class, 'update'])->name('ideas.update');
+        Route::get('/delete/{id}',[IdeaController::class, 'delete'])->name('ideas.delete');
+
+
+        Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
+        Route::post('add-comment/{id}', [CommentController::class, 'addComment'])->name('comments.add');
+        //Route::get('edit-comment', [CommentController::class, 'editComment']);
+        //Route::post('edit-comment', [CommentController::class, 'editComment'])->name('comments.edit');
+        Route::delete('delete-comment', [CommentController::class, 'store'])->name('comments.delete');
+
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {

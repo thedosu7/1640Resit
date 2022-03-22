@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 
@@ -75,7 +76,7 @@ class AccountController extends Controller
         $email = $request->email;
         $role_id = $request->role;
         $password = $this->generateRandomString(20);
-        User::create([
+        $info = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
@@ -83,6 +84,10 @@ class AccountController extends Controller
             'phone_number' => ''
         ]);
         //send mail
+        Mail::send('admin.account.index',compact('info'),function($email){
+            $email->subject('demo test mail');
+            $email->to('scottnguyen1204@gmail.com');
+        });
         return redirect()->back()->with('flash_message', 'User created!');
     }
 

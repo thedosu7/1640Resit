@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IdeaStoreRequest;
+use App\Http\Requests\IdeaUpdateRequest;
 use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -27,7 +30,7 @@ class IdeaController extends Controller
      */
     public function index(Request $request)
     {
-        $missions = Mission::all();
+        $missions = Mission::where('end_at', '>=', now())->get();
         $ideas = Idea::withCount('comments')->paginate(5);
         return view(
             'ideas.index',
@@ -37,6 +40,13 @@ class IdeaController extends Controller
 
     public function store(IdeaStoreRequest $request)
     {
+        $mission = Mission::find($request->mission_id);
+        if (!$mission) {
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'Mission not found']);
+        }
+        if (now() > $mission->end_at) {
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'Mission close']);
+        }
         $input = $request->except('_token');
         $input['user_id'] = auth()->user()->id;
         $idea = Idea::create($input);
@@ -44,10 +54,10 @@ class IdeaController extends Controller
             $files = $request->file('files');
             foreach ($files as $file) {
                 $custom_file_name = time() . '-' . $file->getClientOriginalName();
-                $filename = $file->storeAs('idea/' . $idea->id, $custom_file_name);
+                $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
                 Attachment::create([
                     'name' => $file->getClientOriginalName(),
-                    'direction' => $filename,
+                    'direction' => 'storage/idea/' . $idea->id . '/' . $custom_file_name,
                     'idea_id' => $idea->id,
                 ]);
             }
@@ -55,25 +65,41 @@ class IdeaController extends Controller
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }
 
-    public function changeIdea($id)
+    public function details(Request $request, $id)
     {
-        //find id to update
         $idea = Idea::findOrFail($id);
-        return view('', compact('idea'));
+        $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
+        return view('ideas.details', compact('idea', 'comments'));
     }
 
-    public function updateIdea(IdeaStoreRequest $request, $id)
+    public function edit($id)
     {
-        $dataCategory = Idea::findOrFail($id);
-        $data = $request->all();
-        $dataCategory->update($data);
-        return redirect('');
+        $idea = Idea::findOrFail($id);
+        return view('ideas.edit',compact('idea'));
     }
 
-    public function deleteIdea($id)
+    
+    public function update(IdeaUpdateRequest $request,$id)
     {
-        $data = Idea::findOrFail($id);
-        $data->delete();
-        return redirect('')->with('flash_message', 'Category deleted!');
+        $idea = Idea::findOrFail($id);
+        
+        if($idea->user->id != auth()->user()->id) abort(404);
+
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+                $custom_file_name = time() . '-' . $file->getClientOriginalName();
+                $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
+                Attachment::create([
+                    'name' => $file->getClientOriginalName(),
+                    'direction' => 'storage/idea/' . $idea->id . '/' . $custom_file_name,
+                    'idea_id' => $idea->id,
+                ]);
+            }
+        }
+        $idea->update([
+            'content' => $request->content
+        ]);
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Update success']);
     }
 }
