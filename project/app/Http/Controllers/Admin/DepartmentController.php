@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\DepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -13,7 +14,7 @@ class DepartmentController extends Controller
     {
     
         $itemDepartment = Department::all();
-        return view('admin.department.indexDepartment');
+        return view('admin.department.indexDepartment', compact('itemDepartment'));
         
     }
 
@@ -56,15 +57,14 @@ class DepartmentController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(Request $request){
+    public function create(DepartmentRequest $request){
         //todo: Add create category request
-        $name = $request->name;
-        Department::create([
-            'name' => $name,            
-        ]);
+        if ( Department::create($request->all())){
+            return redirect('/admin/department')->with('success', 'Add Success!');
+        }
         //send mail
-        return redirect()->back()->with('flash_message', 'User created!');
     }
+
     public function edit($id){
         $itemDepartment = Department::findOrFail($id);
         return view('admin.department.editDepartment',compact('itemDepartment'));
