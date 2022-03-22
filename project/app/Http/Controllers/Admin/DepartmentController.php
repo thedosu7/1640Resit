@@ -59,12 +59,10 @@ class DepartmentController extends Controller
 
     public function create(DepartmentRequest $request){
         //todo: Add create category request
-        if ( Department::create($request->all())){
-            return redirect('/admin/department')->with('success', 'Add Success!');
-        }
+        Department::create($request->all());
+            return redirect()->back()->with('success', 'Add Success!');
         //send mail
     }
-
     public function edit($id){
         $itemDepartment = Department::findOrFail($id);
         return view('admin.department.editDepartment',compact('itemDepartment'));

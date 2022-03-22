@@ -27,4 +27,12 @@ class DepartmentRequest extends FormRequest
             'name' => 'required',
         ];
     }
+    
+    public function messages()
+    {
+        return [
+            'name.required' => 'The name department is required',
+            // 'name.unique' => 'The name department is already'
+        ];        
+    }
 }
