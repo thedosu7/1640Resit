@@ -14,7 +14,7 @@
             <div class="row mb-2">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">List Category</li>
+                    <li class="breadcrumb-item active">List Department</li>
                 </ol>
             </div>
             @if (session('success'))
@@ -26,9 +26,9 @@
     </div>
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">List Category</h6>
+            <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
             <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Create Category
+                Create Department
             </a>
         </div>
         <div class="card-body">

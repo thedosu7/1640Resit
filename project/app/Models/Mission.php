@@ -16,7 +16,9 @@ class Mission extends Model
         'description',
         'category_id',
         'department_id',
-        'semester_id'
+        'semester_id',
+        'end_at'
+
     ];
 
     protected $dates = [
