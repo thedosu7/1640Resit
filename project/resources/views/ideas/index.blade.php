@@ -71,7 +71,7 @@
                                 </small>
                                 <div class="">
                                     <p>
-                                        {{ $idea->content }}
+                                        {{ substr($idea->content, 0, 200) }}...
                                     </p>
                                 </div>
                                 <div class="activity__list__footer">

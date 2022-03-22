@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IdeaStoreRequest;
+use App\Http\Requests\IdeaUpdateRequest;
 use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
@@ -56,7 +57,7 @@ class IdeaController extends Controller
                 $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
                 Attachment::create([
                     'name' => $file->getClientOriginalName(),
-                    'direction' => 'storage/idea/' . $idea->id .'/'. $custom_file_name,
+                    'direction' => 'storage/idea/' . $idea->id . '/' . $custom_file_name,
                     'idea_id' => $idea->id,
                 ]);
             }
@@ -64,32 +65,41 @@ class IdeaController extends Controller
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }
 
-    public function changeIdea($id)
-    {
-        //find id to update
-        $idea = Idea::findOrFail($id);
-        return view('', compact('idea'));
-    }
-
-    public function updateIdea(IdeaStoreRequest $request, $id)
-    {
-        $dataCategory = Idea::findOrFail($id);
-        $data = $request->all();
-        $dataCategory->update($data);
-        return redirect('');
-    }
-
-    public function deleteIdea($id)
-    {
-        $data = Idea::findOrFail($id);
-        $data->delete();
-        return redirect('')->with('flash_message', 'Category deleted!');
-    }
-
     public function details(Request $request, $id)
     {
         $idea = Idea::findOrFail($id);
         $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
         return view('ideas.details', compact('idea', 'comments'));
+    }
+
+    public function edit($id)
+    {
+        $idea = Idea::findOrFail($id);
+        return view('ideas.edit',compact('idea'));
+    }
+
+    
+    public function update(IdeaUpdateRequest $request,$id)
+    {
+        $idea = Idea::findOrFail($id);
+        
+        if($idea->user->id != auth()->user()->id) abort(404);
+
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+                $custom_file_name = time() . '-' . $file->getClientOriginalName();
+                $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
+                Attachment::create([
+                    'name' => $file->getClientOriginalName(),
+                    'direction' => 'storage/idea/' . $idea->id . '/' . $custom_file_name,
+                    'idea_id' => $idea->id,
+                ]);
+            }
+        }
+        $idea->update([
+            'content' => $request->content
+        ]);
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Update success']);
     }
 }

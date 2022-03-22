@@ -1,5 +1,6 @@
 .idea-block {
-    padding: 20px 70px;
+    padding: 20px 70px;;
+    word-wrap:break-word;
 }
 
 .comment-block {
