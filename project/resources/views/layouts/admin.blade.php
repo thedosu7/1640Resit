@@ -89,7 +89,7 @@
                         <img class="img-account-profile rounded-circle mb-2"
                                         src="{{ auth()->user()->avatar == null? asset('/images/avatar.png'): asset('/storage/images/' . Auth::user()->avatar) }}"
                                         alt="{{ asset('public/images/avatar.png') }}"
-                                        style="width: 30px; height: 30px; object-fit: cover;" loading="lazy">
+                                        loading="lazy">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ auth()->user()->name }}</a>
