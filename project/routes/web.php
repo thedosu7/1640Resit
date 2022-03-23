@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermOfUseController;
+use App\Listeners\SendEmailAfterClickButton;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
+        //Route::get('test-email', [IdeaController::class, 'sendEmail']);
+        Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
         Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');

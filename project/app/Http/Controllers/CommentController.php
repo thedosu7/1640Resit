@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Idea;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\Mission;
 use App\Http\Requests\CommentStoreRequest;
+use Symfony\Contracts\EventDispatcher\Event;
+use App\Events\ClickButton;
+use App\Events\CommentEvent;
 
 class CommentController extends Controller
 {
@@ -30,8 +34,9 @@ class CommentController extends Controller
         $comment->idea()->associate($idea);
         $comment->user()->associate($user);
         $comment->save();
+        //fire a new event
+        event(new CommentEvent($comment));
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment inserted successfully']);;
-
     }
 
     public function changeComment($id)

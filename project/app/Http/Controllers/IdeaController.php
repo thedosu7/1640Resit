@@ -11,6 +11,7 @@ use App\Models\Mission;
 use App\Models\Comment;
 use App\Models\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class IdeaController extends Controller
 {
