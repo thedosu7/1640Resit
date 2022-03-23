@@ -17,6 +17,12 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $user_id = Auth::user();
+        return view('idea.details', compact(['user_id']));
+    }
+
     public function addComment(CommentStoreRequest $request, $id)
     {
         $input = $request->all();
@@ -43,8 +49,9 @@ class CommentController extends Controller
     public function editComment(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
-        $input = $request->all();
-        $comment->update($input);
+        $comment->update([
+            'content' => $request->content
+        ]);
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment modified successfully']);
     }
 
