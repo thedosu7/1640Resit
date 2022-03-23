@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Semester;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\SemesterRequest;
 
 class SemesterController extends Controller
 {
@@ -57,16 +58,11 @@ class SemesterController extends Controller
         return redirect()->back()->with('flash_message', 'Semester deleted!');
     }
 
-    public function create(Request $request){
+    public function create(SemesterRequest $request){
         //todo: Add create semester request
-        $name = $request->name;
-        $end_day = $request->end_day;
-        Semester::create([
-            'name' => $name,
-            'end_day' => $end_day            
-        ]);
+        Semester::create($request->all());
         //send mail
-        return redirect()->back()->with('flash_message', 'Semester created!');
+        return redirect()->back()->with('success', 'Create Semester Successfully!');
     }
     public function edit($id){
         $itemSemester = Semester::findOrFail($id);

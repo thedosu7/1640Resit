@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Mission;
 use App\Models\Semester;
 use App\Models\Category;
+use App\Http\Requests\MissionRequest;
 
 
 class MissionController extends Controller
@@ -60,25 +61,12 @@ class MissionController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request)
+    public function create(MissionRequest $request)
     {
         //todo: Add create user request
-        $name = $request->name;
-        $description = $request->description;
-        $end_at = $request->end_at;
-        $category_id = $request->category;
-        $department_id = $request->department;
-        $semester_id = $request->semester;
-        Mission::create([
-            'name' => $name,
-            'description' => $description,
-            'end_at' => $end_at,
-            'category_id' => $category_id,
-            'department_id' => $department_id,
-            'semester_id' => $semester_id,
-        ]);
+        Mission::create($request->all());
         //send mail
-        return redirect()->back()->with('flash_message', 'Missions created!');
+        return redirect()->back()->with('success', 'Create Mission Successfully!');
     }
 
     public function edit($id,){

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DepartmentRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,17 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:departments|max:255',
+            'name' => 'required|string|unique:categories|max:255',
+            'description' => 'required',
         ];
     }
-    
+
     public function messages()
     {
         return [
-            'name.required' => 'The name department is required',
-            'name.unique' => 'The name department is already'
+            'name.required' => 'The name category is required',
+            'name.unique' => 'The name category is already',
+            'description.required' => 'The description is required',
         ];        
     }
 }
