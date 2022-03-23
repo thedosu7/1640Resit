@@ -26,10 +26,10 @@ class MissionRequest extends FormRequest
         return [
             'name' => 'required|string|unique:missions|max:255',
             'description' => 'required|string|max:255',
-            'end_day' => 'required',
-            'category' => 'required',
-            'department' => 'required',
-            'semester' => 'required',
+            'end_at' => 'required',
+            // 'category' => 'required',
+            // 'department' => 'required',
+            // 'semester' => 'required',
         ];
     }
 
@@ -39,10 +39,10 @@ class MissionRequest extends FormRequest
             'name.required' => 'The name mission is required',
             'name.unique' => 'The name mission is already',
             'description.required' => 'The mission description is required',
-            'end_day.required' => 'The deadline is required',
-            'category.required' => 'Please choose the category',
-            'department.required' => 'Please choose the department',
-            'semester.required' => 'Please choose the semester',
+            'end_at.required' => 'The deadline is required',
+            // 'category.required' => 'Please choose the category',
+            // 'department.required' => 'Please choose the department',
+            // 'semester.required' => 'Please choose the semester',
         ];        
     }
 

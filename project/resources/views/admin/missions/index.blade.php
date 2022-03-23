@@ -25,10 +25,6 @@
         </div>
         @endif
     </div>
-    <!-- <div class="col-lg-12">
-        @if(Session::has('success_msg'))
-        <div class="alert alert-success">{{ Session::get('success_msg') }}</div>
-        @endif -->
 
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -84,9 +80,9 @@
                         <label for="end_at">End At:</label>
                         <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="">
                     </div>
-                    @if ($errors->has('end-at'))
+                    @if ($errors->has('end_at'))
                     <span>
-                        @error('end-at')
+                        @error('end_at')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </span>
@@ -96,7 +92,7 @@
                     <div class="form-group">
                         <label for="category">Category:</label>
                         <select class="form-control" name="category" id="category">
-                            @foreach ($categories as $cate)
+                            @foreach ($category as $cate)
                             <option value="{{ $cate->id }}">{{ $cate->name }}</option>
                             @endforeach
                         </select>
@@ -113,7 +109,7 @@
                     <div class="form-group">
                         <label for="department">Department:</label>
                         <select class="form-control" name="department" id="department">
-                            @foreach ($departments as $dpm)
+                            @foreach ($department as $dpm)
                             <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
                             @endforeach
                         </select>
@@ -130,7 +126,7 @@
                     <div class="form-group">
                         <label for="semester">Semester:</label>
                         <select class="form-control" name="semester" id="semester">
-                            @foreach ($semesters as $smt)
+                            @foreach ($semester as $smt)
                             <option value="{{ $smt->id }}">{{ $smt->name }}</option>
                             @endforeach
                         </select>

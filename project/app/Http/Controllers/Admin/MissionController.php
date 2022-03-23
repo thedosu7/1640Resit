@@ -19,9 +19,9 @@ class MissionController extends Controller
         return view(
             'admin.missions.index',
             [
-                'categories' => Category::all(),
-                'departments' => Department::all(),
-                'semesters' => Semester::all()
+                'category' => Category::all(),
+                'department' => Department::all(),
+                'semester' => Semester::all()
             ]
         );
     }
@@ -64,7 +64,20 @@ class MissionController extends Controller
     public function create(MissionRequest $request)
     {
         //todo: Add create user request
-        Mission::create($request->all());
+        $name = $request->name;
+        $description = $request->description;
+        $end_at = $request->end_at;
+        $category_id = $request->category;
+        $department_id = $request->department;
+        $semester_id = $request->semester;
+        Mission::create([
+            'name' => $name,
+            'description' => $description,
+            'end_at' => $end_at,
+            'category_id' => $category_id,
+            'department_id' => $department_id,
+            'semester_id' => $semester_id,
+        ]);
         //send mail
         return redirect()->back()->with('success', 'Create Mission Successfully!');
     }
