@@ -9,6 +9,7 @@ use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
 use App\Models\Comment;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -68,8 +69,10 @@ class IdeaController extends Controller
     public function details(Request $request, $id)
     {
         $idea = Idea::findOrFail($id);
+        $current_mission_id = Mission::findOrFail($idea->mission_id)->id;
+        $current_semester_end_day = Semester::findOrFail($current_mission_id)->end_day;
         $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
-        return view('ideas.details', compact('idea', 'comments'));
+        return view('ideas.details', compact('idea', 'comments', 'current_semester_end_day'));
     }
 
     public function edit($id)
@@ -101,5 +104,13 @@ class IdeaController extends Controller
             'content' => $request->content
         ]);
         return redirect()->back()->with(['class' => 'success', 'message' => 'Update success']);
+    }
+
+    public function delete($id)
+    {
+        $idea = Idea::findOrFail($id);
+        $attached_files = Attachment::where('idea_id', $id)->delete();
+        $idea->delete();
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Your idea is deleted']);
     }
 }
