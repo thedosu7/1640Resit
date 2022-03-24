@@ -10,6 +10,8 @@ use App\Models\Mission;
 use App\Models\Semester;
 use App\Models\Category;
 use App\Http\Requests\MissionRequest;
+use App\Http\Requests\UpdateMissionRequest as UpdateMission;
+
 
 
 class MissionController extends Controller
@@ -90,7 +92,7 @@ class MissionController extends Controller
         return view('admin.missions.editMission', compact('mission','category','department','semester'));
     }
 
-    public function update(Request $request, $id){
+    public function update(UpdateMission $request, $id){
         $mission = Mission::find($id);
         $name = $request-> name;
         $description = $request->description;
@@ -107,7 +109,7 @@ class MissionController extends Controller
             'semester' => $semester,
         ]);
         $mission->save();
-        return redirect('admin/missions');    
+        return redirect('admin/missions') -> with('success', 'Mission successfully updated');    
     }
 
     public function delete($id)

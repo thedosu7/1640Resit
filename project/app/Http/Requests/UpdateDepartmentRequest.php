@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SemesterRequest extends FormRequest
+class UpdateDepartmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,15 @@ class SemesterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:semesters|max:255',
-            'end_day' => 'required',
+            'name' => 'required|string|max:255',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'The name semester is required',
-            'name.unique' => 'The name semester is already',
-            'and_day.required' =>'The deadline is required',
-            'name.max' => 'The name semester is too long, please try again'
+            'name.required' => 'The name department is required',
+            'name.max' => 'The name department is too long, please try again'
         ];        
     }
 }

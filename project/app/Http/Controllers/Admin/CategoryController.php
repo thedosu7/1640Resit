@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest as UpdateCategory;
 
 
 class CategoryController extends Controller
@@ -68,13 +69,13 @@ class CategoryController extends Controller
         $dataCategory = Category::findOrFail($id);
         return view('admin.category.editCategory', compact('dataCategory'));
     }
-    public function update(Request $request, $id)
+    public function update(UpdateCategory $request, $id)
     {
         $dataCategory = Category::findOrFail($id);
         // assign information to data variable
         $data = $request->all();
         $dataCategory->update($data);
         $dataCategory->save();
-        return redirect('admin/category');
+        return redirect('admin/category')->with('success', 'Category successfully updated');
     }
 }

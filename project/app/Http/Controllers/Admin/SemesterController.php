@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Semester;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\SemesterRequest;
+use App\Http\Requests\UpdateSemesterRequest as UpdateSemester;
 
 class SemesterController extends Controller
 {
@@ -68,12 +69,12 @@ class SemesterController extends Controller
         $itemSemester = Semester::findOrFail($id);
         return view('admin.semester.editSemester',compact('itemSemester'));
     }
-    public function update(Request $request, $id){
+    public function update(UpdateSemester $request, $id){
         $dataSmt = Semester::findOrFail($id);
         // assign information to data variable
         $data = $request -> all();
         $dataSmt->update($data);
         $dataSmt->save();
-        return redirect('admin/semester');
+        return redirect('admin/semester') -> with('success', 'Semester successfully updated');
     }
 }

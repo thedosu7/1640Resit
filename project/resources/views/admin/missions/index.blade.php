@@ -195,7 +195,7 @@
 </script>
 <script>
     @if ($errors->has('name')||$errors->has('description')||$errors->has('end_at')||$errors->has('category')
-    ||$errors->has('department')||$errors->has('semester')
+    ||$errors->has('department')||$errors->has('semester'))
     )
         var delayInMilliseconds = 1000;
         setTimeout(function() {
