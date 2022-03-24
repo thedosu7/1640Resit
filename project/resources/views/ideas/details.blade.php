@@ -15,13 +15,6 @@
         <h4>{{ $idea->title }}
             @if ($idea->user->id == auth()->user()->id)
             <a href="{{ route('ideas.edit', $idea->id) }}"><i class=" fa fa-solid fa-pen-to-square"></i></a>
-            <form method="post" action="{{route('ideas.delete', $idea->id)}}" style="display: inline;">
-                @method('delete')
-                @csrf
-                <button type="submit" style="border: none; padding: 0; background: none;">
-                    <i class=" fa fa-solid fa-trash"></i>
-                </button>
-            </form>
             @endif
         </h4>
         <p>{{ $idea->content }}</p>

@@ -110,7 +110,12 @@ class IdeaController extends Controller
     public function delete($id)
     {
         $idea = Idea::findOrFail($id);
-        $attached_files = Attachment::where('idea_id', $id)->delete();
+        //$idea->user_id->delete();
+        //$idea->mission_id->delete();
+        $comments = Comment::where('idea_id', $id);
+        $comments->delete();
+        $attached_files = Attachment::where('idea_id', $id);
+        $attached_files->delete();
         $idea->delete();
         return redirect()->back()->with(['class' => 'success', 'message' => 'Your idea is deleted']);
     }

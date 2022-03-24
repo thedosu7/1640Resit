@@ -58,10 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
         //Route::get('test-email', [IdeaController::class, 'sendEmail']);
         Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
+        Route::delete('/delete/{id}', [IdeaController::class, 'delete'])->name('ideas.delete');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
         Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');
         Route::post('/edit/{id}', [IdeaController::class, 'update'])->name('ideas.update');
-        Route::delete('/delete/{id}', [IdeaController::class, 'delete'])->name('ideas.delete');
 
 
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
