@@ -71,18 +71,20 @@ class AccountController extends Controller
         $email = $request->email;
         $role_id = $request->role_id;
         $password = $this->generateRandomString(20);
-        $remember_token = Str::random(10);
+        $token = Str::random(10);
         $info = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
             'password' => Hash::make($password),
-            'remember_token' => $remember_token,
+            'remember_token' => $token
         ]);
-        //Send email
-        // Mail::send('admin.emails.login',compact('info'),function($email){
-        //     $email->to('scottnguyen1204@gmail.com');
-        // });
+        // dd($info);
+        // Send email
+        Mail::send('admin.emails.login',compact('info'),function($email){
+            $email->subject('This is mail to send account');
+            $email->to('scottnguyen1204@gmail.com');
+        });
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
@@ -116,15 +118,15 @@ class AccountController extends Controller
 
     // private function getToken()
     // {
-    //     return hash_hmac('sha256', str_random(40), config('app.key'));
+    //     return hash_hmac('sha256', Str::random(40), config('app.key'));
     // }
 
-    public function sendEmail()
-    {
-        $info = "Test Mail";
-        //send mail
-        Mail::send('admin.emails.login',compact('info'),function($email){
-            $email->to('scottnguyen1204@gmail.com');
-        });
-    }
+    // public function sendEmail()
+    // {
+    //     $info = "Test Mail";
+    //     //send mail
+    //     Mail::send('admin.emails.login',compact('info'),function($email){
+    //         $email->to('scottnguyen1204@gmail.com');
+    //     });
+    // }
 }

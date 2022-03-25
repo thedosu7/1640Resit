@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => 'smtp.gmail.com',
-            'port' => 587,
-            'encryption' => 'tls',
-            'username' => 'scottnguyen1204@gmail.com',
-            'password' => 'pdcryeaonsspgbpp',
+            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'port' => env('MAIL_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
         ],
 
@@ -91,8 +91,8 @@ return [
     */
 
     'from' => [
-        'address' => 'scottnguyen1204@gmail.com',
-        'name' => 'Demo create account',
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*
