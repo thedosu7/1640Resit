@@ -205,14 +205,4 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
 
-<script>
-    @if ($errors->has('name')||$errors->has('description')||$errors->has('end_at'))
-    )
-        var delayInMilliseconds = 1000;
-        setTimeout(function() {
-        $("#exampleModal").modal('show');
-        }, delayInMilliseconds);
-    @endif
-</script>
-
 @endsection

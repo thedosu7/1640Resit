@@ -70,14 +70,16 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
-        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-
+            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::group(['prefix' => 'account'], function () {
             Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
+            // Route::get('/create', [AccountController::class, 'create'])->name('admin.account.create');
+            Route::post('/create', [AccountController::class, 'create'])->name('admin.account.create');
+
+            Route::get('/sendEmail', [AccountController::class, 'sendEmail']);
             Route::get('/dt-row-data', [AccountController::class, 'getDtRowData']);
             Route::delete('/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
-            Route::post('/create', [AccountController::class, 'create'])->name('admin.account.create');
             Route::get('/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
             Route::post('/update/{id}', [AccountController::class, 'update'])->name('admin.account.store');
         });
