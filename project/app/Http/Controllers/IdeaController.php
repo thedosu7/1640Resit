@@ -34,7 +34,7 @@ class IdeaController extends Controller
     public function index(Request $request)
     {
         $missions = Mission::where('end_at', '>=', now())->get();
-        $ideas = Idea::withCount('comments')->paginate(5);
+        $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
         return view(
             'ideas.index',
             compact(['missions', 'ideas'])
