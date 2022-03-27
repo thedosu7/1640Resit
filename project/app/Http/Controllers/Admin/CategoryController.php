@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest as UpdateCategory;
 
 
 class CategoryController extends Controller
@@ -14,7 +16,7 @@ class CategoryController extends Controller
     {
 
         $categories = Category::all();
-        return view('admin.category.indexCategory');
+        return view('admin.category.indexCategory',compact('categories'));
     }
 
     public function getDtRowData(Request $request)
@@ -55,31 +57,25 @@ class CategoryController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(Request $request)
+    public function create(CategoryRequest $request)
     {
         //todo: Add create category request
-        $name = $request->name;
-        $description = $request->description;
-        Category::create([
-            'name' => $name,
-            'description' => $description,
-
-        ]);
+        Category::create($request->all());
         //send mail
-        return redirect()->back()->with('flash_message', 'User created!');
+        return redirect()->back()->with('success', 'Create Category Successfully!');
     }
     public function edit($id)
     {
         $dataCategory = Category::findOrFail($id);
         return view('admin.category.editCategory', compact('dataCategory'));
     }
-    public function update(Request $request, $id)
+    public function update(UpdateCategory $request, $id)
     {
         $dataCategory = Category::findOrFail($id);
         // assign information to data variable
         $data = $request->all();
         $dataCategory->update($data);
         $dataCategory->save();
-        return redirect('admin/category');
+        return redirect('admin/category')->with('success', 'Category successfully updated');
     }
 }

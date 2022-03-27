@@ -8,8 +8,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Session;
-
 
 class AccountController extends Controller
 {
@@ -26,12 +27,7 @@ class AccountController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view(
-            'admin.account.index',
-            [
-                'roles' => $roles
-            ]
-        );
+        return view('admin.account.index', compact('roles'));
     }
 
     public function getDtRowData(Request $request)
@@ -73,16 +69,22 @@ class AccountController extends Controller
         //todo: Add create user request
         $name = $request->name;
         $email = $request->email;
-        $role_id = $request->role;
+        $role_id = $request->role_id;
         $password = $this->generateRandomString(20);
-        User::create([
+        $token = Str::random(10);
+        $info = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
             'password' => Hash::make($password),
-            'phone_number' => ''
+            'remember_token' => $token
         ]);
-        //send mail
+        // dd($info);
+        // Send email
+        Mail::send('admin.emails.login',compact('info'),function($email){
+            $email->subject('This is mail to send account');
+            $email->to('scottnguyen1204@gmail.com');
+        });
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
@@ -113,4 +115,18 @@ class AccountController extends Controller
         }
         return $randomString;
     }
+
+    // private function getToken()
+    // {
+    //     return hash_hmac('sha256', Str::random(40), config('app.key'));
+    // }
+
+    // public function sendEmail()
+    // {
+    //     $info = "Test Mail";
+    //     //send mail
+    //     Mail::send('admin.emails.login',compact('info'),function($email){
+    //         $email->to('scottnguyen1204@gmail.com');
+    //     });
+    // }
 }

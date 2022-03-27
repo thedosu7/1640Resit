@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-<html lang="en">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -101,12 +100,30 @@
             <h3>Edit Semester</h3>
             <div class="row">
                 <div class="col-lg-10">
-                    <div class="form-group">
+                    <div class="form-group @error('name') is-invalid @enderror">
                         <input type="text" name="name" placeholder="Name Category" class="form-control" value="{{ $itemSemester->name }}">
                     </div>
+                    @if ($errors->has('name'))
+                    <span>
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                </div>
+                <div class="col-lg-10 @error('end_day') is-invalid @enderror">    
                     <div class="form-group">
                         <input type="datetime-local" name="end_day" placeholder="Day End" class="form-control" value="{{ $itemSemester->end_day }}">
                     </div>
+                    @if ($errors->has('end_day'))
+                    <span>
+                        @error('end_day')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                </div>
+                <div class="col-lg-10">    
                     <div class="center">
                         <button type="submit" name="btnSubmit" class="btn btn-outline-primary rounded-pill" data-mdb-ripple-color="dark">Update Semester</button>
                     </div>
@@ -116,5 +133,12 @@
     </div>
 </body>
 
-</html>
+<script>
+    @if ($errors->has('name')||$errors->has('end_day'))
+        var delayInMilliseconds = 1000;
+        setTimeout(function() {
+        $("#exampleModal").modal('show');
+        }, delayInMilliseconds);
+    @endif
+</script>
 @endsection

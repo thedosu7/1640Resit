@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-<html>
 
 <head>
     <meta charset="utf-8">
@@ -133,17 +132,44 @@
                 <div class="form-icon">
                     <span><i class="icon icon-user"></i></span>
                 </div>
-                <div class="form-group">
-                    <label for="name">Mission Name:</label>
-                    <input type="text" class="form-control item" name="name" id="name" placeholder="Full Name" value="{{$mission-> name}}">
+                <div class="col-lg-10">
+                    <div class="form-group @error('name') is-invalid @enderror">
+                        <label for="name">Mission Name:</label>
+                        <input type="text" class="form-control item" name="name" id="name" placeholder="Full Name" value="{{$mission-> name}}">
+                    </div>
+                    @if ($errors->has('name'))
+                    <span>
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
                 </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <input type="text" name="description" class="form-control" id="description" placeholder="" value="{{$mission-> description}}">
+                <div class="col-lg-10">
+                    <div class="form-group @error('description') is-invalid @enderror">
+                        <label for="description">Description:</label>
+                        <input type="text" name="description" class="form-control" id="description" placeholder="" value="{{$mission-> description}}">
+                        @if ($errors->has('description'))
+                        <span>
+                            @error('description')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </span>
+                        @endif
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="end_at">End At:</label>
-                    <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="">
+                <div class="col-lg-10">
+                    <div class="form-group">
+                        <label for="end_at">End At:</label>
+                        <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="">
+                    </div>
+                    @if ($errors->has('end_at'))
+                    <span>
+                        @error('end_at')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="category">Category:</label>
@@ -178,7 +204,5 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
-
-</html>
 
 @endsection

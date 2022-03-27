@@ -9,6 +9,9 @@ use App\Models\Department;
 use App\Models\Mission;
 use App\Models\Semester;
 use App\Models\Category;
+use App\Http\Requests\MissionRequest;
+use App\Http\Requests\UpdateMissionRequest as UpdateMission;
+
 
 
 class MissionController extends Controller
@@ -18,9 +21,9 @@ class MissionController extends Controller
         return view(
             'admin.missions.index',
             [
-                'categories' => Category::all(),
-                'departments' => Department::all(),
-                'semesters' => Semester::all()
+                'category' => Category::all(),
+                'department' => Department::all(),
+                'semester' => Semester::all()
             ]
         );
     }
@@ -29,6 +32,9 @@ class MissionController extends Controller
     {
         $mission = Mission::all();
         return Datatables::of($mission)
+            ->editColumn('end_at', function($data){
+                return $data->end_at;
+            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })
@@ -57,7 +63,7 @@ class MissionController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request)
+    public function create(MissionRequest $request)
     {
         //todo: Add create user request
         $name = $request->name;
@@ -75,7 +81,7 @@ class MissionController extends Controller
             'semester_id' => $semester_id,
         ]);
         //send mail
-        return redirect()->back()->with('flash_message', 'Missions created!');
+        return redirect()->back()->with('success', 'Create Mission Successfully!');
     }
 
     public function edit($id,){
@@ -86,7 +92,7 @@ class MissionController extends Controller
         return view('admin.missions.editMission', compact('mission','category','department','semester'));
     }
 
-    public function update(Request $request, $id){
+    public function update(UpdateMission $request, $id){
         $mission = Mission::find($id);
         $name = $request-> name;
         $description = $request->description;
@@ -103,7 +109,7 @@ class MissionController extends Controller
             'semester' => $semester,
         ]);
         $mission->save();
-        return redirect('admin/missions');    
+        return redirect('admin/missions') -> with('success', 'Mission successfully updated');    
     }
 
     public function delete($id)
@@ -153,6 +159,9 @@ class MissionController extends Controller
     {
         $mission = Mission::where('category_id', $id)->get();
         return Datatables::of($mission)
+            ->editColumn('end_at', function ($data) {
+                return $data->end_at;
+            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })
@@ -184,6 +193,9 @@ class MissionController extends Controller
     {
         $mission = Mission::where('department_id', $id)->get();
         return Datatables::of($mission)
+            ->editColumn('end_at', function ($data) {
+                return $data->end_at;
+            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })
@@ -215,6 +227,9 @@ class MissionController extends Controller
     {
         $mission = Mission::where('semester_id', $id)->get();
         return Datatables::of($mission)
+            ->editColumn('end_at', function ($data) {
+                return $data->end_at;
+            })
             ->editColumn('category', function ($data) {
                 return $data->category->name;
             })

@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-<html lang="en">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -99,19 +98,36 @@
         <form action="/admin/department/update/{{ $itemDepartment->id }}" method="post">
             @csrf
             <h3>Edit Department</h3>
-            <div class="row">
+            <!-- <div class="row"> -->
                 <div class="col-lg-10">
-                    <div class="form-group">
+                    <div class="form-group @error('name') is-invalid @enderror">
                         <input type="text" name="name" placeholder="Name Category" class="form-control" value="{{ $itemDepartment->name }}">
                     </div>
+                    @if ($errors->has('name'))
+                    <span>
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                </div>
+                <div class="col-lg-10">    
                     <div class="center">
                         <button type="submit" name="btnSubmit" class="btn btn-outline-primary rounded-pill" data-mdb-ripple-color="dark">Edit Department</button>
                     </div>
-                </div>
+                </div>    
+            <!-- </div> -->
             </div>
         </form>
     </div>
 </body>
 
-</html>
+<script>
+    @if ($errors->has('name'))
+        var delayInMilliseconds = 1000;
+        setTimeout(function() {
+        $("#exampleModal").modal('show');
+        }, delayInMilliseconds);
+    @endif
+</script>
 @endsection

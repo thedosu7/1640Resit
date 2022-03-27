@@ -24,7 +24,15 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|string|unique:departments|max:255',
         ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'name.required' => 'The name department is required',
+            'name.unique' => 'The name department is already'
+        ];        
     }
 }

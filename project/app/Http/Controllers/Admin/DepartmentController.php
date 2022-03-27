@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\DepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest as UpdateDepartment;
 
 class DepartmentController extends Controller
 {
@@ -59,22 +60,20 @@ class DepartmentController extends Controller
 
     public function create(DepartmentRequest $request){
         //todo: Add create category request
-        if ( Department::create($request->all())){
-            return redirect('/admin/department')->with('success', 'Add Success!');
-        }
+        Department::create($request->all());
+            return redirect()->back()->with('success', 'Create Department successfully!');
         //send mail
     }
-
     public function edit($id){
         $itemDepartment = Department::findOrFail($id);
         return view('admin.department.editDepartment',compact('itemDepartment'));
     }
-    public function update(Request $request, $id){
+    public function update(UpdateDepartment $request, $id){
         $dataDpm = Department::findOrFail($id);
         // assign information to data variable
         $data = $request -> all();
         $dataDpm->update($data);
         $dataDpm->save();
-        return redirect('admin/department');
+        return redirect('admin/department') -> with('success', 'Department successfully updated');
     }
 }
