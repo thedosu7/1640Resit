@@ -51,12 +51,6 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
 
             <!-- Right navbar links -->
@@ -75,11 +69,12 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-yellow elevation-4">
             <!-- Brand Logo -->
-            <a href="/" class="brand-link">
-                <img src="{{ asset('dist/img/Logo.png') }}" alt="AdminLTE Logo" class="brand-image"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">Admin</span>
-            </a>
+            <div class="row">
+                <a href="{{ route('home') }}" class="brand-link">
+                    <img src="{{ asset('dist/img/Logo.png') }}" alt="AdminLTE Logo" class="brand-image"
+                        style="opacity: .8">
+                </a>
+            </div>
 
             <!-- Sidebar -->
             <div class="sidebar">
@@ -87,12 +82,12 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img class="img-account-profile rounded-circle mb-2"
-                                        src="{{ auth()->user()->avatar == null? asset('/images/avatar.png'): asset('/storage/images/' . Auth::user()->avatar) }}"
-                                        alt="{{ asset('public/images/avatar.png') }}"
-                                        loading="lazy">
+                            src="{{ auth()->user()->avatar == null? asset('/images/avatar.png'): asset('/storage/images/' . Auth::user()->avatar) }}"
+                            alt="{{ asset('public/images/avatar.png') }}" loading="lazy">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                        <span>Role: {{ auth()->user()->role->name }}</span>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -121,7 +116,7 @@
 
                         <!--  Category  -->
                         <li class="nav-item">
-                  
+
                             <a href="{{ route('admin.category.index') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-link"></i>
                                 <p>
@@ -131,7 +126,7 @@
                         </li>
                         <!-- Department -->
                         <li class="nav-item">
-                        <a href="{{ route('admin.department.index') }}" class="nav-link">
+                            <a href="{{ route('admin.department.index') }}" class="nav-link">
 
                                 <i class="nav-icon fa-solid fa-building"></i>
                                 <p>
@@ -148,12 +143,12 @@
                                 <p>
                                     Semester
                                 </p>
-                            </a>                          
+                            </a>
                         </li>
 
                         <!-- Mission -->
                         <li class="nav-item">
-                        <a href="{{ route('admin.missions.index') }}" class="nav-link">
+                            <a href="{{ route('admin.missions.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tasks-alt"></i>
                                 <p>
                                     Missions
@@ -171,11 +166,6 @@
         <div class="content-wrapper">
             @yield('content')
         </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; Design by Student of GCD0806 <a
-                    href="https://greenwich.edu.vn/en/english/">Greenwich university</a>.</strong>
-        </footer>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -241,9 +231,15 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     @yield('custom-js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

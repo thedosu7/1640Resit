@@ -37,8 +37,8 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 
-Route::get('/privacy', [PrivacyController::class,'index'])->name('privacy');
-Route::get('/term', [TermOfUseController::class,'index'])->name('term');
+Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
+Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
 Route::post('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -70,13 +70,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit-comment/{id}', [CommentController::class, 'editComment']);
         Route::post('edit-comment/{id}', [CommentController::class, 'editComment'])->name('comments.edit');
         Route::delete('delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('comments.delete');
-
     });
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
-            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::group(['prefix' => 'account'], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,manager,coordinator'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::group(['prefix' => 'account'], function () {
             Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
             // Route::get('/create', [AccountController::class, 'create'])->name('admin.account.create');
             Route::post('/create', [AccountController::class, 'create'])->name('admin.account.create');
@@ -92,10 +91,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', [CategoryController::class, 'indexCategory'])->name('admin.category.index');
             Route::get('/dt-row-data', [CategoryController::class, 'getDtRowData']);
-            Route::post('/create', [CategoryController::class, 'create'])->name('admin.category.createCate');
-            Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
-            Route::get('/update/{id}', [CategoryController::class, 'edit'])->name('admin.category.update');
-            Route::post('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.store');
+            Route::post('/create', [CategoryController::class, 'create'])->name('admin.category.createCate')->middleware('role:manager,coordinator');
+            Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete')->middleware('role:manager,coordinator');
+            Route::get('/update/{id}', [CategoryController::class, 'edit'])->name('admin.category.update')->middleware('role:manager,coordinator');
+            Route::post('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.store')->middleware('role:manager,coordinator');
         });
 
         //Department
@@ -123,7 +122,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/mission/create', [MissionController::class, 'create'])->name('admin.mission.create');
         Route::get('/mission/update/{id}', [MissionController::class, 'edit'])->name('admin.mission.update');
         Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store');
-        Route::delete('/missions/delete/{id}',[MissionController::class,'delete'])->name('admin.mission.delete');
+        Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete');
 
         // List mission by category|department|semester
         Route::get('/missions/category/{id}', [MissionController::class, 'listMissionByCategory'])->name('admin.missions.category.index');
@@ -133,6 +132,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/missions/semester/{id}', [MissionController::class, 'listMissionBySemester'])->name('admin.missions.semester.index');
         Route::get('/missions/semester/{id}/dt-row-data', [MissionController::class, 'getDtRowDataBySemester']);
     });
-
-    
 });

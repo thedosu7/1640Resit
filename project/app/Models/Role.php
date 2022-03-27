@@ -11,8 +11,8 @@ class Role extends Model
 
     const ROLE_ADMIN = 'admin';
     const ROLE_STAFF = 'staff';
-    const ROLE_QA_Manager = 'QA Manager';
-    const ROLE_QA_Coordinator = 'QA Coordinator';
+    const ROLE_QA_Manager = 'manager';
+    const ROLE_QA_Coordinator = 'coordinator';
 
     protected $fillable = [
         'name'

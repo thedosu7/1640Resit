@@ -27,9 +27,12 @@
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">List Category</h6>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Create Category
-            </a>
+            
+            @if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('coordinator'))
+                <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Create Category
+                </a>
+            @endif
         </div>
         <div class="card-body">
             <table id="users-table" class="table table-condensed col-12">
@@ -45,6 +48,7 @@
         </div>
     </div>
 </div>
+@if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('coordinator'))
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -90,6 +94,7 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 @section('custom-js')

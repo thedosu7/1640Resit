@@ -31,15 +31,19 @@ class CategoryController extends Controller
                 return $data->missions->count();
             })
             ->editColumn('action', function ($data) {
-                return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.category.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
-                
-                <form method="POST" action="' . route("admin.category.delete", $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                    '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this category ?\')"><i class="fa-solid fa-trash"></i></button>
-                </form>
-                ';
+                if (auth()->user()->hasRole('manager') || auth()->user()->hasRole('coordinator')){
+                    return '
+                    <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.category.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                    
+                    <form method="POST" action="' . route("admin.category.delete", $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                    ' . method_field('DELETE') .
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this category ?\')"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                    ';
+                }else{
+                    return '';
+                }
             })
             ->rawColumns(['action', 'name'])
             ->setRowAttr([
@@ -53,8 +57,11 @@ class CategoryController extends Controller
     public function delete($id)
     {
         $data = Category::find($id);
+        if($data->missions->count() > 0){
+            return redirect()->back()->with('success', 'Category has more mission, can not delete !');
+        }
         $data->delete();
-        return redirect()->back()->with('flash_message', 'User deleted!');
+        return redirect()->back()->with('success', 'Category deleted!');
     }
 
     public function create(CategoryRequest $request)
