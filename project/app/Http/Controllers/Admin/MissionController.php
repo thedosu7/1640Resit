@@ -8,7 +8,6 @@ use Yajra\Datatables\Datatables;
 use App\Models\Department;
 use App\Models\Mission;
 use App\Models\Semester;
-use App\Models\Category;
 use App\Http\Requests\MissionRequest;
 use App\Http\Requests\UpdateMissionRequest as UpdateMission;
 
@@ -21,8 +20,6 @@ class MissionController extends Controller
         return view(
             'admin.missions.index',
             [
-                'category' => Category::all(),
-                'department' => Department::all(),
                 'semester' => Semester::all()
             ]
         );
@@ -34,9 +31,6 @@ class MissionController extends Controller
         return Datatables::of($mission)
             ->editColumn('end_at', function($data){
                 return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
             })
             ->editColumn('department', function ($data) {
                 return $data->department->name;
@@ -77,7 +71,7 @@ class MissionController extends Controller
             'description' => $description,
             'end_at' => $end_at,
             'category_id' => $category_id,
-            'department_id' => $department_id,
+            'department_id' => auth()->user()->department_id,
             'semester_id' => $semester_id,
         ]);
         //send mail
@@ -86,7 +80,6 @@ class MissionController extends Controller
 
     public function edit($id,){
         $mission = Mission::findOrFail($id);
-        $category = Category::all();
         $department = Department::all();
         $semester = Semester::all();
         return view('admin.missions.editMission', compact('mission','category','department','semester'));
@@ -119,17 +112,6 @@ class MissionController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function listMissionByCategory($id)
-    {
-        $cate = Category::find($id);
-        if (!$cate) abort(404); //check category exits
-        return view(
-            'admin.missions.indexbyCategory',
-            [
-                'category' => $cate
-            ]
-        );
-    }
     public function listMissionByDepartment($id)
     {
         $dpm = Department::find($id);

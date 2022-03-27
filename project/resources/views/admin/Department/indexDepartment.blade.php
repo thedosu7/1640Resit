@@ -27,9 +27,11 @@
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
+            @if (auth()->user()->hasRole('admin'))
             <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Create Department
             </a>
+            @endif
         </div>
         <div class="card-body">
             <table id="users-table" class="table table-condensed col-12">

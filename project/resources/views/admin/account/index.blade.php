@@ -28,9 +28,11 @@
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List User</h6>
+                @if (auth()->user()->hasRole('admin'))
                 <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Create User
                 </a>
+                @endif
             </div>
             <div class="card-body">
                 <table id="users-table" class="table table-condensed col-12">
@@ -39,6 +41,7 @@
                             <th scope="col">User Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
+                            <th scope="col">Department</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -46,6 +49,7 @@
             </div>
         </div>
     </div>
+    @if (auth()->user()->hasRole('admin'))
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -85,6 +89,7 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 
 @section('custom-js')
@@ -109,6 +114,10 @@
                     {
                         data: 'role',
                         name: 'role'
+                    },
+                    {
+                        data: 'department',
+                        name: 'department'
                     },
                     {
                         data: 'action',

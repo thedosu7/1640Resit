@@ -113,27 +113,18 @@
                                 </p>
                             </a>
                         </li>
-
-                        <!--  Category  -->
-                        <li class="nav-item">
-
-                            <a href="{{ route('admin.category.index') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-link"></i>
-                                <p>
-                                    Category
-                                </p>
-                            </a>
-                        </li>
-                        <!-- Department -->
-                        <li class="nav-item">
-                            <a href="{{ route('admin.department.index') }}" class="nav-link">
-
-                                <i class="nav-icon fa-solid fa-building"></i>
-                                <p>
-                                    Department
-                                </p>
-                            </a>
-                        </li>
+                        @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('manager'))
+                            <!-- Department -->
+                            <li class="nav-item">
+                                <a href="{{ route('admin.department.index') }}" class="nav-link">
+    
+                                    <i class="nav-icon fa-solid fa-building"></i>
+                                    <p>
+                                        Department
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
 
                         <!-- Semester -->
                         <li class="nav-item">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class AccountController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('role:admin');
+        //$this->middleware('role:admin');
     }
 
     public function index()
@@ -32,13 +33,18 @@ class AccountController extends Controller
 
     public function getDtRowData(Request $request)
     {
-        $users = User::all();
+        if(auth()->user()->role->name == Role::ROLE_QA_Coordinator){
+            $users = User::where('department_id',auth()->user()->department_id);
+        }else{
+            $users = User::all();
+        }
 
         return Datatables::of($users)
             ->editColumn('role', function ($user) {
                 return $user->role->name;
             })
             ->editColumn('action', function ($data) {
+                if (auth()->user()->hasRole('admin'))
                 return '
                 <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -47,6 +53,10 @@ class AccountController extends Controller
                     '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
             </form>
                 ';
+                return ''; //action send mail
+            })
+            ->editColumn('department', function ($user) {
+                return ($user->department == NULL) ? "" : $user->department->name;
             })
             ->rawColumns(['action'])
             ->setRowAttr([
@@ -91,16 +101,19 @@ class AccountController extends Controller
     public function edit($id,){
         $user = User::findOrFail($id);
         $role_id = Role::all();
-        return view('admin.account.edit', compact('user','role_id'));
+        $departments = Department::all();
+        return view('admin.account.edit', compact('user','role_id','departments'));
     }
 
     public function update(Request $request, $id){
         $user = User::find($id);
         $name = $request-> name;
         $role_id = $request->role_id;
+        $department_id = $request->department_id;
         $user -> update([
             'name' => $name,
-            'role_id'=> $role_id
+            'role_id'=> $role_id,
+            'department_id'=> $department_id
         ]);
         $user->save();
         return redirect('admin/account');    
