@@ -14,13 +14,21 @@
     <div class="idea-block">
         <h4>{{ $idea->title }}
             @if ($idea->user->id == auth()->user()->id)
-            <a href="{{ route('ideas.edit', $idea->id) }}"><i class=" fa fa-solid fa-pen-to-square"></i></a>
+            <a class="float-end ms-2 btn"  href="{{ route('ideas.edit', $idea->id) }}"><i class=" fa fa-solid fa-pen-to-square"></i></a>
+            <form method="post" class="float-end" action="{{route('ideas.delete', $idea->id)}}" style="display: inline;">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn">
+                    <i class=" fa fa-solid fa-trash"></i>
+                </button>
+            </form>
             @endif
         </h4>
         <p>{{ $idea->content }}</p>
         <h1 class="comments-title">Attachments ({{ $idea->attachments->count() }})</h1>
         @foreach ($idea->attachments as $attachment)
-        <a href="{{ asset($attachment->direction) }}">{{ $attachment->name }}</a><br>
+        <a href="{{ asset($attachment->direction) }}">{{ $attachment->name }}</a>
+        <br>
         @endforeach
 
         @livewire('react-component', [

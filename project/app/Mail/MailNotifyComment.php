@@ -7,19 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class MailNotifyComment extends Mailable
 {
     use Queueable, SerializesModels;
-    public $details;
+    public $user;
+    public $idea;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($user,$idea, $data)
     {
-        $this->details = $details;
+        $this->user = $user;
+        $this->idea = $idea;
+        $this->data = $data;
     }
 
     /**
@@ -29,8 +33,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('nhanvothanh719@gmail.com')
+        return $this->from(ENV('MAIL_USERNAME'))
         ->subject('Mail from GCD0806Group app')
-        ->view('emails.content');
+        ->view('emails.mail-notify-new-comment');
     }
 }

@@ -57,21 +57,11 @@
             <div>
                 <h4 class="title d-inline">LASTEST IDEA</h4>
                 @include('ideas.create')
-                <button class="btn btn-success d-inline float-md-end">My Idea</button>
             </div>
             <div class="my-lg-3">
                 @foreach ($ideas as $idea)
                 <div class="card mt-3">
                     <div class="card-body">
-                        @if ($idea->user->id == auth()->user()->id)
-                        <form method="post" class="float-end" action="{{route('ideas.delete', $idea->id)}}" style="display: inline;">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" style="border: none; padding: 0; background: none;">
-                                <i class=" fa fa-solid fa-trash"></i>
-                            </button>
-                        </form>
-                        @endif
                         <h5>{{ $idea->title }}</h5>
                         <small class="text-muted">
                             Post by: {{ auth()->user()->hasRole('staff')? 'Anonymous': $idea->user->name }} -

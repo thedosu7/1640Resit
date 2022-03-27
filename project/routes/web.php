@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
         Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');
         Route::post('/edit/{id}', [IdeaController::class, 'update'])->name('ideas.update');
+        Route::delete('/attachment/delete/{id}', [IdeaController::class, 'deleteAttachment'])->name('ideas.attachment.delete');
 
 
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);

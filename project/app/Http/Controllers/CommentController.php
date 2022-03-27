@@ -13,6 +13,7 @@ use App\Http\Requests\CommentStoreRequest;
 use Symfony\Contracts\EventDispatcher\Event;
 use App\Events\ClickButton;
 use App\Events\CommentEvent;
+use App\Jobs\SendEmailNewComment;
 
 class CommentController extends Controller
 {
@@ -35,7 +36,7 @@ class CommentController extends Controller
         $comment->user()->associate($user);
         $comment->save();
         //fire a new event
-        event(new CommentEvent($comment));
+        SendEmailNewComment::dispatch($comment, $user,$idea)->delay(now());
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment inserted successfully']);;
     }
 
