@@ -88,23 +88,6 @@
                     </span>
                     @endif
                 </div>
-                <div class="modal-body @error('semester') is-invalid @enderror">     
-                    <div class="form-group">
-                        <label for="semester">Semester:</label>
-                        <select class="form-control" name="semester" id="semester">
-                            @foreach ($semester as $smt)
-                            <option value="{{ $smt->id }}">{{ $smt->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @if ($errors->has('semester'))
-                    <span>
-                        @error('semester')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </span>
-                    @endif
-                </div>
                 <div class="modal-body @error('department') is-invalid @enderror">     
                     <div class="form-group">
                         <label for="department">Department:</label>
@@ -117,6 +100,23 @@
                     @if ($errors->has('department'))
                     <span>
                         @error('department')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                </div>
+                <div class="modal-body @error('semester') is-invalid @enderror">     
+                    <div class="form-group">
+                        <label for="semester">Semester:</label>
+                        <select class="form-control" name="semester" id="semester">
+                            @foreach ($semester as $smt)
+                            <option value="{{ $smt->id }}">{{ $smt->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('semester'))
+                    <span>
+                        @error('semester')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </span>

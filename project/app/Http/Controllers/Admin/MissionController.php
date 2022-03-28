@@ -81,7 +81,7 @@ class MissionController extends Controller
         $mission = Mission::findOrFail($id);
         $department = Department::all();
         $semester = Semester::all();
-        return view('admin.missions.editMission', compact('mission','category','department','semester'));
+        return view('admin.missions.editMission', compact('mission','department','semester'));
     }
 
     public function update(UpdateMission $request, $id){

@@ -81,8 +81,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="role">Department:</label>
-                            <select class="form-control" name="role_id" id="role">
+                            <label for="department">Department:</label>
+                            <select class="form-control" name="department_id" id="department">
                                 @foreach ($department as $dpm)
                                     <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
                                 @endforeach
