@@ -60,10 +60,6 @@
                         name: 'end_at'
                     },
                     {
-                        data: 'category',
-                        name: 'category'
-                    },
-                    {
                         data: 'department',
                         name: 'department'
                     },

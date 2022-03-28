@@ -80,6 +80,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="role">Department:</label>
+                            <select class="form-control" name="role_id" id="role">
+                                @foreach ($department as $dpm)
+                                    <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

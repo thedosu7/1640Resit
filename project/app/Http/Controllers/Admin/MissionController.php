@@ -20,7 +20,8 @@ class MissionController extends Controller
         return view(
             'admin.missions.index',
             [
-                'semester' => Semester::all()
+                'semester' => Semester::all(),
+                'department' => Department::all()
             ]
         );
     }
@@ -63,14 +64,12 @@ class MissionController extends Controller
         $name = $request->name;
         $description = $request->description;
         $end_at = $request->end_at;
-        $category_id = $request->category;
         $department_id = $request->department;
         $semester_id = $request->semester;
         Mission::create([
             'name' => $name,
             'description' => $description,
             'end_at' => $end_at,
-            'category_id' => $category_id,
             'department_id' => auth()->user()->department_id,
             'semester_id' => $semester_id,
         ]);
@@ -90,14 +89,12 @@ class MissionController extends Controller
         $name = $request-> name;
         $description = $request->description;
         $end_at = $request->end_at;
-        $category = $request->category;
         $department = $request->department;
         $semester = $request->semester;
         $mission -> update([
             'name' => $name,
             'description' => $description,
             'end_at' => $end_at,
-            'category' => $category,
             'department' => $department,
             'semester' => $semester,
         ]);
@@ -136,50 +133,12 @@ class MissionController extends Controller
         );
     }
 
-
-    public function getDtRowDataByCategory($id, Request $request)
-    {
-        $mission = Mission::where('category_id', $id)->get();
-        return Datatables::of($mission)
-            ->editColumn('end_at', function ($data) {
-                return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
-            })
-            ->editColumn('department', function ($data) {
-                return $data->department->name;
-            })
-            ->editColumn('semester', function ($data) {
-                return $data->semester->name;
-            })
-            ->editColumn('action', function ($data) {
-                return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
-                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                    '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
-                </form>
-                ';
-            })
-            ->rawColumns(['action'])
-            ->setRowAttr([
-                'data-row' => function ($data) {
-                    return $data->id;
-                }
-            ])
-            ->make(true);
-    }
     public function getDtRowDataByDepartment($id, Request $request)
     {
         $mission = Mission::where('department_id', $id)->get();
         return Datatables::of($mission)
             ->editColumn('end_at', function ($data) {
                 return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
             })
             ->editColumn('department', function ($data) {
                 return $data->department->name;
@@ -211,9 +170,6 @@ class MissionController extends Controller
         return Datatables::of($mission)
             ->editColumn('end_at', function ($data) {
                 return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
             })
             ->editColumn('department', function ($data) {
                 return $data->department->name;

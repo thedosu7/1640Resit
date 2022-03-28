@@ -27,21 +27,31 @@ class AccountController extends Controller
 
     public function index()
     {
-        $roles = Role::all();
-        return view('admin.account.index', compact('roles'));
+        return view(
+            'admin.account.index',
+            [
+                'roles' => Role::all(),
+                'department' => Department::all()
+            ]
+        );
+        // $department = Department::all();
+        // $roles = Role::all();
+        // return view('admin.account.index', compact('roles','department'));
     }
 
     public function getDtRowData(Request $request)
     {
         if(auth()->user()->role->name == Role::ROLE_QA_Coordinator){
-            $users = User::where('department_id',auth()->user()->department_id);
+            $users = User::where('department_id',auth()->user()->department_id)->get();
         }else{
             $users = User::all();
         }
-
         return Datatables::of($users)
             ->editColumn('role', function ($user) {
                 return $user->role->name;
+            })
+            ->editColumn('department', function ($user) {
+                return ($user->department == NULL) ? "" : $user->department->name;
             })
             ->editColumn('action', function ($data) {
                 if (auth()->user()->hasRole('admin'))
@@ -54,9 +64,6 @@ class AccountController extends Controller
             </form>
                 ';
                 return ''; //action send mail
-            })
-            ->editColumn('department', function ($user) {
-                return ($user->department == NULL) ? "" : $user->department->name;
             })
             ->rawColumns(['action'])
             ->setRowAttr([
@@ -80,12 +87,14 @@ class AccountController extends Controller
         $name = $request->name;
         $email = $request->email;
         $role_id = $request->role_id;
+        $department_id = $request->department_id; 
         $password = $this->generateRandomString(20);
         $token = Str::random(10);
         $info = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
+            'department_id'=> auth()->user()->$department_id,
             'password' => Hash::make($password),
             'remember_token' => $token
         ]);
@@ -98,7 +107,7 @@ class AccountController extends Controller
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
-    public function edit($id,){
+    public function edit($id){
         $user = User::findOrFail($id);
         $role_id = Role::all();
         $departments = Department::all();

@@ -105,6 +105,23 @@
                     </span>
                     @endif
                 </div>
+                <div class="modal-body @error('department') is-invalid @enderror">     
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <select class="form-control" name="department" id="department">
+                            @foreach ($department as $dpm)
+                            <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors->has('department'))
+                    <span>
+                        @error('department')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </span>
+                    @endif
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-warning">Add Mission</button>

@@ -114,9 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store');
         Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete');
 
-        // List mission by category|department|semester
-        Route::get('/missions/category/{id}', [MissionController::class, 'listMissionByCategory'])->name('admin.missions.category.index');
-        Route::get('/missions/category/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByCategory']);
+        // List mission by department|semester
         Route::get('/missions/department/{id}', [MissionController::class, 'listMissionByDepartment'])->name('admin.missions.department.index');
         Route::get('/missions/department/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByDepartment']);
         Route::get('/missions/semester/{id}', [MissionController::class, 'listMissionBySemester'])->name('admin.missions.semester.index');
