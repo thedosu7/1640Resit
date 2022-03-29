@@ -33,7 +33,7 @@
                         <li class="nav-item my-3"><a class="nav-link"
                                 href="{{ route('ideas.index') }}">Ideas</a></li>
 
-                        @if (auth()->user()->hasRole('admin'))
+                        @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('manager') || auth()->user()->hasRole('coordinator'))
                             <li class="nav-item my-3"><a class="nav-link"
                                     href="{{ route('admin.index') }}">Admin</a></li>
                         @endif
