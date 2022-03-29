@@ -27,7 +27,6 @@ class IdeaStoreRequest extends FormRequest
             'title' => 'required|string|unique:ideas|max:255',
             'content' => 'required|string',
             'mission_id' => 'required|string',
-            'files' => 'required',
             'is-agree' => 'required'
         ];
     }

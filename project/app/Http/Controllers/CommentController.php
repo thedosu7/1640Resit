@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Idea;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\Mission;
 use App\Http\Requests\CommentStoreRequest;
+use Symfony\Contracts\EventDispatcher\Event;
+use App\Events\ClickButton;
+use App\Events\CommentEvent;
+use App\Jobs\SendEmailNewComment;
 
 class CommentController extends Controller
 {
@@ -30,8 +35,9 @@ class CommentController extends Controller
         $comment->idea()->associate($idea);
         $comment->user()->associate($user);
         $comment->save();
+        //fire a new event
+        SendEmailNewComment::dispatch($comment, $user,$idea)->delay(now());
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment inserted successfully']);;
-
     }
 
     public function changeComment($id)
@@ -43,8 +49,10 @@ class CommentController extends Controller
     public function editComment(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
-        $input = $request->all();
-        $comment->update($input);
+        $comment->update([
+            'content' => $request->content
+        ]);
+
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment modified successfully']);
     }
 

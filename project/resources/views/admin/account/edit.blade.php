@@ -148,6 +148,14 @@
           </select>
         </div>
         <div class="form-group">
+          <label for="role">Department:</label>
+          <select class="form-control" name="department_id" id="department_id">
+            @foreach($departments as $department)
+            <option value="{{ $department->id }}">{{ $department->name }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-block create-account">Edit Account</button>
         </div>
       </div>

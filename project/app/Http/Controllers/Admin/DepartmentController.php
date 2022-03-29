@@ -13,10 +13,9 @@ class DepartmentController extends Controller
 {
     public function indexDepartment()
     {
-    
+
         $itemDepartment = Department::all();
         return view('admin.department.indexDepartment', compact('itemDepartment'));
-        
     }
 
     public function getDtRowData(Request $request)
@@ -31,18 +30,19 @@ class DepartmentController extends Controller
                 return $data->missions->count();
             })
             ->editColumn('action', function ($data) {
-                return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.department.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                if (auth()->user()->hasRole('admin'))
+                    return '
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.department.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 
                 <form method="POST" action="' . route('admin.department.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
-                '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this department ?\')"><i class="fa-solid fa-trash"></i></button>
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this department ?\')"><i class="fa-solid fa-trash"></i></button>
                 </form>
                 ';
-                
+                return '';
             })
-            ->rawColumns(['action','name'])
+            ->rawColumns(['action', 'name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -58,22 +58,25 @@ class DepartmentController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(DepartmentRequest $request){
+    public function create(DepartmentRequest $request)
+    {
         //todo: Add create category request
         Department::create($request->all());
-            return redirect()->back()->with('success', 'Create Department successfully!');
+        return redirect()->back()->with('success', 'Create Department successfully!');
         //send mail
     }
-    public function edit($id){
+    public function edit($id)
+    {
         $itemDepartment = Department::findOrFail($id);
-        return view('admin.department.editDepartment',compact('itemDepartment'));
+        return view('admin.department.editDepartment', compact('itemDepartment'));
     }
-    public function update(UpdateDepartment $request, $id){
+    public function update(UpdateDepartment $request, $id)
+    {
         $dataDpm = Department::findOrFail($id);
         // assign information to data variable
-        $data = $request -> all();
+        $data = $request->all();
         $dataDpm->update($data);
         $dataDpm->save();
-        return redirect('admin/department') -> with('success', 'Department successfully updated');
+        return redirect('admin/department')->with('success', 'Department successfully updated');
     }
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermOfUseController;
+use App\Listeners\SendEmailAfterClickButton;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +37,8 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 
-Route::get('/privacy', [PrivacyController::class,'index'])->name('privacy');
-Route::get('/term', [TermOfUseController::class,'index'])->name('term');
+Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
+Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
 Route::post('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -54,25 +55,27 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
+        //Route::get('test-email', [IdeaController::class, 'sendEmail']);
+        Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
+        Route::delete('/delete/{id}', [IdeaController::class, 'delete'])->name('ideas.delete');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
-        Route::get('/edit/{id}',[IdeaController::class, 'edit'])->name('ideas.edit');
-        Route::post('/edit/{id}',[IdeaController::class, 'update'])->name('ideas.update');
-        Route::get('/delete/{id}',[IdeaController::class, 'delete'])->name('ideas.delete');
+        Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');
+        Route::post('/edit/{id}', [IdeaController::class, 'update'])->name('ideas.update');
+        Route::delete('/attachment/delete/{id}', [IdeaController::class, 'deleteAttachment'])->name('ideas.attachment.delete');
 
 
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
         Route::post('add-comment/{id}', [CommentController::class, 'addComment'])->name('comments.add');
-        //Route::get('edit-comment', [CommentController::class, 'editComment']);
-        //Route::post('edit-comment', [CommentController::class, 'editComment'])->name('comments.edit');
-        Route::delete('delete-comment', [CommentController::class, 'store'])->name('comments.delete');
-
+        Route::get('edit-comment/{id}', [CommentController::class, 'editComment']);
+        Route::post('edit-comment/{id}', [CommentController::class, 'editComment'])->name('comments.edit');
+        Route::delete('delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('comments.delete');
     });
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
-            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::group(['prefix' => 'account'], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin,manager,coordinator'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::group(['prefix' => 'account'], function () {
             Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
             // Route::get('/create', [AccountController::class, 'create'])->name('admin.account.create');
             Route::post('/create', [AccountController::class, 'create'])->name('admin.account.create');
@@ -84,33 +87,23 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/update/{id}', [AccountController::class, 'update'])->name('admin.account.store');
         });
 
-        // Category
-        Route::group(['prefix' => 'category'], function () {
-            Route::get('/', [CategoryController::class, 'indexCategory'])->name('admin.category.index');
-            Route::get('/dt-row-data', [CategoryController::class, 'getDtRowData']);
-            Route::post('/create', [CategoryController::class, 'create'])->name('admin.category.createCate');
-            Route::delete('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
-            Route::get('/update/{id}', [CategoryController::class, 'edit'])->name('admin.category.update');
-            Route::post('/update/{id}', [CategoryController::class, 'update'])->name('admin.category.store');
-        });
-
         //Department
-        Route::group(['prefix' => 'department'], function () {
+        Route::group(['prefix' => 'department','middleware' => 'role:admin,manager'], function () {
             Route::get('/', [DepartmentController::class, 'indexDepartment'])->name('admin.department.index');
             Route::get('/dt-row-data', [DepartmentController::class, 'getDtRowData']);
-            Route::post('/createDpm', [DepartmentController::class, 'create'])->name('admin.department.createDpm');
-            Route::delete('/delete/{id}', [DepartmentController::class, 'delete'])->name('admin.department.delete');
-            Route::get('/update/{id}', [DepartmentController::class, 'edit'])->name('admin.department.update');
-            Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.store');
+            Route::post('/createDpm', [DepartmentController::class, 'create'])->name('admin.department.createDpm')->middleware('role:admin');
+            Route::delete('/delete/{id}', [DepartmentController::class, 'delete'])->name('admin.department.delete')->middleware('role:admin');
+            Route::get('/update/{id}', [DepartmentController::class, 'edit'])->name('admin.department.update')->middleware('role:admin');
+            Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.store')->middleware('role:admin');
         });
         //Semester
         Route::group(['prefix' => 'semester'], function () {
             Route::get('/', [SemesterController::class, 'indexSemester'])->name('admin.semester.index');
             Route::get('/dt-row-data', [SemesterController::class, 'getDtRowData']);
-            Route::post('/createSmt', [SemesterController::class, 'create'])->name('admin.semester.createSmt');
-            Route::delete('/delete/{id}', [SemesterController::class, 'delete'])->name('admin.semester.delete');
-            Route::get('/update/{id}', [SemesterController::class, 'edit'])->name('admin.semester.update');
-            Route::post('/update/{id}', [SemesterController::class, 'update'])->name('admin.semester.store');
+            Route::post('/createSmt', [SemesterController::class, 'create'])->name('admin.semester.createSmt')->middleware('role:admin');
+            Route::delete('/delete/{id}', [SemesterController::class, 'delete'])->name('admin.semester.delete')->middleware('role:admin');
+            Route::get('/update/{id}', [SemesterController::class, 'edit'])->name('admin.semester.update')->middleware('role:admin');
+            Route::post('/update/{id}', [SemesterController::class, 'update'])->name('admin.semester.store')->middleware('role:admin');
         });
 
         //Mission
@@ -119,16 +112,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/mission/create', [MissionController::class, 'create'])->name('admin.mission.create');
         Route::get('/mission/update/{id}', [MissionController::class, 'edit'])->name('admin.mission.update');
         Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store');
-        Route::delete('/missions/delete/{id}',[MissionController::class,'delete'])->name('admin.mission.delete');
+        Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete');
 
-        // List mission by category|department|semester
-        Route::get('/missions/category/{id}', [MissionController::class, 'listMissionByCategory'])->name('admin.missions.category.index');
-        Route::get('/missions/category/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByCategory']);
+        // List mission by department|semester
         Route::get('/missions/department/{id}', [MissionController::class, 'listMissionByDepartment'])->name('admin.missions.department.index');
         Route::get('/missions/department/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByDepartment']);
         Route::get('/missions/semester/{id}', [MissionController::class, 'listMissionBySemester'])->name('admin.missions.semester.index');
         Route::get('/missions/semester/{id}/dt-row-data', [MissionController::class, 'getDtRowDataBySemester']);
     });
-
-    
 });

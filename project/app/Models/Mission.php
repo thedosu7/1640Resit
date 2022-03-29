@@ -14,7 +14,6 @@ class Mission extends Model
     protected $fillable = [
         'name',
         'description',
-        'category_id',
         'department_id',
         'semester_id',
         'end_at'
@@ -25,10 +24,6 @@ class Mission extends Model
         'end_at'
     ];
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
     public function department()
     {
         return $this->belongsTo(Department::class);

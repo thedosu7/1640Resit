@@ -88,24 +88,7 @@
                     </span>
                     @endif
                 </div>
-                <div class="modal-body @error('category') is-invalid @enderror">    
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select class="form-control" name="category" id="category">
-                            @foreach ($category as $cate)
-                            <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @if ($errors->has('category'))
-                    <span>
-                        @error('category')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </span>
-                    @endif
-                </div>
-                <div class="modal-body @error('department') is-invalid @enderror">    
+                <div class="modal-body @error('department') is-invalid @enderror">     
                     <div class="form-group">
                         <label for="department">Department:</label>
                         <select class="form-control" name="department" id="department">
@@ -171,10 +154,6 @@
                 {
                     data: 'end_at',
                     name: 'end_at'
-                },
-                {
-                    data: 'category',
-                    name: 'category'
                 },
                 {
                     data: 'department',

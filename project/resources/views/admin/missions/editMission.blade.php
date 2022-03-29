@@ -172,14 +172,6 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select class="form-control" name="category" id="category">
-                        @foreach ($category as $cate)
-                        <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="department">Department:</label>
                     <select class="form-control" name="department" id="department">
                         @foreach ($department as $dpm)

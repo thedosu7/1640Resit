@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IdeaStoreRequest;
 use App\Http\Requests\IdeaUpdateRequest;
+use App\Jobs\SendEmailCreateIdea;
 use App\Models\Attachment;
 use App\Models\Idea;
 use App\Models\Mission;
 use App\Models\Comment;
+use App\Models\Role;
+use App\Models\Semester;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller
@@ -31,7 +34,7 @@ class IdeaController extends Controller
     public function index(Request $request)
     {
         $missions = Mission::where('end_at', '>=', now())->get();
-        $ideas = Idea::withCount('comments')->paginate(5);
+        $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
         return view(
             'ideas.index',
             compact(['missions', 'ideas'])
@@ -62,14 +65,19 @@ class IdeaController extends Controller
                 ]);
             }
         }
+        $Coordinator_role = Role::where('name','=',Role::ROLE_QA_Coordinator)->first()->id;
+        $users = User::where('role_id',$Coordinator_role)->get();
+        SendEmailCreateIdea::dispatch($idea, $users)->delay(now());
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }
 
     public function details(Request $request, $id)
     {
         $idea = Idea::findOrFail($id);
+        $current_mission_id = Mission::findOrFail($idea->mission_id)->id;
+        $current_semester_end_day = Semester::findOrFail($current_mission_id)->end_day;
         $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
-        return view('ideas.details', compact('idea', 'comments'));
+        return view('ideas.details', compact('idea', 'comments', 'current_semester_end_day'));
     }
 
     public function edit($id)
@@ -101,5 +109,24 @@ class IdeaController extends Controller
             'content' => $request->content
         ]);
         return redirect()->back()->with(['class' => 'success', 'message' => 'Update success']);
+    }
+
+    public function delete($id)
+    {
+        $idea = Idea::findOrFail($id);
+        //$idea->user_id->delete();
+        //$idea->mission_id->delete();
+        $comments = Comment::where('idea_id', $id);
+        $comments->delete();
+        $attached_files = Attachment::where('idea_id', $id);
+        $attached_files->delete();
+        $idea->delete();
+        return redirect()->route('ideas.index')->with(['class' => 'success', 'message' => 'Your idea is deleted']);
+    }
+
+    public function deleteAttachment($id){
+        $attached_files = Attachment::find($id);
+        $attached_files->delete();
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Your idea is deleted']);
     }
 }

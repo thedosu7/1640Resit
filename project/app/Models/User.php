@@ -26,7 +26,8 @@ class User extends Authenticatable implements ReacterableInterface
         'password',
         'remember_token',
         'avatar',
-        'role_id'
+        'role_id',
+        'department_id',
     ];
 
     /**
@@ -66,5 +67,10 @@ class User extends Authenticatable implements ReacterableInterface
     public function comments()
     {
         return $this->belongsToMany(Comment::class);
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 }
