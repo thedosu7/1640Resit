@@ -32,4 +32,8 @@ class Mission extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+
+    public function ideas(){
+        return $this->hasMany(Idea::class);
+    }
 }

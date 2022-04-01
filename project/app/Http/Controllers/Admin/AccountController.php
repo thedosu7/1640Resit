@@ -94,13 +94,14 @@ class AccountController extends Controller
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
-            'department_id'=> auth()->user()->$department_id,
+            // 'department_id'=> auth()->user()->department_id,
+            'department_id'=> $department_id,
             'password' => Hash::make($password),
             'remember_token' => $token
         ]);
         // dd($info);
         // Send email
-        Mail::send('admin.emails.login',compact('info'),function($email){
+        Mail::send('admin.emails.login',compact('info','password'),function($email){
             $email->subject('This is mail to send account');
             $email->to('scottnguyen1204@gmail.com');
         });

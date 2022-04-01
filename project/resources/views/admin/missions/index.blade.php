@@ -29,15 +29,18 @@
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">List Mission</h6>
+            @if(!auth()->user()->hasRole('manager'))
             <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Create Mission
             </a>
+            @endif
         </div>
         <div class="card-body">
             @include('admin.missions._list')
         </div>
     </div>
 </div>
+@if(!auth()->user()->hasRole('manager'))
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -88,6 +91,7 @@
                     </span>
                     @endif
                 </div>
+                @if(auth()->user()->hasRole('admin'))
                 <div class="modal-body @error('department') is-invalid @enderror">     
                     <div class="form-group">
                         <label for="department">Department:</label>
@@ -105,6 +109,7 @@
                     </span>
                     @endif
                 </div>
+                @endif
                 <div class="modal-body @error('semester') is-invalid @enderror">     
                     <div class="form-group">
                         <label for="semester">Semester:</label>
@@ -130,6 +135,7 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 @section('custom-js')
@@ -173,8 +179,7 @@
     });
 </script>
 <script>
-    @if ($errors->has('name')||$errors->has('description')||$errors->has('end_at')||$errors->has('category')
-    ||$errors->has('department')||$errors->has('semester'))
+    @if ($errors->has('name')||$errors->has('description')||$errors->has('end_at')
     )
         var delayInMilliseconds = 1000;
         setTimeout(function() {
