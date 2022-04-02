@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendEmailCreateAccount;
 use Illuminate\Support\Str;
 use Session;
 
@@ -101,10 +102,12 @@ class AccountController extends Controller
         ]);
         // dd($info);
         // Send email
-        Mail::send('admin.emails.login',compact('info','password'),function($email){
-            $email->subject('This is mail to send account');
-            $email->to('scottnguyen1204@gmail.com');
-        });
+        SendEmailCreateAccount::dispatch($info, $password)->delay(now());
+
+        // Mail::send('admin.emails.login',compact('info','password'),function($email){
+        //     $email->subject('This is mail to send account');
+        //     $email->to('khointgcd191160@fpt.edu.vn');
+        // });
         return redirect()->back()->with('flash_message', 'User created!');
     }
 

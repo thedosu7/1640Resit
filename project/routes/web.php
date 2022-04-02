@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\IdeasController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
@@ -56,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         //Route::get('test-email', [IdeaController::class, 'sendEmail']);
-        Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
+        // Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
         Route::delete('/delete/{id}', [IdeaController::class, 'delete'])->name('ideas.delete');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
@@ -105,6 +106,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/update/{id}', [SemesterController::class, 'edit'])->name('admin.semester.update')->middleware('role:admin');
             Route::post('/update/{id}', [SemesterController::class, 'update'])->name('admin.semester.store')->middleware('role:admin');
         });
+        
+        // Idea Admin
+        Route::group(['prefix' => 'ideas', 'middleware' => 'role:admin,manager'],function(){
+            Route::get('/',[IdeasController::class,'index'])->name('admin.ideas.index');
+            Route::get('/dt-row-data',[IdeasController::class,'getDtRowData']);
+            Route::get('/listIdea/{id}',[IdeasController::class,'listIdeaByMission'])->name('admin.ideas.listIdea.index');
+            Route::get('/listIdea/{id}/dt-row-data',[IdeasController::class,'getDtRowDataByMission']);
+        });
 
         //Mission
         Route::get('/missions/', [MissionController::class, 'index'])->name('admin.missions.index');
@@ -114,6 +123,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store')->middleware('role:admin,coordinator');
         Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete')->middleware('role:admin,coordinator');
 
+        
         // List mission by department|semester
         Route::get('/missions/department/{id}', [MissionController::class, 'listMissionByDepartment'])->name('admin.missions.department.index');
         Route::get('/missions/department/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByDepartment']);

@@ -74,7 +74,7 @@ class IdeaController extends Controller
     public function details(Request $request, $id)
     {
         $idea = Idea::findOrFail($id);
-        $current_mission_id = Mission::findOrFail($idea->mission_id)->semester_id;
+        $current_mission_id = Mission::findOrFail($idea->mission_id)->id;
         $current_semester_end_day = Semester::findOrFail($current_mission_id)->end_day;
         $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
         return view('ideas.details', compact('idea', 'comments', 'current_semester_end_day'));

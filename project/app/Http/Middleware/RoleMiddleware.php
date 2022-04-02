@@ -16,7 +16,6 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, ... $roles)
     {
-                return $next($request);
         foreach($roles as $role) {
             if ($request->user()->hasRole($role)) {
                 return $next($request);

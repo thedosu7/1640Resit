@@ -35,6 +35,9 @@ class MissionController extends Controller
             $mission = Mission::all();
         }
         return Datatables::of($mission)
+            ->editColumn('name', function ($data) {
+                return ' <a href="' . route('admin.ideas.listIdea.index', $data->id) . '">' . $data->name . '</a>';
+            })
             ->editColumn('end_at', function($data){
                 return $data->end_at;
             })
@@ -55,7 +58,7 @@ class MissionController extends Controller
                 </form>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;

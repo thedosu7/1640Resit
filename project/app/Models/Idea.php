@@ -26,6 +26,9 @@ class Idea extends Model implements ReactableInterface
     {
         return $this->hasMany(Comment::class);
     }
+    public function mission(){
+        return $this->belongsTo(Mission::class);
+    }
 
     public function user()
     {

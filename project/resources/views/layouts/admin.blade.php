@@ -149,7 +149,7 @@
 
                         {{-- Ideas --}}
                         <li class="nav-item">
-                            <a href="{{ route('ideas.index') }}" class="nav-link">
+                            <a href="{{ route('admin.ideas.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-lightbulb"></i>
                                 <p>
                                     Ideas
