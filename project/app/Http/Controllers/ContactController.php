@@ -8,21 +8,20 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index(ContactRequest $request) { 
-        
-        $user = User::where('email',$request->email)->first();
-        if(!$user){
-            return redirect()->back()->with('success', 'Email not found in system');
-        } 
+    public function index() { 
+        return view('contact');
+    }
+
+    public function contact(ContactRequest $request) {
         Contact::create([
             'name' => $request->name,
             'email' => $request->email,
+            'subject' => $request->subject,
+            'phone_number' => $request->phone_number,
+            'message' => $request->message,
         ]);
         //send mail den nguoi gui
         //send mail to QA & Admin
-
-        return redirect()->back()->with('success', 'Thank you for contact us!');
-        
-
+        return redirect()->back()->with(['class' => 'danger', 'message' => 'Thank you for contact us!']);
     }
 }

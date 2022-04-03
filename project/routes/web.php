@@ -31,15 +31,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false, 'reset' => false, 'logout' => false]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', function () {
-    return redirect()->route('home');
-});
-
+Route::get('/home', function () {return redirect()->route('home');});
 Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
 Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
-Route::post('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
