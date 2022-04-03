@@ -23,9 +23,12 @@ class IdeasController extends Controller
         $ideas = Idea::all();
         // dd($ideas);
         return Datatables::of($ideas)
-            ->editColumn('title', function($data){
-                return $data->title;
+            ->editColumn('title', function ($data) {
+                return ' <a href="' . route('admin.comments.listComment.index', $data->id) . '">' . $data->title . '</a>';
             })
+            // ->editColumn('title', function($data){
+            //     return $data->title;
+            // })
             ->editColumn('content', function($data){
                 return $data->content;
             })
@@ -35,6 +38,7 @@ class IdeasController extends Controller
             ->editColumn('mission', function ($data) {
                 return $data->mission->name;
             })
+            ->rawColumns(['title'])
             ->make(true);
     }
 
@@ -42,7 +46,7 @@ class IdeasController extends Controller
      public function listIdeaByMission($id)
     {
         $missions = Mission::find($id);
-        if (!$missions) abort(404); //check semester exits
+        if (!$missions) abort(404); //check missions exits
         return view(
             'admin.ideas.indexbyMission',
             [

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\IdeasController;
+use App\Http\Controllers\Admin\ComentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
@@ -113,6 +114,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/dt-row-data',[IdeasController::class,'getDtRowData']);
             Route::get('/listIdea/{id}',[IdeasController::class,'listIdeaByMission'])->name('admin.ideas.listIdea.index');
             Route::get('/listIdea/{id}/dt-row-data',[IdeasController::class,'getDtRowDataByMission']);
+        });
+
+        //Comment Admin
+        Route::group(['prefix' => 'comments', 'middleware' => 'role:admin,manager'],function(){
+            Route::get('/listComment/{id}',[ComentController::class,'listCommentByIdea'])->name('admin.comments.listComment.index');
+            Route::get('/listComment/{id}/dt-row-data',[ComentController::class,'getDtRowDataByIdea']);
         });
 
         //Mission
