@@ -3,11 +3,10 @@
 @section('title', 'Change password')
 
 @section('content')
-
     <div class="container-xl">
         <div class="row">
             <div class="col-xl-4">
-                @include('user._avatar');
+                @include('user._avatar')
             </div>
             <div class="col-xl-8">
                 <!-- Account details card-->
@@ -19,42 +18,18 @@
                             <div class="mb-3">
                                 <label class="small mb-1 fw-bold" for="old-password">* Old password:</label>
                                 <input class="form-control @error('old-password') is-invalid @enderror" id="old-password"
-                                    name="old-password" type="password" placeholder="Enter old password"
-                                    >
-                                @if ($errors->has('old-password'))
-                                    <span>
-                                        @error('old-password')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </span>
-                                @endif
+                                    name="old-password" type="password" placeholder="Enter old password">
                             </div>
                             <div class="mb-3">
                                 <label class="small mb-1 fw-bold" for="new-password">* New password:</label>
                                 <input class="form-control @error('new-password') is-invalid @enderror" id="new-password"
-                                    name="new-password" type="password" placeholder="Enter new password"
-                                    >
-                                @if ($errors->has('new-password'))
-                                    <span>
-                                        @error('new-password')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </span>
-                                @endif
+                                    name="new-password" type="password" placeholder="Enter new password">
                             </div>
                             <div class="mb-3">
-                                <label class="small mb-1 fw-bold" for="new-password_confirmation">* Confirm new
-                                    password:</label>
+                                <label class="small mb-1 fw-bold" for="new-password_confirmation">* Confirm new password:</label>
                                 <input class="form-control @error('new-password_confirmation') is-invalid @enderror"
                                     id="new-password_confirmation" name="new-password_confirmation" type="password"
-                                    placeholder="Enter new password again" >
-                                @if ($errors->has('new-password_confirmation'))
-                                    <span>
-                                        @error('new-password_confirmation')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </span>
-                                @endif
+                                    placeholder="Enter new password again">
                             </div>
                             <!-- Save changes button-->
                             <button class="btn btn-info d-grid" type="submit">Save</button>
@@ -65,4 +40,18 @@
         </div>
     </div>
 
+@endsection
+
+@section('custom-js')
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+
+<!-- Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+
+<!-- Latest compiled and minified Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
 @endsection

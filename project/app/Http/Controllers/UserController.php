@@ -50,17 +50,17 @@ class UserController extends Controller
         $user = Auth::user();
         //If two passwords are the same
         //Hash::check --> Check whether the old password entered by user is correct or not
-        if (!(Hash::check($request['old-password'], $user->password))) {
-            return back()->with(['message' => 'The password currently used does not matches with the provided password.']);
+        if(!(Hash::check($request['old-password'], $user->password))) {
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'The password currently used does not matches with the provided password.']);
         }       
         //Sring compare: Old password and the new one
         if(strcmp($request['old-password'], $request['new-password']) == 0){
-            return back()->with(['message' => 'The new password cannot be the same with current password.']);
+            return redirect()->back()->with(['class' => 'danger', 'message' => 'The new password cannot be the same with current password.']);
         }
         //bcrypt --> password-hashing function
         $user->password = bcrypt($request['new-password']);
         DB::table('users')->where('id', $user->id)->update(['password' => $user->password]);
-        return back()->with(['message' => 'Password changed successfully !']);
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Password changed successfully !']);
     }
 
     public function changePhoneNumber(PhoneChangeRequest $request)
@@ -69,7 +69,7 @@ class UserController extends Controller
         $phoneNumber = $request['new-phone-number'];
         $user->phone_number = $phoneNumber;
         DB::table('users')->where('id', $user->id)->update(['phone_number' => $user->phone_number]);
-        return back()->with(['message' => 'The phone number is updated']);
+        return redirect()->back()->with(['class' => 'success', 'message' => 'The phone number is updated!']);
     }
 
     public function uploadAvatar(Request $request)
@@ -80,6 +80,6 @@ class UserController extends Controller
             $request->image->storeAs('images',$imgName,'public');
             DB::table('users')->where('id', $user->id)->update(['avatar' => $imgName]);
         }
-        return back()->with(['message' => 'Avatar is changed successfully']);
+        return redirect()->back()->with(['class' => 'success', 'message' => 'Avatar is changed successfully!']);
     }
 }
