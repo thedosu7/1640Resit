@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
@@ -37,6 +38,7 @@ Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
 Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::get('/about',[AboutController::class, 'about'])->name('about');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
