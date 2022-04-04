@@ -14,7 +14,6 @@
                     <div class="form-group">
                         <label for="new-phone-number" class="col-form-label">Phone number:</label>
                         <input type="tel" class="form-control @error('new-phone-number') is-invalid @enderror" id="new-phone-number" name="new-phone-number">
-                        
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>

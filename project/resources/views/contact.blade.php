@@ -12,18 +12,43 @@
                 <div class="row">
                     <div class="col-md-12" style="padding: 10px;">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name">
+                        @error('name')
+                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-md-12" style="padding: 10px;">
                         <input type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email">
+                        @error('email')
+                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-md-12" style="padding: 10px;">
                         <input type="text" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Phone Number" name="phone_number">
+                        @error('phone_number')
+                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-md-12" style="padding: 10px;">
                         <input type="text" class="form-control @error('subject') is-invalid @enderror" placeholder="Subject" name="subject">
+                        @error('subject')
+                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="col-md-12" style="padding: 10px;">
                         <textarea rows="6" class="form-control @error('message') is-invalid @enderror" placeholder="Please send us a message..." name="message"></textarea>
+                        @error('message')
+                        <span class="invalid-feedback d-flex justify-content-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="update ml-auto mr-auto" style="padding: 10px;">
                         <button type="submit" class="btn btn-primary btn-round">Submit</button>

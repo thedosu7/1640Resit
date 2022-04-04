@@ -36,6 +36,7 @@ class ContactRequest extends FormRequest
     {
         return [
             'phone_number.size' => 'The phone number must contain 10 characters',
+            'regex' => 'The format of the phone number is not valid'
         ];        
     }
 }
