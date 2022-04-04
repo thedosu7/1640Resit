@@ -16,7 +16,7 @@
                     <form action="{{ route('user.updatePassword') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label class="small mb-1 fw-bold" for="old-password">* Old password:</label>
+                            <label class="small mb-1 fw-bold" for="old-password">Old password:</label>
                             <input class="form-control @error('old-password') is-invalid @enderror" id="old-password" name="old-password" type="password" placeholder="Enter old password">
                             @error('old-password')
                             <span class="invalid-feedback d-flex justify-content-left" role="alert">
@@ -25,7 +25,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1 fw-bold" for="new-password">* New password:</label>
+                            <label class="small mb-1 fw-bold" for="new-password">New password:</label>
                             <input class="form-control @error('new-password') is-invalid @enderror" id="new-password" name="new-password" type="password" placeholder="Enter new password">
                             @error('new-password')
                             <span class="invalid-feedback d-flex justify-content-left" role="alert">
@@ -34,7 +34,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="small mb-1 fw-bold" for="new-password_confirmation">* Confirm new password:</label>
+                            <label class="small mb-1 fw-bold" for="new-password_confirmation">Confirm new password:</label>
                             <input class="form-control @error('new-password_confirmation') is-invalid @enderror" id="new-password_confirmation" name="new-password_confirmation" type="password" placeholder="Enter new password again">
                             @error('new-password_confirmation')
                             <span class="invalid-feedback d-flex justify-content-left" role="alert">
@@ -43,7 +43,7 @@
                             @enderror
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-info d-grid" type="submit">Save</button>
+                        <center><button class="btn btn-success d-grid" type="submit">Save new password</button></center>
                     </form>
                 </div>
             </div>
