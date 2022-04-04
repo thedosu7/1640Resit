@@ -36,7 +36,7 @@ class CommentController extends Controller
         $comment->user()->associate($user);
         $comment->save();
         //fire a new event
-        SendEmailNewComment::dispatch($comment, $user,$idea)->delay(now());
+        SendEmailNewComment::dispatch($comment, $user, $idea)->delay(now());
         return redirect()->back()->with(['class' => 'success', 'message' => 'Comment inserted successfully']);;
     }
 

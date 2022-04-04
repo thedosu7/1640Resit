@@ -7,21 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailNotifyComment extends Mailable
+class MailNotifyContactUsForm extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
-    public $idea;
+    public $receiver;
+    public $contact;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user,$idea)
+    public function __construct($receiver, $contact)
     {
-        $this->user = $user;
-        $this->idea = $idea;
+        $this->receiver = $receiver;
+        $this->contact = $contact;
     }
 
     /**
@@ -33,6 +33,6 @@ class MailNotifyComment extends Mailable
     {
         return $this->from(ENV('MAIL_USERNAME'))
         ->subject('Mail from GCD0806Group app')
-        ->view('emails.mail-notify-new-comment');
+        ->view('emails.contact_email');
     }
 }
