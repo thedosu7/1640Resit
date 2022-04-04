@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TermOfUseController;
 use App\Listeners\SendEmailAfterClickButton;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,7 @@ Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
 Route::get('/about',[AboutController::class, 'about'])->name('about');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');

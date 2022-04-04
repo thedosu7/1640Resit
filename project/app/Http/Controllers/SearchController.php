@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Idea;
 use Spatie\Searchable\Search;
 use Illuminate\Http\Request;
 use Spatie\Searchable\ModelSearchAspect;
@@ -9,19 +11,17 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
+      // Get the search value from the request
+        $search = $request->input('search');
 
-        $searchterm = $request->input('query');
+    // Search in the title and body columns from the posts table
+        $ideas = Idea::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('content', 'LIKE', "%{$search}%")
+            ->get();
 
-        $searchResults = (new Search())
-            ->registerModel(\App\Product::class, ['name', 'description']) //apply search on field name and description
-            //Config partial match or exactly match
-            ->registerModel(\App\Category::class, function (ModelSearchAspect $modelSearchAspect) {
-                $modelSearchAspect
-                    ->addExactSearchableAttribute('name') // only return results that exactly match
-                    ->addSearchableAttribute('description'); // return results for partial matches
-            })
-            ->perform($searchterm);
-
-        return view('search', compact('searchResults', 'searchterm'));
+        // Return the search view with the resluts compacted
+        return view('search_idea', compact('ideas'));
+        
     }
 }
