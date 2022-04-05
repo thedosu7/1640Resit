@@ -56,13 +56,30 @@ class AccountController extends Controller
             })
             ->editColumn('action', function ($data) {
                 if (auth()->user()->hasRole('admin'))
-                return '
+
+                // is_lock = 1: not lock
+                // is_lock = 0: lock
+                if($data->is_lock == 1)
+                return 
+                '
+                <a class="btn btn-success btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fa-solid fa-ban"></i></a>
                 <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
                     '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
-            </form>
+                </form>
+                ';
+                else
+                return'
+                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fa-solid fa-check"></i></a>
+                
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                ' . method_field('DELETE') .
+                    '' . csrf_field() .
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                </form>
                 ';
                 return ''; //action send mail
             })
@@ -130,6 +147,18 @@ class AccountController extends Controller
         ]);
         $user->save();
         return redirect('admin/account');    
+    }
+
+    public function banAccount($id, $status_code)
+    {
+        $ban_account = User::whereId($id)->update([
+            'is_lock' => $status_code
+        ]);
+        if($ban_account){
+            return redirect()->route('admin.account.index')->with('success', 'Account is banned successfully');
+        }
+
+        return redirect()->route('admin.account.index')->with('error','Fail to ban account');
     }
 
     private function generateRandomString($length = 20) {

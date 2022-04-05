@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
         //Route::get('test-email', [IdeaController::class, 'sendEmail']);
-        // Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
+        Route::get('test-email', [SendEmailAfterClickButton::class, 'sendEmail']);
         Route::post('store', [IdeaController::class, 'store'])->name('ideas.store');
         Route::delete('/delete/{id}', [IdeaController::class, 'delete'])->name('ideas.delete');
         Route::get('/{id}', [IdeaController::class, 'details'])->name('ideas.details');
@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
             Route::get('/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
             Route::post('/update/{id}', [AccountController::class, 'update'])->name('admin.account.store');
+            Route::get('/ban/{id}/{status_code}',[AccountController::class,'banAccount'])->name('admin.account.ban');
         });
 
         //Department
