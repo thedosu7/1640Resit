@@ -90,6 +90,9 @@
         </div>
         <div class="col-md-3">
             @include('ideas.search')
+            @if($found_ideas_count > 0)
+            @include('ideas.search_results')
+            @endif
         </div>
     </div>
 </div>

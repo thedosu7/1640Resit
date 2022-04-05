@@ -13,6 +13,8 @@ use App\Models\Role;
 use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Events\ViewIdeaEvent;
 
 class IdeaController extends Controller
 {
@@ -34,10 +36,25 @@ class IdeaController extends Controller
     public function index(Request $request)
     {
         $missions = Mission::where('end_at', '>=', now())->get();
+        //Search by key
+        $user_input = $request->input('search');
+        $found_ideas_count = 0;
+        $found_ideas = DB::table('ideas')
+        ->where('title', 'LIKE', "%{$user_input}%")
+        ->orWhere('content', 'LIKE', "%{$user_input}%")->get();
+        $found_ideas_count = count($found_ideas);
+        //Search by category
+
+        //Search by condition:
+        //Search ideas with order by views
+        //Search ideas with order by comments
+        //Search ideas with order by time created 
+        //
         $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
+        //
         return view(
             'ideas.index',
-            compact(['missions', 'ideas'])
+            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas'])
         );
     }
 
@@ -77,6 +94,8 @@ class IdeaController extends Controller
         $current_mission_id = Mission::findOrFail($idea->mission_id)->id;
         $current_semester_end_day = Semester::findOrFail($current_mission_id)->end_day;
         $comments = Comment::where('idea_id', '=', $idea->id)->orderBy('created_at', 'desc')->paginate(5);
+        //Fire event
+        event(new ViewIdeaEvent($idea));
         return view('ideas.details', compact('idea', 'comments', 'current_semester_end_day'));
     }
 
