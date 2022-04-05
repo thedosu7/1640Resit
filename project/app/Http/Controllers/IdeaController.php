@@ -36,6 +36,7 @@ class IdeaController extends Controller
     public function index(Request $request)
     {
         $missions = Mission::where('end_at', '>=', now())->get();
+        $categories = DB::table('categories')->get();
         //Search by key
         $user_input = $request->input('search');
         $found_ideas_count = 0;
@@ -44,7 +45,7 @@ class IdeaController extends Controller
         ->orWhere('content', 'LIKE', "%{$user_input}%")->get();
         $found_ideas_count = count($found_ideas);
         //Search by category
-
+        $selected_category = $request->category;
         //Search by condition:
         //Search ideas with order by views
         //Search ideas with order by comments
@@ -54,8 +55,13 @@ class IdeaController extends Controller
         //
         return view(
             'ideas.index',
-            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas'])
+            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas', 'categories'])
         );
+    }
+
+    //Search by key function
+    protected function searchByKey(Request $request) {
+        
     }
 
     public function store(IdeaStoreRequest $request)

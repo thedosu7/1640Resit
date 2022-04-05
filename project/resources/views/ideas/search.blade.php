@@ -3,13 +3,30 @@
     <div class="card-body ">
         <form method="POST" action="{{ route('ideas.search') }}">
             @csrf
-            <div class="input-group rounded">
-                <input type="search" class="form-control rounded" name="search" aria-describedby="search-addon">
-                <span class="input-group-text border-0" id="search-addon">
-                    <button type="submit" style="border: none; padding: 0; background: none;">
-                    <i class="fas fa-search"></i>
-                    </button>
-                </span>
+            <div>
+                <label class="form-label" for="searchUsingKey">Key:</label>
+                <input type="search" class="form-control" id="searchUsingKey" aria-describedby="search-addon" name="search">
+            </div>
+            <div style="padding: 10px 0px 0px 0px;">
+                <label for="selectCategory" class="form-label">Category:</label>
+                <select class="form-select" id="selectCategory" name="category">
+                    <option>All</option>
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div style="padding: 10px 0px 0px 0px;">
+                <label for="selectFilter" class="form-label">Filter:</label>
+                <select class="form-select" id="selectFilter" name="filter">
+                    <option>None</option>
+                    <option>Most views</option>
+                    <option>Most likes</option>
+                    <option>Most recently</option>
+                </select>
+            </div>
+            <div style="padding: 15px 0px 0px 0px;">
+                <center><button class="btn btn-success d-grid" type="submit">Search</button></center>
             </div>
         </form>
     </div>
