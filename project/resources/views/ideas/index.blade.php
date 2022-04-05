@@ -77,7 +77,7 @@
                             @livewire('react-component', [
                             'model' => $idea
                             ])
-
+                            Total views: {{ $idea->view_count }}
                             {{-- <span href="#"> <i class="fa fa-comments"></i>{{ $idea->comments_count }}</span> --}}
                             <span><a class="" onclick="window.location.href='{{ url('/ideas/' . $idea->id) }}'">See
                                     more</a></span>
