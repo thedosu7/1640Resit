@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\ComentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TermOfUseController;
 use App\Listeners\SendEmailAfterClickButton;
 use Illuminate\Support\Facades\Auth;
@@ -33,15 +35,14 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false, 'reset' => false, 'logout' => false]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', function () {
-    return redirect()->route('home');
-});
-
+Route::get('/home', function () {return redirect()->route('home');});
 Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
 Route::get('/term', [TermOfUseController::class, 'index'])->name('term');
-Route::post('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::get('/about',[AboutController::class, 'about'])->name('about');
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', [UserController::class, 'index'])->name('user.profile');
@@ -65,7 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');
         Route::post('/edit/{id}', [IdeaController::class, 'update'])->name('ideas.update');
         Route::delete('/attachment/delete/{id}', [IdeaController::class, 'deleteAttachment'])->name('ideas.attachment.delete');
-
+        //Route::get('/search', [SearchController::class, 'search'])->name('ideas.search');
+        Route::post('/search', [IdeaController::class, 'index'])->name('ideas.search');
 
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
         Route::post('add-comment/{id}', [CommentController::class, 'addComment'])->name('comments.add');

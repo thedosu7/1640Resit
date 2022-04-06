@@ -27,8 +27,16 @@ class ContactRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|size:10',
             'message' => 'required'
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'phone_number.size' => 'The phone number must contain 10 characters',
+            'regex' => 'The format of the phone number is not valid'
+        ];        
     }
 }
