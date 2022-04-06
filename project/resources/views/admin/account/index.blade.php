@@ -34,14 +34,14 @@
                 @endif
             </div>
             <div class="card-body">
-                <table id="users-table" class="table table-responsive col-12" cellspacing="15" style="width:100%">
+                <table id="users-table" class="table table-responsive" style="width:100%">
                     <thead class="thread-light">
-                        <tr>
-                            <th scope="col">User Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Action</th>
+                        <tr class="col">
+                            <th class="col-1">User Name</th>
+                            <th class="col-1">Email</th>
+                            <th class="col-1">Role</th>
+                            <th class="col-1">Department</th>
+                            <th class="col-1">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -113,6 +113,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
+                "autoWidth": false,
                 ajax: '{{ url('/admin/account/dt-row-data') }}',
                 columns: [{
                         data: 'name',
