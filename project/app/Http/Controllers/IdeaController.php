@@ -36,32 +36,62 @@ class IdeaController extends Controller
     public function index(Request $request)
     {
         $missions = Mission::where('end_at', '>=', now())->get();
-        $categories = DB::table('categories')->get();
+        $all_missions = Mission::get();
         //Search by key
         $user_input = $request->input('search');
         $found_ideas_count = 0;
         $found_ideas = DB::table('ideas')
-        ->where('title', 'LIKE', "%{$user_input}%")
-        ->orWhere('content', 'LIKE', "%{$user_input}%")->get();
+            ->where('title', 'LIKE', "%{$user_input}%")
+            ->orWhere('content', 'LIKE', "%{$user_input}%")->get();
         $found_ideas_count = count($found_ideas);
-        //Search by category
-        $selected_category = $request->category;
+        //Search by mission
+        $selected_mission_id = $request->mission_id;
+        if ($selected_mission_id != 0) {
+            $found_ideas = $found_ideas->where('mission_id', $selected_mission_id);
+        }
         //Search by condition:
-        //Search ideas with order by views
-        //Search ideas with order by comments
-        //Search ideas with order by time created 
-        //
-        $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
+        $selected_filter = $request->filter;
+        switch ($selected_filter) {
+                //Search ideas with order by number of likes
+            case "likes":
+                $ideas = Idea::query()
+                    ->joinReactionCounterOfType('Like')
+                    ->orderBy('reaction_like_count', 'desc')
+                    ->paginate(5);
+                break;
+                //Search ideas with order by number of dislikes
+            case "dislikes":
+                $ideas = Idea::query()
+                    ->joinReactionCounterOfType('Dislike')
+                    ->orderBy('reaction_dislike_count', 'desc')
+                    ->paginate(5);
+                break;
+                //Search ideas with order by number of views
+            case "views":
+
+                break;
+                //Search ideas with order by comments
+            case "comments":
+                
+                break;
+                //Search ideas with order by posted time
+            case "recently":
+                $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
+                break;
+            default:
+                $ideas = Idea::withCount('comments')->paginate(5);
+                break;
+        }
         //
         return view(
             'ideas.index',
-            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas', 'categories'])
+            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas', 'all_missions'])
         );
     }
 
     //Search by key function
-    protected function searchByKey(Request $request) {
-        
+    protected function searchByKey(Request $request)
+    {
     }
 
     public function store(IdeaStoreRequest $request)
@@ -88,8 +118,8 @@ class IdeaController extends Controller
                 ]);
             }
         }
-        $Coordinator_role = Role::where('name','=',Role::ROLE_QA_Coordinator)->first()->id;
-        $users = User::where('role_id',$Coordinator_role)->get();
+        $Coordinator_role = Role::where('name', '=', Role::ROLE_QA_Coordinator)->first()->id;
+        $users = User::where('role_id', $Coordinator_role)->get();
         SendEmailCreateIdea::dispatch($idea, $users)->delay(now());
         return redirect()->back()->with(['class' => 'success', 'message' => 'Create Idea success']);
     }
@@ -108,15 +138,15 @@ class IdeaController extends Controller
     public function edit($id)
     {
         $idea = Idea::findOrFail($id);
-        return view('ideas.edit',compact('idea'));
+        return view('ideas.edit', compact('idea'));
     }
 
-    
-    public function update(IdeaUpdateRequest $request,$id)
+
+    public function update(IdeaUpdateRequest $request, $id)
     {
         $idea = Idea::findOrFail($id);
-        
-        if($idea->user->id != auth()->user()->id) abort(404);
+
+        if ($idea->user->id != auth()->user()->id) abort(404);
 
         if ($request->hasFile('files')) {
             $files = $request->file('files');
@@ -149,7 +179,8 @@ class IdeaController extends Controller
         return redirect()->route('ideas.index')->with(['class' => 'success', 'message' => 'Your idea is deleted']);
     }
 
-    public function deleteAttachment($id){
+    public function deleteAttachment($id)
+    {
         $attached_files = Attachment::find($id);
         $attached_files->delete();
         return redirect()->back()->with(['class' => 'success', 'message' => 'Your idea is deleted']);
