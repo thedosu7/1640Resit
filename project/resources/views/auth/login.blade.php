@@ -65,7 +65,11 @@
                                         </span>
                                     @enderror
                                 </div>
-
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <div class="pt-1 mb-4">
                                     <button class="btn btn-primary btn-lg btn-block" style="width: 100%"
                                         type="submit">Login</button>

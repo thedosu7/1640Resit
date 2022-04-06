@@ -8,6 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\Department;
 use App\Models\Mission;
 use App\Models\Semester;
+use App\Models\Role;
 use App\Http\Requests\MissionRequest;
 use App\Http\Requests\UpdateMissionRequest as UpdateMission;
 
@@ -20,15 +21,23 @@ class MissionController extends Controller
         return view(
             'admin.missions.index',
             [
-                'semester' => Semester::all()
+                'semester' => Semester::all(),
+                'department' => Department::all()
             ]
         );
     }
 
     public function getDtRowData(Request $request)
     {
-        $mission = Mission::all();
+        if(auth()->user()->hasRole(Role::ROLE_QA_Coordinator))
+            $mission = Mission::where('department_id',auth()->user()->department_id)->get();
+        else{
+            $mission = Mission::all();
+        }
         return Datatables::of($mission)
+            ->editColumn('name', function ($data) {
+                return ' <a href="' . route('admin.ideas.listIdea.index', $data->id) . '">' . $data->name . '</a>';
+            })
             ->editColumn('end_at', function($data){
                 return $data->end_at;
             })
@@ -39,6 +48,7 @@ class MissionController extends Controller
                 return $data->semester->name;
             })
             ->editColumn('action', function ($data) {
+                if(auth()->user()->hasRole(Role::ROLE_QA_Manager)) return '';
                 return '
                 <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
                 <form method="POST" action="' . route('admin.mission.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -48,7 +58,7 @@ class MissionController extends Controller
                 </form>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -63,26 +73,24 @@ class MissionController extends Controller
         $name = $request->name;
         $description = $request->description;
         $end_at = $request->end_at;
-        $category_id = $request->category;
-        $department_id = $request->department;
-        $semester_id = $request->semester;
+        $department = $request->department;
+        $semester = $request->semester;
         Mission::create([
             'name' => $name,
             'description' => $description,
             'end_at' => $end_at,
-            'category_id' => $category_id,
-            'department_id' => auth()->user()->department_id,
-            'semester_id' => $semester_id,
+            'department_id' => $department,
+            'semester_id' => $semester,
         ]);
         //send mail
         return redirect()->back()->with('success', 'Create Mission Successfully!');
     }
 
-    public function edit($id,){
+    public function edit($id){
         $mission = Mission::findOrFail($id);
         $department = Department::all();
         $semester = Semester::all();
-        return view('admin.missions.editMission', compact('mission','category','department','semester'));
+        return view('admin.missions.editMission', compact('mission','department','semester'));
     }
 
     public function update(UpdateMission $request, $id){
@@ -90,17 +98,20 @@ class MissionController extends Controller
         $name = $request-> name;
         $description = $request->description;
         $end_at = $request->end_at;
-        $category = $request->category;
-        $department = $request->department;
-        $semester = $request->semester;
-        $mission -> update([
+        $department_id = $request->department_id;
+        $semester_id = $request->semester_id;
+        $data = [
             'name' => $name,
             'description' => $description,
             'end_at' => $end_at,
-            'category' => $category,
-            'department' => $department,
-            'semester' => $semester,
-        ]);
+            'semester_id' => $semester_id,
+        ];
+        if(auth()->user()->hasRole('admin')){
+            $data['department_id'] = $department_id;
+        }else{
+            $data['department_id'] = auth()->user()->department_id; //default department id for QA Coordinator
+        }
+        $mission -> update($data);
         $mission->save();
         return redirect('admin/missions') -> with('success', 'Mission successfully updated');    
     }
@@ -108,8 +119,9 @@ class MissionController extends Controller
     public function delete($id)
     {
         $data = Mission::find($id);
-        $data->delete();
-        return redirect()->back()->with('flash_message', 'User deleted!');
+        if($data->ideas->count() == 0)
+            return redirect()->back()->with('success', 'Mission deleted!');
+        return redirect()->back()->with('success', 'Can not delete mission!');
     }
 
     public function listMissionByDepartment($id)
@@ -136,50 +148,12 @@ class MissionController extends Controller
         );
     }
 
-
-    public function getDtRowDataByCategory($id, Request $request)
-    {
-        $mission = Mission::where('category_id', $id)->get();
-        return Datatables::of($mission)
-            ->editColumn('end_at', function ($data) {
-                return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
-            })
-            ->editColumn('department', function ($data) {
-                return $data->department->name;
-            })
-            ->editColumn('semester', function ($data) {
-                return $data->semester->name;
-            })
-            ->editColumn('action', function ($data) {
-                return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
-                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                    '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
-                </form>
-                ';
-            })
-            ->rawColumns(['action'])
-            ->setRowAttr([
-                'data-row' => function ($data) {
-                    return $data->id;
-                }
-            ])
-            ->make(true);
-    }
     public function getDtRowDataByDepartment($id, Request $request)
     {
         $mission = Mission::where('department_id', $id)->get();
         return Datatables::of($mission)
             ->editColumn('end_at', function ($data) {
                 return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
             })
             ->editColumn('department', function ($data) {
                 return $data->department->name;
@@ -211,9 +185,6 @@ class MissionController extends Controller
         return Datatables::of($mission)
             ->editColumn('end_at', function ($data) {
                 return $data->end_at;
-            })
-            ->editColumn('category', function ($data) {
-                return $data->category->name;
             })
             ->editColumn('department', function ($data) {
                 return $data->department->name;

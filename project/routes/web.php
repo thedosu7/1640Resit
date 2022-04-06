@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\IdeasController;
+use App\Http\Controllers\Admin\ComentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
@@ -87,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('/delete/{id}', [AccountController::class, 'delete'])->name('admin.account.delete');
             Route::get('/update/{id}', [AccountController::class, 'edit'])->name('admin.account.update');
             Route::post('/update/{id}', [AccountController::class, 'update'])->name('admin.account.store');
+            Route::get('/ban/{id}/{status_code}',[AccountController::class,'banAccount'])->name('admin.account.ban');
         });
 
         //Department
@@ -107,18 +110,31 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/update/{id}', [SemesterController::class, 'edit'])->name('admin.semester.update')->middleware('role:admin');
             Route::post('/update/{id}', [SemesterController::class, 'update'])->name('admin.semester.store')->middleware('role:admin');
         });
+        
+        // Idea Admin
+        Route::group(['prefix' => 'ideas', 'middleware' => 'role:admin,manager'],function(){
+            Route::get('/',[IdeasController::class,'index'])->name('admin.ideas.index');
+            Route::get('/dt-row-data',[IdeasController::class,'getDtRowData']);
+            Route::get('/listIdea/{id}',[IdeasController::class,'listIdeaByMission'])->name('admin.ideas.listIdea.index');
+            Route::get('/listIdea/{id}/dt-row-data',[IdeasController::class,'getDtRowDataByMission']);
+        });
+
+        //Comment Admin
+        Route::group(['prefix' => 'comments', 'middleware' => 'role:admin,manager'],function(){
+            Route::get('/listComment/{id}',[ComentController::class,'listCommentByIdea'])->name('admin.comments.listComment.index');
+            Route::get('/listComment/{id}/dt-row-data',[ComentController::class,'getDtRowDataByIdea']);
+        });
 
         //Mission
         Route::get('/missions/', [MissionController::class, 'index'])->name('admin.missions.index');
         Route::get('/missions/dt-row-data', [MissionController::class, 'getDtRowData']);
-        Route::post('/mission/create', [MissionController::class, 'create'])->name('admin.mission.create');
-        Route::get('/mission/update/{id}', [MissionController::class, 'edit'])->name('admin.mission.update');
-        Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store');
-        Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete');
+        Route::post('/mission/create', [MissionController::class, 'create'])->name('admin.mission.create')->middleware('role:admin,coordinator');
+        Route::get('/mission/update/{id}', [MissionController::class, 'edit'])->name('admin.mission.update')->middleware('role:admin,coordinator');
+        Route::post('/mission/update/{id}', [MissionController::class, 'update'])->name('admin.mission.store')->middleware('role:admin,coordinator');
+        Route::delete('/missions/delete/{id}', [MissionController::class, 'delete'])->name('admin.mission.delete')->middleware('role:admin,coordinator');
 
-        // List mission by category|department|semester
-        Route::get('/missions/category/{id}', [MissionController::class, 'listMissionByCategory'])->name('admin.missions.category.index');
-        Route::get('/missions/category/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByCategory']);
+        
+        // List mission by department|semester
         Route::get('/missions/department/{id}', [MissionController::class, 'listMissionByDepartment'])->name('admin.missions.department.index');
         Route::get('/missions/department/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByDepartment']);
         Route::get('/missions/semester/{id}', [MissionController::class, 'listMissionBySemester'])->name('admin.missions.semester.index');

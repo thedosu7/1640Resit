@@ -31,14 +31,14 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>{{$category}}<sup style="font-size: 20px"></sup></h3>
+                <h3>{{$semester}}<sup style="font-size: 20px"></sup></h3>
 
-                <p>Total Category</p>
+                <p>Total Semester</p>
               </div>
               <div class="icon">
-              <i class="fa fa-light fa-link"></i>
+              <i class="fa fa-light fa-anchor"></i>
               </div>
-              <a href="{{ route('admin.category.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.semester.index')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

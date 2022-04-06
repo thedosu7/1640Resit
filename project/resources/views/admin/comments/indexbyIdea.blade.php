@@ -15,7 +15,7 @@
                 <div class="row mb-2">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">List Mission</li>
+                        <li class="breadcrumb-item active">List Comment</li>
                     </ol>
                 </div>
             </div>
@@ -27,10 +27,18 @@
 
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Mission By Semester : {{ $semester->name }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Comment By Idea : {{ $ideas->title  }}</h6>
             </div>
             <div class="card-body">
-                @include('admin.missions._list')
+                <table id="users-table" class="table table-condensed col-12">
+                    <thead class="thread-light">
+                        <tr>
+                            <th scope="col">Content</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Idea</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -46,31 +54,17 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/missions/semester/'.$semester->id.'/dt-row-data') }}',
-                columns: [{
-                        data: 'name',
-                        name: 'name',
+                ajax: '{{ url('/admin/comments/listComment/'.$ideas -> id.'/dt-row-data') }}',
+                columns: [
+                    {
+                        data: 'content',
                     },
                     {
-                        data: 'description',
-                        name: 'description'
+                        data: 'user',
                     },
                     {
-                        data: 'end_at',
-                        name: 'end_at'
+                        data: 'idea',
                     },
-                    {
-                        data: 'department',
-                        name: 'department'
-                    },
-                    {
-                        data: 'semester',
-                        name: 'semester'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    }
                 ]
             });
             $('#users-table_wrapper').removeClass('form-inline');

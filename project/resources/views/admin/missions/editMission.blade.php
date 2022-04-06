@@ -161,7 +161,7 @@
                 <div class="col-lg-10">
                     <div class="form-group">
                         <label for="end_at">End At:</label>
-                        <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="">
+                        <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="" value="{{ $mission->end_at }}">
                     </div>
                     @if ($errors->has('end_at'))
                     <span>
@@ -172,24 +172,16 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select class="form-control" name="category" id="category">
-                        @foreach ($category as $cate)
-                        <option value="{{ $cate->id }}">{{ $cate->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="department">Department:</label>
-                    <select class="form-control" name="department" id="department">
+                    <label for="department_id">Department:</label>
+                    <select class="form-control" name="department_id" id="department_id">
                         @foreach ($department as $dpm)
                         <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="semester">Semester:</label>
-                    <select class="form-control" name="semester" id="semester">
+                    <label for="semester_id">Semester:</label>
+                    <select class="form-control" name="semester_id" id="semester_id">
                         @foreach ($semester as $smt)
                         <option value="{{ $smt->id }}">{{ $smt->name }}</option>
                         @endforeach

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('phone_number')->nullable();
-            $table->boolean('is_lock')->default(false);
+            $table->boolean('is_lock')->default(1);
             $table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');   
             $table->string('avatar')->nullable();

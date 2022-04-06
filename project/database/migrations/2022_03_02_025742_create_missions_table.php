@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->dateTime('end_at');
-            $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');  
             $table->bigInteger('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments');  
             $table->bigInteger('semester_id')->unsigned();

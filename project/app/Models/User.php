@@ -28,6 +28,7 @@ class User extends Authenticatable implements ReacterableInterface
         'avatar',
         'role_id',
         'department_id',
+        'is_lock'
     ];
 
     /**
