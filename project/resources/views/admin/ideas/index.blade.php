@@ -24,13 +24,15 @@
         @endif
     </div>
     <div class="card-body">
-            <table id="users-table" class="table table-condensed col-12">
+            <table id="users-table" class="table table-responsive" style="width:100%">
                 <thead class="thread-light">
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Content</th>
-                        <th scope="col">User</th>
-                        <th scope="col">Mission</th>
+                    <tr class="col">
+                        <th class="col-1">Title</th>
+                        <th class="col-1">Content</th>
+                        <th class="col-1">User</th>
+                        <th class="col-1">Like</th>
+                        <th class="col-1">DisLike</th>
+                        <th class="col-1">Mission</th>
                     </tr>
                 </thead>
             </table>
@@ -58,8 +60,15 @@
                     data: 'user',
                 },
                 {
+                    data: 'like',
+                },
+                {
+                    data: 'dislike',
+                },
+                {
                     data: 'mission',
                 }
+
             ]
         });
         $('#users-table_wrapper').removeClass('form-inline');

@@ -42,8 +42,7 @@
                                     </span>
                                 @endif
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Edit my profile</button>
+                            <center><button type="submit" class="btn btn-success">Edit my profile</button></center>
                         </form>
                     </div>
                     <!-- @include('user.changeinfo') -->

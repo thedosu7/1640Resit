@@ -60,25 +60,23 @@ class AccountController extends Controller
                 // is_lock = 1: not lock
                 // is_lock = 0: lock
                 if($data->is_lock == 1)
-                return 
-                '
-                <a class="btn btn-success btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fa-solid fa-ban"></i></a>
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                return'
+                <a class="btn btn-success btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fa-solid fa-ban" title="Unlock Account"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
                 </form>
                 ';
                 else
                 return'
-                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fa-solid fa-check"></i></a>
-                
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fa-solid fa-check" title="Lock Account"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
                 </form>
                 ';
                 return ''; //action send mail
@@ -147,6 +145,36 @@ class AccountController extends Controller
         ]);
         $user->save();
         return redirect('admin/account');    
+    }
+
+    public function listAccountByDepartment($id)
+    {
+        $dpms = Department::find($id);
+        if (!$dpms) abort(404); //check dpms exits
+        return view(
+            'admin.account.indexbyDepartment',
+            [
+                'user' => $dpms
+            ]
+        );
+    }
+    public function getDtRowDataByDepartment($id, Request $request)
+    {
+        $users = User::where('department_id', $id)->get();
+        return Datatables::of($users)
+            ->editColumn('name', function ($data) {
+                return $data->name;
+            })
+            ->editColumn('email', function ($data) {
+                return $data->email;
+            })
+            ->editColumn('role', function ($data) {
+                return $data->role->name;
+            })
+            ->editColumn('department', function ($data) {
+                return $data->department->name;
+            })
+            ->make(true);
     }
 
     public function banAccount($id, $status_code)

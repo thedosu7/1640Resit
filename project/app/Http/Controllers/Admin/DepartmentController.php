@@ -24,20 +24,20 @@ class DepartmentController extends Controller
 
         return Datatables::of($department)
             ->editColumn('name', function ($data) {
-                return ' <a href="' . route('admin.missions.department.index', $data->id) . '">' . $data->name . '</a>';
+                return ' <a href="' . route('admin.account.department.index', $data->id) . '">' . $data->name . '</a>';
             })
-            ->editColumn('mission', function ($data) {
-                return $data->missions->count();
+            ->editColumn('account', function ($data) {
+                return $data->users->count();
             })
             ->editColumn('action', function ($data) {
                 if (auth()->user()->hasRole('admin'))
                     return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.department.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.department.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Department"></i></a>
                 
                 <form method="POST" action="' . route('admin.department.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                         '' . csrf_field() .
-                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this department ?\')"><i class="fa-solid fa-trash"></i></button>
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this department ?\')"><i class="fa-solid fa-trash" title="Delete Department"></i></button>
                 </form>
                 ';
                 return '';

@@ -34,13 +34,13 @@
             @endif
         </div>
         <div class="card-body">
-            <table id="users-table" class="table table-condensed col-12">
+            <table id="users-table" class="table table-responsive" style="width:100%">
                 <thead class="thread-light">
-                    <tr>
-                        <th scope="col">Semester Name</th>
-                        <th scope="col">Deadline</th>
-                        <th scope="col">Mission</th>
-                        <th scope="col">Action</th>
+                    <tr class="col">
+                        <th class="col-1">Semester Name</th>
+                        <th class="col-1">Deadline</th>
+                        <th class="col-1">Mission</th>
+                        <th class="col-1">Action</th>
                     </tr>
                 </thead>
             </table>

@@ -18,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\CommentEvent' => ['App\Listeners\SendEmailToIdeaOwnerAfterComment'],
+        'App\Events\ViewIdeaEvent' => ['App\Listeners\IncreaseIdeaView'],
     ];
 
     /**

@@ -27,8 +27,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item my-3"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item my-3"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item my-3"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item my-3"><a class="nav-link" href="{{ route('about') }}">About</a></li>
+                    @if(!auth()->user())
+                    <li class="nav-item my-3"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+                    @endif
                     @if (auth()->user())
                         <li class="nav-item my-3"><a class="nav-link"
                                 href="{{ route('ideas.index') }}">Ideas</a></li>

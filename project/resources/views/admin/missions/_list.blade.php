@@ -1,12 +1,11 @@
-<table id="users-table" class="table table-condensed col-12">
+<table id="users-table" class="table table-responsive" style="width:100%">
     <thead class="thread-light">
-        <tr>
-            <th scope="col">Mission Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Department</th>
-            <th scope="col">Semester</th>
-            <th scope="col">Action</th>
+        <tr class="col">
+            <th class="col-1">Mission Name</th>
+            <th class="col-1">Description</th>
+            <th class="col-1">Deadline</th>
+            <th class="col-1">Semester</th>
+            <th class="col-1">Action</th>
         </tr>
     </thead>
 </table>

@@ -27,10 +27,19 @@
 
         <div class="card">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">List Mission By Semester : {{ $semester->name }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">List Account By Department : {{ $user->name  }}</h6>
             </div>
             <div class="card-body">
-                @include('admin.missions._list')
+                <table id="users-table" class="table table-condensed col-12">
+                    <thead class="thread-light">
+                        <tr>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Department</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -46,27 +55,19 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/missions/semester/'.$semester->id.'/dt-row-data') }}',
+                ajax: '{{ url('/admin/account/department/'.$user->id.'/dt-row-data') }}',
                 columns: [{
                         data: 'name',
-                        name: 'name',
                     },
                     {
-                        data: 'description',
-                        name: 'description'
+                        data: 'email',
                     },
                     {
-                        data: 'end_at',
-                        name: 'end_at'
+                        data: 'role',
                     },
                     {
-                        data: 'semester',
-                        name: 'semester'
+                        data: 'department',
                     },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    }
                 ]
             });
             $('#users-table_wrapper').removeClass('form-inline');
