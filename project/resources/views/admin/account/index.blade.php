@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="content-header">
             <div class="container-fluid">
@@ -35,7 +34,7 @@
                 @endif
             </div>
             <div class="card-body">
-                <table id="users-table" class="table table-condensed col-12">
+                <table id="users-table" class="table table-responsive col-12" cellspacing="15" style="width:100%">
                     <thead class="thread-light">
                         <tr>
                             <th scope="col">User Name</th>
@@ -105,12 +104,15 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script> --}}
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: '{{ url('/admin/account/dt-row-data') }}',
                 columns: [{
                         data: 'name',
@@ -130,7 +132,7 @@
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
                     }
                 ]
             });

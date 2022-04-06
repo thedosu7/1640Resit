@@ -60,8 +60,7 @@ class AccountController extends Controller
                 // is_lock = 1: not lock
                 // is_lock = 0: lock
                 if($data->is_lock == 1)
-                return 
-                '
+                return'
                 <a class="btn btn-success btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fa-solid fa-ban" title="Unlock Account"></i></a>
                 <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -73,7 +72,6 @@ class AccountController extends Controller
                 else
                 return'
                 <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fa-solid fa-check" title="Lock Account"></i></a>
-                
                 <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
