@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Idea;
 use App\Models\User;
 use App\Models\Mission;
+use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use Yajra\Datatables\Datatables;
 
 class IdeasController extends Controller
@@ -26,9 +27,6 @@ class IdeasController extends Controller
             ->editColumn('title', function ($data) {
                 return ' <a href="' . route('admin.comments.listComment.index', $data->id) . '">' . $data->title . '</a>';
             })
-            // ->editColumn('title', function($data){
-            //     return $data->title;
-            // })
             ->editColumn('content', function($data){
                 return $data->content;
             })
@@ -37,6 +35,12 @@ class IdeasController extends Controller
             })
             ->editColumn('mission', function ($data) {
                 return $data->mission->name;
+            })
+            ->editColumn('like', function($data){
+                return $data->getLoveReactant()->getReactionCounterOfType(ReactionType::fromName('Like'))->getCount();
+            })
+            ->editColumn('dislike', function($data){
+                return $data->getLoveReactant()->getReactionCounterOfType(ReactionType::fromName('Dislike'))->getCount();
             })
             ->rawColumns(['title'])
             ->make(true);

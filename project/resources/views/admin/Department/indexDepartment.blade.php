@@ -38,7 +38,7 @@
                 <thead class="thread-light">
                     <tr>
                         <th scope="col">Department Name</th>
-                        <th scope="col">Mission</th>
+                        <th scope="col">Account</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -96,8 +96,8 @@
                     name: 'name',
                 },
                 {
-                    data: 'mission',
-                    name: 'mission',
+                    data: 'account',
+                    name: 'account',
                 },
                 {
                     data: 'action',

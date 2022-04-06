@@ -30,6 +30,8 @@
                         <th scope="col">Title</th>
                         <th scope="col">Content</th>
                         <th scope="col">User</th>
+                        <th scope="col">Like</th>
+                        <th scope="col">DisLike</th>
                         <th scope="col">Mission</th>
                     </tr>
                 </thead>
@@ -58,8 +60,15 @@
                     data: 'user',
                 },
                 {
+                    data: 'like',
+                },
+                {
+                    data: 'dislike',
+                },
+                {
                     data: 'mission',
                 }
+
             ]
         });
         $('#users-table_wrapper').removeClass('form-inline');

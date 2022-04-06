@@ -45,7 +45,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create new user</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Create new Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -91,25 +91,6 @@
                     </span>
                     @endif
                 </div>
-                @if(auth()->user()->hasRole('admin'))
-                <div class="modal-body @error('department') is-invalid @enderror">     
-                    <div class="form-group">
-                        <label for="department">Department:</label>
-                        <select class="form-control" name="department" id="department">
-                            @foreach ($department as $dpm)
-                            <option value="{{ $dpm->id }}">{{ $dpm->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @if ($errors->has('department'))
-                    <span>
-                        @error('department')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </span>
-                    @endif
-                </div>
-                @endif
                 <div class="modal-body @error('semester') is-invalid @enderror">     
                     <div class="form-group">
                         <label for="semester">Semester:</label>
@@ -160,10 +141,6 @@
                 {
                     data: 'end_at',
                     name: 'end_at'
-                },
-                {
-                    data: 'department',
-                    name: 'department'
                 },
                 {
                     data: 'semester',
