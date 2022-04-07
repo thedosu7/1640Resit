@@ -11,6 +11,7 @@ use App\Models\Semester;
 use App\Models\Role;
 use Cog\Laravel\Love\ReactionType\Models\ReactionType;
 use App\Http\Requests\MissionRequest;
+use DB;
 use App\Http\Requests\UpdateMissionRequest as UpdateMission;
 
 
@@ -38,6 +39,9 @@ class MissionController extends Controller
         return Datatables::of($mission)
             ->editColumn('name', function ($data) {
                 return ' <a href="' . route('admin.ideas.listIdea.index', $data->id) . '">' . $data->name . '</a>';
+            })
+            ->editColumn('description',function($data){
+                return $data->description; 
             })
             ->editColumn('end_at', function($data){
                 return $data->end_at;
@@ -67,11 +71,13 @@ class MissionController extends Controller
 
     public function create(MissionRequest $request)
     {
-        //todo: Add create user request
+        //todo: Add create mission request
+        
         $name = $request->name;
         $description = $request->description;
         $end_at = $request->end_at;
         $semester = $request->semester;
+        if($smt >= $end_at)
         Mission::create([
             'name' => $name,
             'description' => $description,
@@ -101,11 +107,6 @@ class MissionController extends Controller
             'end_at' => $end_at,
             'semester_id' => $semester_id,
         ];
-        if(auth()->user()->hasRole('admin')){
-            $data['department_id'] = $department_id;
-        }else{
-            $data['department_id'] = auth()->user()->department_id; //default department id for QA Coordinator
-        }
         $mission -> update($data);
         $mission->save();
         return redirect('admin/missions') -> with('success', 'Mission successfully updated');    
@@ -114,10 +115,10 @@ class MissionController extends Controller
     public function delete($id)
     {
         $data = Mission::find($id);
-        if($data->ideas->count() == 0)
-            $data->delete();
-            return redirect()->back()->with('success', 'Mission deleted!');
-        return redirect()->back()->with('success', 'Can not delete mission!');
+        if($data->ideas->count() !== 0)
+            return redirect()->back()->with('success', 'Mission cannot delete because it belongs to an Ideas!');
+        $data->delete();
+        return redirect()->back()->with('success', 'Mission deleted!');
     }
 
     // public function listMissionByDepartment($id)

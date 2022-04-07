@@ -57,8 +57,10 @@ class SemesterController extends Controller
     public function delete($id)
     {
         $data = Semester::findOrFail($id);
+        if($data->missions->count() !== 0)
+            return redirect()->back()->with('success', 'Semester cannot delete because it belong to an Misison!');
         $data->delete();
-        return redirect()->back()->with('flash_message', 'Semester deleted!');
+        return redirect()->back()->with('success', 'Semester deleted!');
     }
 
     public function create(SemesterRequest $request){

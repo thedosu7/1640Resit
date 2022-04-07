@@ -27,8 +27,8 @@ class MissionRequest extends FormRequest
             'name' => 'required|string|unique:missions|max:255',
             'description' => 'required|string|max:255',
             'end_at' => 'required',
-            'department' => 'required',
             'semester' => 'required',
+            // 'department' => 'required',
         ];
     }
 

@@ -54,8 +54,10 @@ class DepartmentController extends Controller
     public function delete($id)
     {
         $data = Department::findOrFail($id);
+        if($data->users->count() !==0)
+            return redirect()->back()->with('success', 'Department cannot be deleted because it belongs to an Account!');
         $data->delete();
-        return redirect()->back()->with('flash_message', 'User deleted!');
+        return redirect()->back()->with('success', 'Department deleted!');
     }
 
     public function create(DepartmentRequest $request)
