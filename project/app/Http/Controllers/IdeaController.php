@@ -15,6 +15,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\ViewIdeaEvent;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Query\Builder as DatabaseQueryBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use PHPUnit\TextUI\CliArguments\Builder as CliArgumentsBuilder;
 
 class IdeaController extends Controller
 {
@@ -39,59 +43,58 @@ class IdeaController extends Controller
         $all_missions = Mission::get();
         //Search by key
         $user_input = $request->input('search');
-        $found_ideas_count = 0;
-        $found_ideas = DB::table('ideas')
-            ->where('title', 'LIKE', "%{$user_input}%")
-            ->orWhere('content', 'LIKE', "%{$user_input}%")->get();
-        $found_ideas_count = count($found_ideas);
         //Search by mission
         $selected_mission_id = $request->mission_id;
         if ($selected_mission_id != 0) {
-            $found_ideas = $found_ideas->where('mission_id', $selected_mission_id);
+            $ideas = Idea::query()
+            ->where('mission_id', $selected_mission_id)
+            ->where(function($query) use ($user_input) {
+                $query->where('title', 'LIKE', "%{$user_input}%")->orWhere('content', 'LIKE', "%{$user_input}%");
+            });
+        }
+        else {
+            $ideas = Idea::query()
+            ->where('title', 'LIKE', "%{$user_input}%")
+            ->orWhere('content', 'LIKE', "%{$user_input}%");
         }
         //Search by condition:
         $selected_filter = $request->filter;
         switch ($selected_filter) {
                 //Search ideas with order by number of likes
             case "likes":
-                $ideas = Idea::query()
+                $ideas = $ideas
                     ->joinReactionCounterOfType('Like')
                     ->orderBy('reaction_like_count', 'desc')
-                    ->paginate(5);
+                    ->paginate(4);
                 break;
                 //Search ideas with order by number of dislikes
             case "dislikes":
-                $ideas = Idea::query()
+                $ideas = $ideas
                     ->joinReactionCounterOfType('Dislike')
                     ->orderBy('reaction_dislike_count', 'desc')
-                    ->paginate(5);
+                    ->paginate(4);
                 break;
                 //Search ideas with order by number of views
             case "views":
-
+                $ideas = $ideas->orderBy('view_count', 'desc')->paginate(4);
                 break;
                 //Search ideas with order by comments
             case "comments":
-                
+                $ideas = $ideas->withCount('comments')->orderBy('comments_count', 'desc')->paginate(4);
                 break;
                 //Search ideas with order by posted time
             case "recently":
-                $ideas = Idea::withCount('comments')->orderBy('created_at', 'desc')->paginate(5);
+                $ideas = $ideas->withCount('comments')->orderBy('created_at', 'desc')->paginate(4);
                 break;
             default:
-                $ideas = Idea::withCount('comments')->paginate(5);
+                $ideas = $ideas->withCount('comments')->paginate(4);
                 break;
-        }
+        }        
         //
         return view(
             'ideas.index',
-            compact(['missions', 'ideas', 'found_ideas_count', 'found_ideas', 'all_missions'])
+            compact(['missions', 'ideas', 'all_missions'])
         );
-    }
-
-    //Search by key function
-    protected function searchByKey(Request $request)
-    {
     }
 
     public function store(IdeaStoreRequest $request)
