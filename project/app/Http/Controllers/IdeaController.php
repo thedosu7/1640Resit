@@ -48,14 +48,15 @@ class IdeaController extends Controller
         $selected_mission_id = $request->mission_id;
         if ($selected_mission_id != 0) {
             $ideas = Idea::query()
-                ->where('mission_id', $selected_mission_id)
-                ->where(function ($query) use ($user_input) {
-                    $query->where('title', 'LIKE', "%{$user_input}%")->orWhere('content', 'LIKE', "%{$user_input}%");
-                });
-        } else {
+            ->where('mission_id', $selected_mission_id)
+            ->where(function($query) use ($user_input) {
+                $query->where('title', 'LIKE', "%{$user_input}%")->orWhere('content', 'LIKE', "%{$user_input}%");
+            });
+        }
+        else {
             $ideas = Idea::query()
-                ->where('title', 'LIKE', "%{$user_input}%")
-                ->orWhere('content', 'LIKE', "%{$user_input}%");
+            ->where('title', 'LIKE', "%{$user_input}%")
+            ->orWhere('content', 'LIKE', "%{$user_input}%");
         }
         //Search by condition:
         $selected_filter = $request->filter;
@@ -89,11 +90,10 @@ class IdeaController extends Controller
             default:
                 $ideas = $ideas->withCount('comments')->paginate(4);
                 break;
-        }
-        //
+        }        
         return view(
             'ideas.index',
-            compact(['missions', 'ideas', 'all_missions'])
+            compact(['missions', 'ideas', 'all_missions', 'request'])
         );
     }
 

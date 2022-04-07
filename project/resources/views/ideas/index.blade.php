@@ -78,7 +78,6 @@
                             </p>
                         </div>
                         <div class="activity__list__footer">
-
                             @livewire('react-component', [
                             'model' => $idea
                             ])
@@ -91,7 +90,7 @@
                 </div>
                 @endforeach
                 <!-- Paginate -->
-                <div style="padding: 20px 0px;"> {{ $ideas->links() }} </div>
+                <div style="padding: 20px 0px;"> {{  $ideas->links() }}</div>
             </div>
         </div>
         <div class="col-md-3">

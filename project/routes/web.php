@@ -66,7 +66,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', [IdeaController::class, 'edit'])->name('ideas.edit');
         Route::post('/edit/{id}', [IdeaController::class, 'update'])->name('ideas.update');
         Route::delete('/attachment/delete/{id}', [IdeaController::class, 'deleteAttachment'])->name('ideas.attachment.delete');
-        //Route::get('/search', [SearchController::class, 'search'])->name('ideas.search');
         Route::post('/search', [IdeaController::class, 'index'])->name('ideas.search');
 
         Route::get('add-comment/{id}', [CommentController::class, 'addComment']);
