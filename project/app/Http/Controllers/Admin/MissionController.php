@@ -77,7 +77,7 @@ class MissionController extends Controller
         $description = $request->description;
         $end_at = $request->end_at;
         $semester = $request->semester;
-        if($smt >= $end_at)
+        // if($smt >= $end_at)
         Mission::create([
             'name' => $name,
             'description' => $description,

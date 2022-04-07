@@ -32,6 +32,7 @@
                         <th class="col-1">User</th>
                         <th class="col-1">Like</th>
                         <th class="col-1">DisLike</th>
+                        <th class="col-1">View</th>
                         <th class="col-1">Mission</th>
                     </tr>
                 </thead>
@@ -64,6 +65,10 @@
                 },
                 {
                     data: 'dislike',
+                },
+                {
+                    data: 'view_count',
+
                 },
                 {
                     data: 'mission',

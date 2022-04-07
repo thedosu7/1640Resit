@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendEmailCreateAccount;
 use Illuminate\Support\Str;
 use Session;
+use App\Http\Requests\AccountRequest;
 
 class AccountController extends Controller
 {
@@ -98,7 +99,7 @@ class AccountController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(Request $request){
+    public function create(AccountRequest $request){
         //todo: Add create user request
         $name = $request->name;
         $email = $request->email;
