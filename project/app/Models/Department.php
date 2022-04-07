@@ -13,10 +13,10 @@ class Department extends Model
         'name',
     ];
 
-    public function missions()
-    {
-        return $this->hasMany(Mission::class);
-    }
+    // public function missions()
+    // {
+    //     return $this->hasMany(Mission::class);
+    // }
     
     public function users()
     {

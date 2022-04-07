@@ -34,7 +34,7 @@ class SemesterRequest extends FormRequest
         return [
             'name.required' => 'The name semester is required',
             'name.unique' => 'The name semester is already',
-            'and_day.required' =>'The deadline is required',
+            'end_day.required' =>'The deadline is required',
             'name.max' => 'The name semester is too long, please try again'
         ];        
     }
