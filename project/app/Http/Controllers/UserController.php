@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\PhoneChangeRequest;
 use App\Http\Requests\PasswordChangeRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -75,6 +76,10 @@ class UserController extends Controller
     public function uploadAvatar(Request $request)
     {
         $user = Auth::user();
+        $pre_avatar_name = $user->avatar;
+        //Delete previous avatar
+        $directory = 'public/images/' . $pre_avatar_name;
+        Storage::delete($directory);
         if($request->hasFile('image')){
             $imgName = $request->image->getClientOriginalName();
             $request->image->storeAs('images',$imgName,'public');
