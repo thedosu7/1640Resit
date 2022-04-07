@@ -6,7 +6,7 @@
     <div class="container-xl">
         <div class="row">
             <div class="col-xl-4">
-                @include('user._avatar');
+                @include('user._avatar')
             </div>
             <div class="col-xl-8">
                 <!-- Account details card-->
