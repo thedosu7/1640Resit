@@ -47,6 +47,11 @@
     .panel-activity__list>li+li {
         margin-top: 51px;
     }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: #f5f5f5;
+    }
 </style>
 @endsection
 
@@ -79,8 +84,8 @@
                             ])
                             <i class=" fa fa-solid fa-eye" style="padding: 6px 5px 0px 18px;"></i> {{ $idea->view_count }}
                             {{-- <span href="#"> <i class="fa fa-comments"></i>{{ $idea->comments_count }}</span> --}}
-                            <span><a class="" onclick="window.location.href='{{ url('/ideas/' . $idea->id) }}'">See
-                                    more</a></span>
+                            <span><button class="btn btn-success"><a onclick="window.location.href='{{ url('/ideas/' . $idea->id) }}'">See
+                                    more</a></button></span>
                         </div>
                     </div>
                 </div>

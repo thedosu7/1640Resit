@@ -77,7 +77,7 @@
     <div class="column">
       <div class="card border-danger">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/thien_vuong.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Truc Phuong</h2>
           <p class="title">Leader</p>
           <p class="text">phuong@example.com</p>
@@ -88,7 +88,7 @@
     <div class="column">
       <div class="card border-warning">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/tan_toan.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Tan Toan</h2>
           <p class="title">Developer</p>
           <p class="text">toan@example.com</p>
@@ -99,7 +99,7 @@
     <div class="column">
       <div class="card border-success">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/thanh_nhan.png')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Thanh Nhan</h2>
           <p class="title">Developer</p>
           <p class="text">nhanvtgcd191366@fpt.edu.vn</p>
@@ -110,7 +110,7 @@
     <div class="column">
       <div class="card border-warning">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/tat_dat.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Tat Dat</h2>
           <p class="title">Developer</p>
           <p class="text">dat@example.com</p>
@@ -121,7 +121,7 @@
     <div class="column">
       <div class="card border-success">
         <div class="container ">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/hiep_duc.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Hiep Duc</h2>
           <p class="title">Developer</p>
           <p class="text">duc@example.com</p>
@@ -132,7 +132,7 @@
     <div class="column">
       <div class="card border-danger">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/van_huy.png')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Van Huy</h2>
           <p class="title">Developer</p>
           <p class="text">huy@example.com</p>
@@ -146,7 +146,7 @@
     <div class="column">
       <div class="card border-danger">
         <div class="container">
-          <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <img src="{{asset('/images/khoi_nguyen.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Tan Khoi</h2>
           <p class="title">Developer</p>
           <p class="text">khoi@example.com</p>
