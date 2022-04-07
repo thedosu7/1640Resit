@@ -90,7 +90,7 @@
                 </div>
                 @endforeach
                 <!-- Paginate -->
-                <div style="padding: 20px 0px;"> {{  $ideas->links() }}</div>
+                <div style="padding: 20px 0px;"> {{ $ideas->appends(['search' => $request->search, 'mission_id' => $request->mission_id, 'filter' => $request->filter])->links() }}</div>
             </div>
         </div>
         <div class="col-md-3">

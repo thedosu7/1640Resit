@@ -1,8 +1,7 @@
 <h4 class="title text-center">SEARCH</h4>
 <div class="card my-lg-3">
     <div class="card-body ">
-        <form method="POST" action="{{ route('ideas.search') }}">
-            @csrf
+        <form action="">
             <div>
                 <label class="form-label" for="searchUsingKey">Key:</label>
                 <input type="search" class="form-control" id="searchUsingKey" aria-describedby="search-addon" name="search" value="{{ request()->input('search') }}">
