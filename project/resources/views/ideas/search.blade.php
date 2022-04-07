@@ -18,12 +18,14 @@
             </div>
             <div style="padding: 10px 0px 0px 0px;">
                 <label for="selectFilter" class="form-label">Filter:</label>
-                <option value="none">None</option>
-                <option value="views">Most views</option>
-                <option value="likes">Most likes</option>
-                <option value="dislikes">Most dislikes</option>
-                <option value="comments">Most comments</option>
-                <option value="recently">Most recently</option>
+                <select class="form-select" id="selectFilter" name="filter">
+                    <option value="none">None</option>
+                    <option value="views">Most views</option>
+                    <option value="likes">Most likes</option>
+                    <option value="dislikes">Most dislikes</option>
+                    <option value="comments">Most comments</option>
+                    <option value="recently">Most recently</option>
+                </select>
             </div>
             <div style="padding: 15px 0px 0px 0px;">
                 <center><button class="btn btn-success d-grid" type="submit">Search</button></center>

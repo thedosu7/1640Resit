@@ -18,6 +18,7 @@ use App\Events\ViewIdeaEvent;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Storage;
 use PHPUnit\TextUI\CliArguments\Builder as CliArgumentsBuilder;
 
 class IdeaController extends Controller
@@ -47,15 +48,14 @@ class IdeaController extends Controller
         $selected_mission_id = $request->mission_id;
         if ($selected_mission_id != 0) {
             $ideas = Idea::query()
-            ->where('mission_id', $selected_mission_id)
-            ->where(function($query) use ($user_input) {
-                $query->where('title', 'LIKE', "%{$user_input}%")->orWhere('content', 'LIKE', "%{$user_input}%");
-            });
-        }
-        else {
+                ->where('mission_id', $selected_mission_id)
+                ->where(function ($query) use ($user_input) {
+                    $query->where('title', 'LIKE', "%{$user_input}%")->orWhere('content', 'LIKE', "%{$user_input}%");
+                });
+        } else {
             $ideas = Idea::query()
-            ->where('title', 'LIKE', "%{$user_input}%")
-            ->orWhere('content', 'LIKE', "%{$user_input}%");
+                ->where('title', 'LIKE', "%{$user_input}%")
+                ->orWhere('content', 'LIKE', "%{$user_input}%");
         }
         //Search by condition:
         $selected_filter = $request->filter;
@@ -89,7 +89,7 @@ class IdeaController extends Controller
             default:
                 $ideas = $ideas->withCount('comments')->paginate(4);
                 break;
-        }        
+        }
         //
         return view(
             'ideas.index',
@@ -158,7 +158,7 @@ class IdeaController extends Controller
                 $filename = $file->storeAs('public/idea/' . $idea->id, $custom_file_name);
                 Attachment::create([
                     'name' => $file->getClientOriginalName(),
-                    'direction' => 'storage/idea/' . $idea->id . '/' . $custom_file_name,
+                    'direction' => 'public/idea/' . $idea->id . '/' . $custom_file_name,
                     'idea_id' => $idea->id,
                 ]);
             }
@@ -172,10 +172,14 @@ class IdeaController extends Controller
     public function delete($id)
     {
         $idea = Idea::findOrFail($id);
-        //$idea->user_id->delete();
-        //$idea->mission_id->delete();
+        //Delete all comments beloging to idea
         $comments = Comment::where('idea_id', $id);
         $comments->delete();
+        //Delete all attached files beloging to idea
+        //in the public folder
+        $directory = 'public/idea/' . $id;
+        Storage::deleteDirectory($directory);
+        //in database
         $attached_files = Attachment::where('idea_id', $id);
         $attached_files->delete();
         $idea->delete();
@@ -184,8 +188,10 @@ class IdeaController extends Controller
 
     public function deleteAttachment($id)
     {
-        $attached_files = Attachment::find($id);
-        $attached_files->delete();
-        return redirect()->back()->with(['class' => 'success', 'message' => 'Your idea is deleted']);
+        $attached_file = Attachment::find($id);
+        $directory = $attached_file->direction;
+        Storage::delete($directory); 
+        $attached_file->delete();
+        return redirect()->back()->with(['class' => 'success', 'message' => 'File is deleted']);
     }
 }
