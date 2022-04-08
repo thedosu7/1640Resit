@@ -26,9 +26,8 @@ class MissionRequest extends FormRequest
         return [
             'name' => 'required|string|unique:missions|max:255',
             'description' => 'required|string|max:255',
-            'end_at' => 'required',
             'semester' => 'required',
-            // 'department' => 'required',
+            'end_at' => 'required',
         ];
     }
 
@@ -36,7 +35,7 @@ class MissionRequest extends FormRequest
     {
         return [
             'name.required' => 'The name mission is required',
-            'name.unique' => 'The name mission is already',
+            'name.unique' => 'The name mission is already exists',
             'description.required' => 'The mission description is required',
             'end_at.required' => 'The deadline is required',
             // 'department.required' => 'Please choose the department',

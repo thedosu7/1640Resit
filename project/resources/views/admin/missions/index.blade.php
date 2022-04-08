@@ -96,7 +96,7 @@
                         <label for="semester">Semester:</label>
                         <select class="form-control" name="semester" id="semester">
                             @foreach ($semester as $smt)
-                            <option value="{{ $smt->id }}">{{ $smt->name }}</option>
+                            <option value="{{ $smt->id }}">{{ $smt->name }} - Deadline: {{$smt->end_day}}</option>
                             @endforeach
                         </select>
                     </div>
