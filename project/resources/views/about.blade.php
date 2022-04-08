@@ -80,7 +80,7 @@
           <img src="{{asset('/images/thien_vuong.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
           <h2 class="h2">Truc Phuong</h2>
           <p class="title">Leader</p>
-          <p class="text">phuonglvtgcd191122@fpt.edu.vn/p>
+          <p class="text">phuonglvtgcd191122@fpt.edu.vn</p>
         </div>
       </div>
     </div>
