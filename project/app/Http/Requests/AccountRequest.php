@@ -38,6 +38,7 @@ class AccountRequest extends FormRequest
             'email.max'=>'The email is too long, please try again',
             'email.required' => 'The email is required',
             'email.unique' => 'The email is already',
+            // 'email.reguex' => 'The email is @gmail.com'
         ];        
     }
 }

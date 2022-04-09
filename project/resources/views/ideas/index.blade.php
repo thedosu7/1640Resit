@@ -47,6 +47,11 @@
     .panel-activity__list>li+li {
         margin-top: 51px;
     }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: #f5f5f5;
+    }
 </style>
 @endsection
 
@@ -55,7 +60,7 @@
     <div class="row">
         <div class="col-md-9">
             <div>
-                <h4 class="title d-inline">LASTEST IDEA</h4>
+                <h4 class="title d-inline">ALL IDEAS</h4>
                 @include('ideas.create')
             </div>
             <div class="my-lg-3">
@@ -73,26 +78,23 @@
                             </p>
                         </div>
                         <div class="activity__list__footer">
-
                             @livewire('react-component', [
                             'model' => $idea
                             ])
-                            <i class=" fa fa-solid fa-eye" style= "padding: 6px 5px 0px 18px;"></i> {{ $idea->view_count }}
+                            <i class=" fa fa-solid fa-eye" style="padding: 6px 5px 0px 18px;"></i> {{ $idea->view_count }}
                             {{-- <span href="#"> <i class="fa fa-comments"></i>{{ $idea->comments_count }}</span> --}}
-                            <span><a class="" onclick="window.location.href='{{ url('/ideas/' . $idea->id) }}'">See
-                                    more</a></span>
+                            <span><button class="btn btn-success"><a onclick="window.location.href='{{ url('/ideas/' . $idea->id) }}'">See
+                                    more</a></button></span>
                         </div>
                     </div>
                 </div>
                 @endforeach
-                {{ $ideas->links() }}
+                <!-- Paginate -->
+                <div style="padding: 20px 0px;"> {{ $ideas->appends(['search' => $request->search, 'mission_id' => $request->mission_id, 'filter' => $request->filter])->links() }}</div>
             </div>
         </div>
         <div class="col-md-3">
             @include('ideas.search')
-            @if($found_ideas_count > 0)
-            @include('ideas.search_results')
-            @endif
         </div>
     </div>
 </div>

@@ -20,6 +20,7 @@ class IdeasController extends Controller
         return view(
             'admin.ideas.index', compact(['user','ideas','missions']));
     }
+    
     public function getDtRowData(Request $request){
         $ideas = Idea::all();
         // dd($ideas);

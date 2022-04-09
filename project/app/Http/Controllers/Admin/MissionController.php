@@ -77,14 +77,13 @@ class MissionController extends Controller
         $description = $request->description;
         $end_at = $request->end_at;
         $semester = $request->semester;
-        // if($smt >= $end_at)
+        
         Mission::create([
             'name' => $name,
             'description' => $description,
             'end_at' => $end_at,
             'semester_id' => $semester,
         ]);
-        //send mail
         return redirect()->back()->with('success', 'Create Mission Successfully!');
     }
 
@@ -115,7 +114,7 @@ class MissionController extends Controller
     public function delete($id)
     {
         $data = Mission::find($id);
-        if($data->ideas->count() !== 0)
+        if($data->ideas->count() != 0)
             return redirect()->back()->with('success', 'Mission cannot delete because it belongs to an Ideas!');
         $data->delete();
         return redirect()->back()->with('success', 'Mission deleted!');
