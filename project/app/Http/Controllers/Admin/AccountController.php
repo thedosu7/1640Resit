@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendEmailCreateAccount;
 use Illuminate\Support\Str;
 use Session;
+use App\Http\Requests\AccountRequest;
 
 class AccountController extends Controller
 {
@@ -60,25 +61,23 @@ class AccountController extends Controller
                 // is_lock = 1: not lock
                 // is_lock = 0: lock
                 if($data->is_lock == 1)
-                return 
-                '
-                <a class="btn btn-success btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fa-solid fa-ban"></i></a>
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                return'
+                <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
                 </form>
                 ';
                 else
                 return'
-                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fa-solid fa-check"></i></a>
-                
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-lock-open" title="Unlock Account"></i></a>
+                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
                 <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
                 ' . method_field('DELETE') .
                     '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash"></i></button>
+                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
                 </form>
                 ';
                 return ''; //action send mail
@@ -100,7 +99,7 @@ class AccountController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(Request $request){
+    public function create(AccountRequest $request){
         //todo: Add create user request
         $name = $request->name;
         $email = $request->email;
@@ -108,23 +107,15 @@ class AccountController extends Controller
         $department_id = $request->department_id; 
         $password = $this->generateRandomString(20);
         $token = Str::random(10);
-        $info = User::create([
+        $new_user = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
-            // 'department_id'=> auth()->user()->department_id,
             'department_id'=> $department_id,
             'password' => Hash::make($password),
             'remember_token' => $token
         ]);
-        // dd($info);
-        // Send email
-        SendEmailCreateAccount::dispatch($info, $password)->delay(now());
-
-        // Mail::send('admin.emails.login',compact('info','password'),function($email){
-        //     $email->subject('This is mail to send account');
-        //     $email->to('khointgcd191160@fpt.edu.vn');
-        // });
+        SendEmailCreateAccount::dispatch($new_user,$password)->delay(now());
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
@@ -149,15 +140,44 @@ class AccountController extends Controller
         return redirect('admin/account');    
     }
 
+    public function listAccountByDepartment($id)
+    {
+        $dpms = Department::find($id);
+        if (!$dpms) abort(404); //check dpms exits
+        return view(
+            'admin.account.indexbyDepartment',
+            [
+                'user' => $dpms
+            ]
+        );
+    }
+    public function getDtRowDataByDepartment($id, Request $request)
+    {
+        $users = User::where('department_id', $id)->get();
+        return Datatables::of($users)
+            ->editColumn('name', function ($data) {
+                return $data->name;
+            })
+            ->editColumn('email', function ($data) {
+                return $data->email;
+            })
+            ->editColumn('role', function ($data) {
+                return $data->role->name;
+            })
+            ->editColumn('department', function ($data) {
+                return $data->department->name;
+            })
+            ->make(true);
+    }
+
     public function banAccount($id, $status_code)
     {
         $ban_account = User::whereId($id)->update([
             'is_lock' => $status_code
         ]);
-        if($ban_account){
+        if($ban_account == 1){
             return redirect()->route('admin.account.index')->with('success', 'Account is banned successfully');
         }
-
         return redirect()->route('admin.account.index')->with('error','Fail to ban account');
     }
 

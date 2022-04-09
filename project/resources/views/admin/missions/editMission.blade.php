@@ -148,7 +148,7 @@
                 <div class="col-lg-10">
                     <div class="form-group @error('description') is-invalid @enderror">
                         <label for="description">Description:</label>
-                        <input type="text" name="description" class="form-control" id="description" placeholder="" value="{{$mission-> description}}">
+                        <input type="text" name="description" class="form-control" id="description" placeholder="" value="{{$mission->description}}">
                         @if ($errors->has('description'))
                         <span>
                             @error('description')
