@@ -14,7 +14,6 @@ class Mission extends Model
     protected $fillable = [
         'name',
         'description',
-        'department_id',
         'semester_id',
         'end_at'
 
