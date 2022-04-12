@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\IdeasController;
 use App\Http\Controllers\Admin\ComentController;
+use App\Http\Controllers\ZipController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PrivacyController;
@@ -122,8 +123,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Comment Admin
         Route::group(['prefix' => 'comments', 'middleware' => 'role:admin,manager'],function(){
-            Route::get('/listComment/{id}',[ComentController::class,'listCommentByIdea'])->name('admin.comments.listComment.index');
-            Route::get('/listComment/{id}/dt-row-data',[ComentController::class,'getDtRowDataByIdea']);
+            Route::get('/listComment/{id}',[CommentController::class,'listCommentByIdea'])->name('admin.comments.listComment.index');
+            Route::get('/listComment/{id}/dt-row-data',[CommentController::class,'getDtRowDataByIdea']);
         });
 
         //Mission
@@ -140,5 +141,8 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('/missions/department/{id}/dt-row-data', [MissionController::class, 'getDtRowDataByDepartment']);
         Route::get('/missions/semester/{id}', [MissionController::class, 'listMissionBySemester'])->name('admin.missions.semester.index');
         Route::get('/missions/semester/{id}/dt-row-data', [MissionController::class, 'getDtRowDataBySemester']);
+        
     });
+    Route::get('/zip', [ZipController::class,'zipFile']);
+   
 });
