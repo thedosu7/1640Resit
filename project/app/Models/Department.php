@@ -9,6 +9,9 @@ class Department extends Model
 {
     use HasFactory;
 
+    const SUPPORT = 'support';
+    const ACADEMIC = 'academic';
+
     protected $fillable = [
         'name',
     ];

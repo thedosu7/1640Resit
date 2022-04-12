@@ -37,7 +37,6 @@
                     <p class="card-text">Study for an undergraduate degree at the University of Greenwich.
                         Find your ideal course from a selection of over 200 and discover more about the student experience.</p>
                 </div>
-                <div class="card-footer d-flex flex-row-reverse"><a class="btn btn-sm text-white" href="#!" style="background-color: #1520A6;">More Info</a></div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
@@ -49,7 +48,6 @@
                         such as distance learning or part-time study.
                         Find your ideal course and discover our facilities and subject experts.</p>
                 </div>
-                <div class="card-footer d-flex flex-row-reverse"><a class="btn btn-sm text-white" href="#!" style="background-color: #1520A6;">More Info</a></div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
@@ -60,7 +58,6 @@
                     <p class="card-text">We offer a wide variety of courses and ways to study for those coming from abroad.
                         If you are an international student looking to continue your education in the UK then we can help you.</p>
                 </div>
-                <div class="card-footer d-flex flex-row-reverse"><a class="btn btn-sm text-white" href="#!" style="background-color: #1520A6;">More Info</a></div>
             </div>
         </div>
     </div>

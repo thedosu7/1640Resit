@@ -161,7 +161,7 @@
                 <div class="col-lg-10">
                     <div class="form-group">
                         <label for="end_at">End At:</label>
-                        <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="" value="{{ $mission->end_at }}">
+                        <input type="datetime-local" name="end_at" class="form-control" id="end_at" placeholder="" value="{{ date('Y-m-d\Th:m:s',strtotime($mission->end_at)) }}">
                     </div>
                     @if ($errors->has('end_at'))
                     <span>

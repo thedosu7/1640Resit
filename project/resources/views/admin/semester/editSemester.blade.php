@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-lg-10 @error('end_day') is-invalid @enderror">    
                     <div class="form-group">
-                        <input type="datetime-local" name="end_day" placeholder="Day End" class="form-control" value="{{ $itemSemester->end_day }}">
+                        <input type="datetime-local" name="end_day" placeholder="Day End" class="form-control" value="{{ date('Y-m-d\Th:m:s',strtotime($itemSemester->end_day)) }}">
                     </div>
                     @if ($errors->has('end_day'))
                     <span>

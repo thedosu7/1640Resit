@@ -12,16 +12,18 @@ class MailNotifyComment extends Mailable
     use Queueable, SerializesModels;
     public $user;
     public $idea;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user,$idea)
+    public function __construct($user,$idea,$data)
     {
         $this->user = $user;
         $this->idea = $idea;
+        $this->data = $data;
     }
 
     /**

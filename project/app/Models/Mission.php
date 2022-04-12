@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,8 +17,6 @@ class Mission extends Model
         'description',
         'department_id',
         'semester_id',
-        'end_at'
-
     ];
 
     protected $dates = [
@@ -33,7 +32,8 @@ class Mission extends Model
         return $this->belongsTo(Semester::class);
     }
 
-    public function ideas(){
+    public function ideas()
+    {
         return $this->hasMany(Idea::class);
     }
 }

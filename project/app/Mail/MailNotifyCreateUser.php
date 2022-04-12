@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail\Mail;
+namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,15 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class MailNotifyCreateUser extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $user;
+    public $password;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($password, $role_id)
+    public function __construct($user, $password)
     {
-        $this->role_id = $role_id;
+        $this->user = $user;
         $this->password = $password;
     }
 

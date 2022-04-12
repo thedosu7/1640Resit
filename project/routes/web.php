@@ -46,16 +46,19 @@ Route::get('/about',[AboutController::class, 'about'])->name('about');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('profile', [UserController::class, 'index'])->name('user.profile');
-    Route::post('profile', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
-    //Route for showing changing password form
-    Route::get('change-password', [UserController::class, 'changePassword'])->name('user.changePassword');
-    //Route for changing password
-    Route::get('update-password', [UserController::class, 'updatePassword']);
-    Route::post('update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
-    //Route for modifying phone number
-    Route::get('change-phone-number', [UserController::class, 'changePhoneNumber']);
-    Route::post('change-phone-number', [UserController::class, 'changePhoneNumber'])->name('user.changePhoneNumber');
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.profile');
+        Route::post('/', [UserController::class, 'uploadAvatar'])->name('user.uploadAvatar');
+        //Route for showing changing password form
+        Route::get('/password/change', [UserController::class, 'changePassword'])->name('user.password.change');
+        //Route for changing password
+        Route::get('/password/update', [UserController::class, 'updatePassword']);
+        Route::post('/password/update', [UserController::class, 'updatePassword'])->name('user.password.update');
+        //Route for modifying phone number
+        Route::get('/phone/update', [UserController::class, 'changePhoneNumber']);
+        Route::post('/phone/update', [UserController::class, 'changePhoneNumber'])->name('user.phone.update');
+    });
 
     Route::group(['prefix' => 'ideas'], function () {
         Route::get('/', [IdeaController::class, 'index'])->name('ideas.index');
@@ -95,14 +98,11 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         //Department
-        Route::group(['prefix' => 'department','middleware' => 'role:admin,manager'], function () {
+        Route::group(['prefix' => 'department','middleware' => 'role:admin,manager,coordinator'], function () {
             Route::get('/', [DepartmentController::class, 'indexDepartment'])->name('admin.department.index');
             Route::get('/dt-row-data', [DepartmentController::class, 'getDtRowData']);
-            Route::post('/createDpm', [DepartmentController::class, 'create'])->name('admin.department.createDpm')->middleware('role:admin');
-            Route::delete('/delete/{id}', [DepartmentController::class, 'delete'])->name('admin.department.delete')->middleware('role:admin');
-            Route::get('/update/{id}', [DepartmentController::class, 'edit'])->name('admin.department.update')->middleware('role:admin');
-            Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.store')->middleware('role:admin');
         });
+        
         //Semester
         Route::group(['prefix' => 'semester'], function () {
             Route::get('/', [SemesterController::class, 'indexSemester'])->name('admin.semester.index');
@@ -114,7 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         
         // Idea Admin
-        Route::group(['prefix' => 'ideas', 'middleware' => 'role:admin,manager'],function(){
+        Route::group(['prefix' => 'ideas', 'middleware' => 'role:admin,manager,coordinator'],function(){
             Route::get('/',[IdeasController::class,'index'])->name('admin.ideas.index');
             Route::get('/dt-row-data',[IdeasController::class,'getDtRowData']);
             Route::get('/listIdea/{id}',[IdeasController::class,'listIdeaByMission'])->name('admin.ideas.listIdea.index');

@@ -5,7 +5,7 @@
         <div class="modal-content">
             @if ($missions->count() == 0)
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Can not submit idea right now</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Can not create idea right now</h5>
                     <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

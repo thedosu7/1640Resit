@@ -27,11 +27,6 @@
     <div class="card">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">List Department</h6>
-            @if (auth()->user()->hasRole('admin'))
-            <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Create Department
-            </a>
-            @endif
         </div>
         <div class="card-body">
             <table id="users-table" class="table table-responsive" style="width:100%">
@@ -39,42 +34,9 @@
                     <tr class="col">
                         <th class="col-1">Department Name</th>
                         <th class="col-1">Account</th>
-                        <th class="col-1">Action</th>
                     </tr>
                 </thead>
             </table>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create new department</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('admin.department.createDpm') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group @error('name') is-invalid @enderror">
-                        <label for="name">Department name:</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="">
-                    </div>
-                    @if ($errors->has('name'))
-                    <span>
-                        @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </span>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-warning">Add Department</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -98,10 +60,6 @@
                 {
                     data: 'account',
                     name: 'account',
-                },
-                {
-                    data: 'action',
-                    name: 'action'
                 }
             ]
         });

@@ -29,19 +29,6 @@ class DepartmentController extends Controller
             ->editColumn('account', function ($data) {
                 return $data->users->count();
             })
-            ->editColumn('action', function ($data) {
-                if (auth()->user()->hasRole('admin'))
-                    return '
-                <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.department.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Department"></i></a>
-                
-                <form method="POST" action="' . route('admin.department.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                        '' . csrf_field() .
-                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this department ?\')"><i class="fa-solid fa-trash" title="Delete Department"></i></button>
-                </form>
-                ';
-                return '';
-            })
             ->rawColumns(['action', 'name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
@@ -49,36 +36,5 @@ class DepartmentController extends Controller
                 }
             ])
             ->make(true);
-    }
-
-    public function delete($id)
-    {
-        $data = Department::findOrFail($id);
-        if($data->users->count() != 0)
-            return redirect()->back()->with('success', 'Department cannot be deleted because it belongs to an Account!');
-        $data->delete();
-        return redirect()->back()->with('success', 'Department deleted!');
-    }
-
-    public function create(DepartmentRequest $request)
-    {
-        //todo: Add create department request
-        Department::create($request->all());
-        return redirect()->back()->with('success', 'Create Department successfully!');
-        //send mail
-    }
-    public function edit($id)
-    {
-        $itemDepartment = Department::findOrFail($id);
-        return view('admin.department.editDepartment', compact('itemDepartment'));
-    }
-    public function update(UpdateDepartment $request, $id)
-    {
-        $dataDpm = Department::findOrFail($id);
-        // assign information to data variable
-        $data = $request->all();
-        $dataDpm->update($data);
-        $dataDpm->save();
-        return redirect('admin/department')->with('success', 'Department successfully updated');
     }
 }

@@ -43,9 +43,10 @@ class AccountController extends Controller
 
     public function getDtRowData(Request $request)
     {
-        if(auth()->user()->role->name == Role::ROLE_QA_Coordinator){
-            $users = User::where('department_id',auth()->user()->department_id)->get();
-        }else{
+        if (auth()->user()->role->name == Role::ROLE_QA_Coordinator) {
+            $staff_role_id = Role::where('name',Role::ROLE_STAFF)->first()->id;
+            $users = User::where('department_id', auth()->user()->department_id)->where('role_id',$staff_role_id)->get();
+        } else {
             $users = User::all();
         }
         return Datatables::of($users)
@@ -56,31 +57,22 @@ class AccountController extends Controller
                 return ($user->department == NULL) ? "" : $user->department->name;
             })
             ->editColumn('action', function ($data) {
-                if (auth()->user()->hasRole('admin'))
-
-                // is_lock = 1: not lock
-                // is_lock = 0: lock
-                if($data->is_lock == 1)
-                return'
-                <a class="btn btn-info btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>0]).'"><i class="fas fa-user-lock" title="Lock account"></i></a>
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
-                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                    '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
-                </form>
-                ';
-                else
-                return'
-                <a class="btn btn-primary btn-sm rounded-pill" href="'.route("admin.account.ban",['id'=>$data->id,'status_code'=>1]).'"><i class="fas fa-lock-open" title="Unlock Account"></i></a>
-                <a class="btn btn-warning btn-sm rounded-pill" href="'.route("admin.account.update",$data->id).'"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
-                <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
-                ' . method_field('DELETE') .
-                    '' . csrf_field() .
-                    '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
-                </form>
-                ';
-                return ''; //action send mail
+                $res = "";
+                if (auth()->user()->hasRole(Role::ROLE_ADMIN) || auth()->user()->hasRole(Role::ROLE_QA_Coordinator)) {
+                    if ($data->is_lock == 1)
+                        $res .=  '<a class="btn btn-info btn-sm rounded-pill" href="' . route("admin.account.ban", ['id' => $data->id, 'status_code' => 0]) . '"><i class="fas fa-user-lock" title="Lock account"></i></a>';
+                    else
+                        $res .=  '<a class="btn btn-primary btn-sm rounded-pill" href="' . route("admin.account.ban", ['id' => $data->id, 'status_code' => 1]) . '"><i class="fas fa-lock-open" title="Unlock Account"></i></a>';
+                }
+                if (auth()->user()->hasRole(Role::ROLE_ADMIN)) {
+                    $res .= ' <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Account"></i></a>
+                        <form method="POST" action="' . route('admin.account.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
+                        ' . method_field('DELETE') .
+                        '' . csrf_field() .
+                        '<button type="submit" class="btn btn-danger btn-sm rounded-pill" onclick="return confirm(\'Do you want to delete this account ?\')"><i class="fa-solid fa-trash" title="Delete Account"></i></button>
+                        </form>';
+                }
+                return $res;
             })
             ->rawColumns(['action'])
             ->setRowAttr([
@@ -99,45 +91,48 @@ class AccountController extends Controller
         return redirect()->back()->with('flash_message', 'User deleted!');
     }
 
-    public function create(AccountRequest $request){
+    public function create(AccountRequest $request)
+    {
         //todo: Add create user request
         $name = $request->name;
         $email = $request->email;
         $role_id = $request->role_id;
-        $department_id = $request->department_id; 
+        $department_id = $request->department_id;
         $password = $this->generateRandomString(20);
         $token = Str::random(10);
         $new_user = User::create([
             'name' => $name,
             'email' => $email,
             'role_id' => $role_id,
-            'department_id'=> $department_id,
+            'department_id' => $department_id,
             'password' => Hash::make($password),
             'remember_token' => $token
         ]);
-        SendEmailCreateAccount::dispatch($new_user,$password)->delay(now());
+        SendEmailCreateAccount::dispatch($new_user, $password)->delay(now());
         return redirect()->back()->with('flash_message', 'User created!');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $user = User::findOrFail($id);
         $role_id = Role::all();
         $departments = Department::all();
-        return view('admin.account.edit', compact('user','role_id','departments'));
+        return view('admin.account.edit', compact('user', 'role_id', 'departments'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $user = User::find($id);
-        $name = $request-> name;
+        $name = $request->name;
         $role_id = $request->role_id;
         $department_id = $request->department_id;
-        $user -> update([
+        $user->update([
             'name' => $name,
-            'role_id'=> $role_id,
-            'department_id'=> $department_id
+            'role_id' => $role_id,
+            'department_id' => $department_id
         ]);
         $user->save();
-        return redirect('admin/account');    
+        return redirect('admin/account');
     }
 
     public function listAccountByDepartment($id)
@@ -172,16 +167,20 @@ class AccountController extends Controller
 
     public function banAccount($id, $status_code)
     {
-        $ban_account = User::whereId($id)->update([
+        $user = User::whereId($id)->first();
+        if(auth()->user()->id == $id || $user->role_id != Role::where('name',Role::ROLE_STAFF)->first()->id)
+            return redirect()->route('admin.account.index')->with('success', 'You can not ban this person');
+        $ban_account = $user->update([
             'is_lock' => $status_code
         ]);
-        if($ban_account == 1){
+        if ($ban_account == 1) {
             return redirect()->route('admin.account.index')->with('success', 'Account is banned successfully');
         }
-        return redirect()->route('admin.account.index')->with('error','Fail to ban account');
+        return redirect()->route('admin.account.index')->with('error', 'Fail to ban account');
     }
 
-    private function generateRandomString($length = 20) {
+    private function generateRandomString($length = 20)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

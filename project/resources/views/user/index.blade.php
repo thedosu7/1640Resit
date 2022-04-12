@@ -13,7 +13,7 @@
                 <div class="card mb-4">
                     <div class="card-header">Account Details</div>
                     <div class="card-body">
-                        <form action="{{ route('user.changePhoneNumber') }}" method="POST">
+                        <form action="{{ route('user.phone.update') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label class="small mb-1 fw-bold" for="name">Username:</label>

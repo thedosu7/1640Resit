@@ -31,26 +31,22 @@ class MissionController extends Controller
 
     public function getDtRowData(Request $request)
     {
-        if(auth()->user()->hasRole(Role::ROLE_QA_Coordinator))
-            $mission = Mission::where('department_id',auth()->user()->department_id)->get();
-        else{
-            $mission = Mission::all();
-        }
+        $mission = Mission::all();
         return Datatables::of($mission)
             ->editColumn('name', function ($data) {
                 return ' <a href="' . route('admin.ideas.listIdea.index', $data->id) . '">' . $data->name . '</a>';
             })
-            ->editColumn('description',function($data){
-                return $data->description; 
+            ->editColumn('description', function ($data) {
+                return $data->description;
             })
-            ->editColumn('end_at', function($data){
+            ->editColumn('end_at', function ($data) {
                 return $data->end_at;
             })
             ->editColumn('semester', function ($data) {
                 return $data->semester->name;
             })
             ->editColumn('action', function ($data) {
-                if(auth()->user()->hasRole(Role::ROLE_QA_Manager)) return '';
+                if (auth()->user()->hasRole(Role::ROLE_QA_Manager)) return '';
                 return '
                 <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.mission.update", $data->id) . '"><i class="fa-solid fa-pen-to-square" title="Edit Mission"></i></a>
                 <form method="POST" action="' . route('admin.mission.delete', $data->id) . '" accept-charset="UTF-8" style="display:inline-block">
@@ -60,7 +56,7 @@ class MissionController extends Controller
                 </form>
                 ';
             })
-            ->rawColumns(['action','name'])
+            ->rawColumns(['action', 'name'])
             ->setRowAttr([
                 'data-row' => function ($data) {
                     return $data->id;
@@ -71,32 +67,33 @@ class MissionController extends Controller
 
     public function create(MissionRequest $request)
     {
-        //todo: Add create mission request
-        
-        $name = $request->name;
-        $description = $request->description;
-        $end_at = $request->end_at;
-        $semester = $request->semester;
-        
-        Mission::create([
-            'name' => $name,
-            'description' => $description,
-            'end_at' => $end_at,
-            'semester_id' => $semester,
-        ]);
-        return redirect()->back()->with('success', 'Create Mission Successfully!');
+        $semester = Semester::find($request->semester);
+        if (!$semester)
+            abort(404);
+        if(strtotime($request->end_at) > strtotime($semester->end_day))
+            return redirect()->back()->with('success', 'Date can not out of semester');
+        if (Mission::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'end_at' => $request->end_at,
+            'semester_id' => $request->semester,
+        ]))
+            return redirect()->back()->with('success', 'Create Mission Successfully!');
+        return abort(404);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $mission = Mission::findOrFail($id);
         $department = Department::all();
         $semester = Semester::all();
-        return view('admin.missions.editMission', compact('mission','department','semester'));
+        return view('admin.missions.editMission', compact('mission', 'department', 'semester'));
     }
 
-    public function update(UpdateMission $request, $id){
+    public function update(UpdateMission $request, $id)
+    {
         $mission = Mission::find($id);
-        $name = $request-> name;
+        $name = $request->name;
         $description = $request->description;
         $end_at = $request->end_at;
         $semester_id = $request->semester_id;
@@ -106,15 +103,15 @@ class MissionController extends Controller
             'end_at' => $end_at,
             'semester_id' => $semester_id,
         ];
-        $mission -> update($data);
+        $mission->update($data);
         $mission->save();
-        return redirect('admin/missions') -> with('success', 'Mission successfully updated');    
+        return redirect('admin/missions')->with('success', 'Mission successfully updated');
     }
 
     public function delete($id)
     {
         $data = Mission::find($id);
-        if($data->ideas->count() != 0)
+        if ($data->ideas->count() != 0)
             return redirect()->back()->with('success', 'Mission cannot delete because it belongs to an Ideas!');
         $data->delete();
         return redirect()->back()->with('success', 'Mission deleted!');
@@ -185,7 +182,7 @@ class MissionController extends Controller
             ->editColumn('semester', function ($data) {
                 return $data->semester->name;
             })
-           
+
             ->editColumn('action', function ($data) {
                 return '
                 <a class="btn btn-warning btn-sm rounded-pill" href="' . route("admin.account.update", $data->id) . '"><i class="fa-solid fa-pen-to-square"></i></a>

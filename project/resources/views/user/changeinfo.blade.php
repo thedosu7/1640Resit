@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('user.changePhoneNumber') }}" method="POST">
+                <form action="{{ route('user.phone.update') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="new-phone-number" class="col-form-label">Phone number:</label>
