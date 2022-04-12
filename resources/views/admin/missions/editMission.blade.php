@@ -183,7 +183,7 @@
                     <label for="semester_id">Semester:</label>
                     <select class="form-control" name="semester_id" id="semester_id">
                         @foreach ($semester as $smt)
-                        <option value="{{ $smt->id }}">{{ $smt->name }}</option>
+                        <option value="{{ $smt->id }}">{{ $smt->name }} - Deadline: {{$smt->end_day}}</option>
                         @endforeach
                     </select>
                 </div>
