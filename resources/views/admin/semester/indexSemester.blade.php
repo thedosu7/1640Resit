@@ -38,7 +38,7 @@
                 <thead class="thread-light">
                     <tr class="col">
                         <th class="col-1">Semester Name</th>
-                        <th class="col-1">Deadline</th>
+                        <th class="col-1">End Day</th>
                         <th class="col-1">Mission</th>
                         <th class="col-1">Action</th>
                     </tr>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="modal-body">    
                     <div class="form-group @error('end_day') is-invalid @enderror">
-                        <label for="end_day">Deadline:</label>
+                        <label for="end_day">End Day:</label>
                         <input type="datetime-local" name="end_day" class="form-control" id="end_day" placeholder="">
                     </div>
                     @if ($errors->has('end_day'))
