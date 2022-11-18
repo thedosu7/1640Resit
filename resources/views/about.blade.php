@@ -72,15 +72,13 @@
 @endsection
 @section('content')
 <div class="about-section">
-  <img src="https://continuumsecurityconsultants.com/wp-content/uploads/2021/11/team.png" class="text-align:center;" width="600" height="150">
   <div class="row">
     <div class="column">
       <div class="card border-danger">
         <div class="container">
-          <img src="{{asset('/images/thien_vuong.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Truc Phuong</h2>
+          <h2 class="h2">Kiet</h2>
           <p class="title">Product Owner</p>
-          <p class="text">phuonglvtgcd191122@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>
@@ -88,10 +86,9 @@
     <div class="column">
       <div class="card border-warning">
         <div class="container">
-          <img src="{{asset('/images/tan_toan.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Tan Toan</h2>
+          <h2 class="h2">Tu</h2>
           <p class="title">Scrum Master</p>
-          <p class="text">toanlntgcd191338@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>
@@ -99,10 +96,9 @@
     <div class="column">
       <div class="card border-success">
         <div class="container">
-          <img src="{{asset('/images/thanh_nhan.png')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Thanh Nhan</h2>
+          <h2 class="h2">Huan</h2>
           <p class="title">Developer</p>
-          <p class="text">nhanvtgcd191366@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>
@@ -110,10 +106,9 @@
     <div class="column">
       <div class="card border-warning">
         <div class="container">
-          <img src="{{asset('/images/tat_dat.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Tat Dat</h2>
+          <h2 class="h2">Duc</h2>
           <p class="title">Developer</p>
-          <p class="text">datptgcd191189@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>
@@ -121,10 +116,9 @@
     <div class="column">
       <div class="card border-success">
         <div class="container ">
-          <img src="{{asset('/images/khoi_nguyen.jpeg')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Tan Khoi</h2>
+          <h2 class="h2">Dan</h2>
           <p class="title">Developer</p>
-          <p class="text">khointgcd191160@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>
@@ -132,10 +126,9 @@
     <div class="column">
       <div class="card border-danger">
         <div class="container">
-          <img src="{{asset('/images/van_huy.png')}}" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-          <h2 class="h2">Van Huy</h2>
+          <h2 class="h2">Tan</h2>
           <p class="title">Developer</p>
-          <p class="text">huynvgcd191294@fpt.edu.vn</p>
+          <p class="text">TCD04RE</p>
         </div>
       </div>
     </div>

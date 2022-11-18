@@ -62,7 +62,7 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ url('/admin/comments/listComment/'.$ideas -> id.'/dt-row-data') }}',
+                ajax: '{{ url('/admin/comments/listComment/'.$ideas -> id.'/dt-row-data')}}',
                 columns: [
                     {
                         data: 'content',
